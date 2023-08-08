@@ -32,6 +32,7 @@ class AuthRepoImplem implements AuthRepo {
           data: {"email": email, "password": password});
 
       UserModel userModel = UserModel.fromJson(response.data);
+      print(response.data);
       return Right(userModel);
     } on ServerFailure {
       return Left(ServerFailure());

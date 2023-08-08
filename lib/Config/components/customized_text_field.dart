@@ -13,19 +13,15 @@ class CustomeTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-    //  height: 80,
-      width: double.infinity,
-      child: TextFormField(
-        
-        controller: textEditingController,
-        validator: validator,
-        decoration: InputDecoration(
-            hintText: hintText,
-            // contentPadding: EdgeInsets.only(top: 5,left: 15),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(18))),
-      ),
+    return TextFormField(
+      
+      controller: textEditingController,
+      validator: validator,
+      decoration: InputDecoration(
+          hintText: hintText,
+          // contentPadding: EdgeInsets.only(top: 5,left: 15),
+          border:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(18))),
     );
   }
 }
