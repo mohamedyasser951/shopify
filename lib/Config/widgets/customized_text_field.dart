@@ -14,7 +14,7 @@ class CustomeTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 80,
+      height: 60,
       child: TextFormField(
         style: Theme.of(context).textTheme.bodySmall,
         controller: textEditingController,

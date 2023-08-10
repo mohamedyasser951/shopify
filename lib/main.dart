@@ -2,6 +2,7 @@ import 'package:commerceapp/Config/Route/app_route.dart';
 import 'package:commerceapp/Config/Theme/theme.dart';
 import 'package:commerceapp/Config/constants/strings.dart';
 import 'package:commerceapp/features/Auth/presentation/bloc/auth_bloc.dart';
+import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -25,6 +26,9 @@ class App extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) => di.sl<AuthBloc>(),
+          ),
+          BlocProvider(
+            create: (context) => di.sl<HomeBloc>()..add(GetHomeDataEvent()),
           )
         ],
         child: MaterialApp(
@@ -35,16 +39,5 @@ class App extends StatelessWidget {
           onGenerateRoute: AppRoute.onGenerateRoute,
           initialRoute: "/",
         ));
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-    );
   }
 }

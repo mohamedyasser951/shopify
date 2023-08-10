@@ -17,11 +17,20 @@ class LoginPage extends StatelessWidget {
         snackBarWidget(context, state.error, Colors.red);
       } else if (state is AuthSuccessState) {
         if (state.userModel.status == true) {
-          snackBarWidget(context, state.userModel.message!, Colors.green);
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil("/home", (route) => false);
+          CustomDialog.animatedDialog(
+              isError: false,
+              title: state.userModel.message!,
+              description: "",
+              context: context);
+
+          Future.delayed(const Duration(seconds: 4)).then((value) =>
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil("/home", (route) => false));
         } else {
-          snackBarWidget(context, state.userModel.message!, Colors.red);
+          CustomDialog.animatedDialog(
+              title: state.userModel.message!,
+              description: "",
+              context: context);
         }
       }
     }, builder: (context, state) {

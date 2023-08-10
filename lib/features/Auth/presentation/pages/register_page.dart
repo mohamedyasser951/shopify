@@ -17,11 +17,18 @@ class RegisterPage extends StatelessWidget {
         snackBarWidget(context, state.error, Colors.red);
       } else if (state is AuthSuccessState) {
         if (state.userModel.status == true) {
-          snackBarWidget(context, state.userModel.message!, Colors.green);
+          CustomDialog.animatedDialog(
+              isError: false,
+              title: state.userModel.message!,
+              description: "",
+              context: context);
           Navigator.of(context)
               .pushNamedAndRemoveUntil("/home", (route) => false);
         } else {
-          snackBarWidget(context, state.userModel.message!, Colors.red);
+          CustomDialog.animatedDialog(
+              title: state.userModel.message!,
+              description: "",
+              context: context);
         }
       }
     }, builder: (context, state) {
@@ -71,7 +78,17 @@ class _RegisterFormState extends State<RegisterForm> {
             style: Theme.of(context).textTheme.headlineLarge,
           ),
           const SizedBox(
-            height: 50.0,
+            height: 30.0,
+          ),
+          CustomeTextField(
+            textEditingController: nameController,
+            hintText: "Name",
+            validator: (val) {
+              if (val!.isEmpty) {
+                return "Name required";
+              }
+              return null;
+            },
           ),
           CustomeTextField(
             textEditingController: emailController,
@@ -79,6 +96,16 @@ class _RegisterFormState extends State<RegisterForm> {
             validator: (val) {
               if (val!.isEmpty) {
                 return "Email required";
+              }
+              return null;
+            },
+          ),
+          CustomeTextField(
+            textEditingController: phoneController,
+            hintText: "Phone",
+            validator: (val) {
+              if (val!.isEmpty) {
+                return "Phone required";
               }
               return null;
             },
@@ -94,9 +121,6 @@ class _RegisterFormState extends State<RegisterForm> {
               }
               return null;
             },
-          ),
-          const SizedBox(
-            height: 10.0,
           ),
           Align(
               alignment: Alignment.centerRight,
@@ -141,7 +165,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 });
           }),
           const SizedBox(
-            height: 50.0,
+            height: 30.0,
           ),
           Center(
             child: Text(
@@ -153,7 +177,7 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           const SizedBox(
-            height: 40.0,
+            height: 30.0,
           ),
           Row(
             children: [

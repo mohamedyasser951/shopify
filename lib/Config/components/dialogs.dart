@@ -12,18 +12,19 @@ void snackBarWidget(BuildContext context, String message, Color color) {
 }
 
 class CustomDialog {
-  sucessDialog(
+  static animatedDialog(
       {required String title,
       required String description,
+      bool isError = true,
       required BuildContext context}) {
     return AwesomeDialog(
       context: context,
-      dialogType: DialogType.info,
+      dialogType: isError ? DialogType.error : DialogType.success,
+
       animType: AnimType.rightSlide,
       title: title,
-      desc: description,
-      btnCancelOnPress: () {},
-      btnOkOnPress: () {},
-    );
+      btnCancelOnPress: isError ? () {} : null,
+      btnOkOnPress: isError ? null : () {},
+    )..show();
   }
 }
