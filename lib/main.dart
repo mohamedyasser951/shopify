@@ -1,13 +1,18 @@
 import 'package:commerceapp/Config/Route/app_route.dart';
 import 'package:commerceapp/Config/Theme/theme.dart';
+import 'package:commerceapp/Config/constants/strings.dart';
 import 'package:commerceapp/features/Auth/presentation/bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'service_locator.dart' as di;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
+  await Hive.initFlutter();
+  await Hive.openBox(AppStrings.settingsBox);
+
   runApp(const App());
 }
 

@@ -1,4 +1,5 @@
 import 'package:commerceapp/features/Auth/presentation/pages/login_page.dart';
+import 'package:commerceapp/features/Auth/presentation/pages/register_page.dart';
 import 'package:commerceapp/main.dart';
 import 'package:flutter/material.dart';
 
@@ -12,14 +13,14 @@ class AppRoute {
       case "/home":
         return MaterialPageRoute(builder: (context) => const HomePage());
 
-      // case "/sebha":
-      //   return MaterialPageRoute(
-      //     builder: (context) => const SebhaPage(),
-      //   );
-      // case "/qibla":
-      //   return MaterialPageRoute(
-      //     builder: (context) => const QiblaFinderScreen(),
-      //   );
+      case "/login":
+        return MaterialPageRoute(
+          builder: (context) => const LoginPage(),
+        );
+      case "/register":
+        return MaterialPageRoute(
+          builder: (context) => const RegisterPage(),
+        );
     }
 
     return MaterialPageRoute(

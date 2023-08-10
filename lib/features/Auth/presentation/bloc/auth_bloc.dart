@@ -25,6 +25,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(AuthSuccessState(userModel: user));
         });
       }
+
+      if (event is RegisterEvent) {
+        emit(AuthLoadingState());
+        var failureOrSuccess = await authRepo.userRegister(
+            name: event.name,
+            email: event.email,
+            phone: event.phone,
+            password: event.password);
+        failureOrSuccess.fold((failure) {
+          emit(const AuthErrorState(error: "SomeThing went wrong"));
+        }, (user) {
+          emit(AuthSuccessState(userModel: user));
+        });
+      }
     });
   }
 }

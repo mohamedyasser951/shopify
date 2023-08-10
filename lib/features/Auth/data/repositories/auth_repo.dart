@@ -1,13 +1,17 @@
-import 'package:commerceapp/Config/Network/end_points.dart';
 import 'package:commerceapp/Config/Network/failure.dart';
+import 'package:commerceapp/features/Auth/data/datasources/remote_data_source.dart';
 import 'package:commerceapp/features/Auth/data/models/user_model/user_model.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 @immutable
 abstract class AuthRepo {
-  Future userRegister();
+  Future userRegister({
+    required String name,
+    required String email,
+    required String phone,
+    required String password,
+  });
   Future<Either<Failure, UserModel>> userLogin({
     required String email,
     required String password,
@@ -15,24 +19,17 @@ abstract class AuthRepo {
 }
 
 class AuthRepoImplem implements AuthRepo {
-  final Dio dio;
+  final AuthRemoteDataSource remoteDataSource;
   AuthRepoImplem({
-    required this.dio,
+    required this.remoteDataSource,
   });
 
   @override
   Future<Either<Failure, UserModel>> userLogin(
       {required String email, required String password}) async {
     try {
-      var response = await dio.post(EndPoints.login,
-          options: Options(headers: {
-            "Content-Type": "application/json",
-            "lang": "ar",
-          }),
-          data: {"email": email, "password": password});
-
-      UserModel userModel = UserModel.fromJson(response.data);
-      print(response.data);
+      final userModel =
+          await remoteDataSource.userLogin(email: email, password: password);
       return Right(userModel);
     } on ServerFailure {
       return Left(ServerFailure());
@@ -40,8 +37,18 @@ class AuthRepoImplem implements AuthRepo {
   }
 
   @override
-  Future userRegister() {
-    // TODO: implement userRegister
-    throw UnimplementedError();
+  Future<Either<Failure, UserModel>> userRegister({
+    required String name,
+    required String email,
+    required String phone,
+    required String password,
+  }) async {
+    try {
+      UserModel userModel = await remoteDataSource.userRegister(
+          name: name, email: email, phone: phone, password: password);
+      return Right(userModel);
+    } on ServerFailure {
+      return left(ServerFailure());
+    }
   }
 }

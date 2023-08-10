@@ -9,7 +9,7 @@ class AppTheme {
     ),
     visualDensity: VisualDensity.adaptivePlatformDensity,
     colorScheme: ColorScheme.light(
-      background: Colors.white,
+      background: AppColors.lightBackgroud,
       primary: AppColors.primaryColor,
     ),
     useMaterial3: true,

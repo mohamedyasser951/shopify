@@ -1,14 +1,14 @@
+import 'package:commerceapp/Config/components/dialogs.dart';
 import 'package:commerceapp/Config/widgets/customized_button.dart';
 import 'package:commerceapp/Config/widgets/customized_text_field.dart';
-import 'package:commerceapp/Config/components/dialogs.dart';
 import 'package:commerceapp/Config/constants/image_paths.dart';
 import 'package:commerceapp/features/Auth/presentation/bloc/auth_bloc.dart';
 import 'package:commerceapp/features/Auth/presentation/widgets/custom_social_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+class RegisterPage extends StatelessWidget {
+  const RegisterPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class LoginPage extends StatelessWidget {
         body: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 12),
-            child: LoginForm(),
+            child: RegisterForm(),
           ),
         ),
       ));
@@ -38,18 +38,20 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({
+class RegisterForm extends StatefulWidget {
+  const RegisterForm({
     super.key,
   });
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<RegisterForm> createState() => _RegisterFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
 
@@ -65,7 +67,7 @@ class _LoginFormState extends State<LoginForm> {
             height: 80,
           ),
           Text(
-            "Login",
+            "Sign up",
             style: Theme.of(context).textTheme.headlineLarge,
           ),
           const SizedBox(
@@ -100,10 +102,11 @@ class _LoginFormState extends State<LoginForm> {
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: () {
-                  Navigator.of(context).pushNamed("/register");
+                  Navigator.of(context)
+                      .pushNamedAndRemoveUntil("/login", (route) => false);
                 },
                 child: Text(
-                  "Create an account?",
+                  "Already have an account?",
                   style: Theme.of(context)
                       .textTheme
                       .bodyMedium!
@@ -117,7 +120,7 @@ class _LoginFormState extends State<LoginForm> {
             return CustomButton(
                 widget: state is! AuthLoadingState
                     ? const Text(
-                        "Login",
+                        "SIGN UP",
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       )
                     : const Center(
@@ -125,7 +128,9 @@ class _LoginFormState extends State<LoginForm> {
                       ),
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
-                    BlocProvider.of<AuthBloc>(context).add(LoginEvent(
+                    BlocProvider.of<AuthBloc>(context).add(RegisterEvent(
+                        name: nameController.text.trim(),
+                        phone: phoneController.text.trim(),
                         email: emailController.text.trim(),
                         password: passwordController.text.trim()));
                   } else {
@@ -140,7 +145,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
           Center(
             child: Text(
-              "Or login with social account",
+              "Or sign up with social account",
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium!
