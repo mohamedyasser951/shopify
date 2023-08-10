@@ -28,7 +28,9 @@ class App extends StatelessWidget {
             create: (context) => di.sl<AuthBloc>(),
           ),
           BlocProvider(
-            create: (context) => di.sl<HomeBloc>()..add(GetHomeDataEvent()),
+            create: (context) => di.sl<HomeBloc>()
+              ..add(GetHomeDataEvent())
+              ..add(GetCategoriesEvent()),
           )
         ],
         child: MaterialApp(

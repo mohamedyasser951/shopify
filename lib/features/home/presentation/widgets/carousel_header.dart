@@ -21,19 +21,17 @@ class CrasoulHeader extends StatelessWidget {
         height: 150,
       ),
       itemBuilder: (context, index, realIndex) {
-        return Container(
-          child: CachedNetworkImage(
-            width: double.infinity,
-            height: 150,
-            fit: BoxFit.contain,
-            imageUrl: banners[index].image!,
-            placeholder: (context, url) => const Loadingitem(
-                widget: Skeleton(
-              width: 180,
-              height: 140,
-            )),
-            errorWidget: (context, url, error) => const Icon(Icons.error),
-          ),
+        return CachedNetworkImage(
+          width: double.infinity,
+          height: 150,
+          fit: BoxFit.contain,
+          imageUrl: banners[index].image!,
+          placeholder: (context, url) => const Loadingitem(
+              widget: Skeleton(
+            width: 180,
+            height: 140,
+          )),
+          errorWidget: (context, url, error) => const Icon(Icons.error),
         );
       },
     );

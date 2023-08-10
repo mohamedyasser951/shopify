@@ -4,6 +4,8 @@ abstract class EndPoints {
   static String login = "$url/login";
   static String register = "$url/register";
   static String home = "$url/home";
+    static String category = "$url/categories";
+
 }
 
 // const LOGIN = 'login';
