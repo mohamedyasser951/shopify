@@ -27,11 +27,11 @@ class _AppLayoutState extends State<AppLayout> {
       appBar: AppBar(),
       body: screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: AppColors.primaryColor,
           type: BottomNavigationBarType.fixed,
           currentIndex: currentIndex,
           // showSelectedLabels: false,
           // showUnselectedLabels: false,
-          backgroundColor: Colors.white,
           onTap: (index) {
             setState(() {
               currentIndex = index;

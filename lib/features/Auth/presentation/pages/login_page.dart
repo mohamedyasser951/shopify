@@ -16,7 +16,8 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
       if (state is AuthErrorState) {
-        snackBarWidget(context, state.error, Colors.red);
+        CustomDialog.animatedDialog(
+            title: state.error, description: "", context: context);
       } else if (state is AuthSuccessState) {
         if (state.userModel.status == true) {
           CustomDialog.animatedDialog(

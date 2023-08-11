@@ -25,7 +25,6 @@ class CustomeTextField extends StatelessWidget {
         validator: validator,
         decoration: InputDecoration(
             filled: true,
-            fillColor: Colors.white,
             hintText: hintText,
             contentPadding: const EdgeInsets.only(top: 5, left: 10),
             border: OutlineInputBorder(

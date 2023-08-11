@@ -1,7 +1,7 @@
+import 'package:dio/dio.dart';
 import 'package:commerceapp/Config/Network/end_points.dart';
 import 'package:commerceapp/Config/Network/exception.dart';
 import 'package:commerceapp/features/Auth/data/models/user_model/user_model.dart';
-import 'package:dio/dio.dart';
 
 class AuthRemoteDataSource {
   final Dio dio;

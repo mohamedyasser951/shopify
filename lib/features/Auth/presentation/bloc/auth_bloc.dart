@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:commerceapp/Config/Network/error_strings.dart';
 import 'package:commerceapp/features/Auth/data/models/user_model/user_model.dart';
 import 'package:equatable/equatable.dart';
 
@@ -10,9 +11,9 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthRepo authRepo;
 
-  AuthBloc(
-    this.authRepo,
-  ) : super(AuthInitial()) {
+  AuthBloc({
+    required this.authRepo,
+  }) : super(AuthInitial()) {
     on<AuthEvent>((event, emit) async {
       if (event is LoginEvent) {
         emit(AuthLoadingState());
@@ -20,7 +21,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             email: event.email, password: event.password);
 
         failureOrSuccess.fold((failure) {
-          emit(const AuthErrorState(error: "SomeThing went wrong"));
+          emit(AuthErrorState(error: mapFailureToMessage(failure)));
         }, (user) {
           emit(AuthSuccessState(userModel: user));
         });
@@ -34,7 +35,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             phone: event.phone,
             password: event.password);
         failureOrSuccess.fold((failure) {
-          emit(const AuthErrorState(error: "SomeThing went wrong"));
+          emit(AuthErrorState(error: mapFailureToMessage(failure)));
         }, (user) {
           emit(AuthSuccessState(userModel: user));
         });

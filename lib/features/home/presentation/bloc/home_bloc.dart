@@ -7,23 +7,23 @@ part 'home_event.dart';
 part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  HomeRepoImplem homeRepoImplem;
+  HomeRepo homeRepo;
   CategoryModel? categoryModel;
 
-  HomeBloc(
-    this.homeRepoImplem,
-  ) : super(HomeInitial()) {
+  HomeBloc({
+    required this.homeRepo,
+  }) : super(HomeInitial()) {
     on<HomeEvent>((event, emit) async {
       if (event is GetHomeDataEvent) {
         emit(GetHomeDataLoadingState());
-        var failureOrData = await homeRepoImplem.getHomeData();
+        var failureOrData = await homeRepo.getHomeData();
         failureOrData.fold(
             (error) => emit(GetHomeDataErrorState(error: error.toString())),
             (model) => emit(GetHomeDataSuccessState(homeModel: model)));
       }
       if (event is GetCategoriesEvent) {
         emit(GetCategoriesLoadingState());
-        var failureOrData = await homeRepoImplem.getCategories();
+        var failureOrData = await homeRepo.getCategories();
         failureOrData.fold(
             (error) => emit(GetCategoriesErrorState(error: error.toString())),
             (model) {

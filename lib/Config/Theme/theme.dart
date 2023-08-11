@@ -18,7 +18,7 @@ class AppTheme {
       color: Colors.black,
     ),
     appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.primaryColor,
+        backgroundColor: Colors.transparent,
         iconTheme: const IconThemeData(color: Colors.white),
         titleTextStyle: const TextStyle(color: Colors.white, fontSize: 22)),
     textTheme: const TextTheme(
@@ -32,31 +32,35 @@ class AppTheme {
   );
 
   static ThemeData darkTheme = ThemeData(
-    visualDensity: VisualDensity.adaptivePlatformDensity,
-    cardTheme: CardTheme(
-      color: AppColors.grayColor,
-    ),
-    colorScheme: ColorScheme.dark(
-        background: AppColors.darkColor, primary: AppColors.primaryColor),
-    useMaterial3: true,
-    iconTheme: const IconThemeData(
-      color: Colors.white,
-    ),
-    primaryColor: AppColors.primaryColor,
-    appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.primaryColor,
-        titleTextStyle: const TextStyle(color: Colors.white, fontSize: 22),
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          statusBarBrightness: Brightness.dark,
-          statusBarIconBrightness: Brightness.light,
-        )),
-    textTheme: const TextTheme(
-        bodyMedium: TextStyle(
-            color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20),
-        bodyLarge: TextStyle(
-            color: Colors.white, fontWeight: FontWeight.w500, fontSize: 22)),
-    bottomAppBarTheme: BottomAppBarTheme(
-      color: AppColors.darkColor,
-    ),
-  );
+      visualDensity: VisualDensity.adaptivePlatformDensity,
+      cardTheme: CardTheme(
+        color: AppColors.grayColor,
+      ),
+      colorScheme: ColorScheme.dark(
+          background: AppColors.darkColor, primary: AppColors.primaryColor),
+      useMaterial3: true,
+      iconTheme: const IconThemeData(
+        color: Colors.white,
+      ),
+      primaryColor: AppColors.primaryColor,
+      appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.transparent,
+          titleTextStyle: TextStyle(color: Colors.white, fontSize: 22),
+          systemOverlayStyle: SystemUiOverlayStyle(
+            statusBarBrightness: Brightness.dark,
+            statusBarIconBrightness: Brightness.light,
+          )),
+      textTheme: const TextTheme(
+          bodyMedium: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.w500, fontSize: 20),
+          bodyLarge: TextStyle(
+              color: Colors.white, fontWeight: FontWeight.w500, fontSize: 22)),
+      bottomAppBarTheme: BottomAppBarTheme(
+        color: AppColors.darkColor,
+      
+      ),
+      inputDecorationTheme:  InputDecorationTheme(
+        hintStyle: const TextStyle(color: Colors.black),
+        fillColor: AppColors.grayColor,
+      ));
 }

@@ -8,13 +8,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'service_locator.dart' as di;
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
   await Hive.initFlutter();
   await Hive.openBox(AppStrings.settingsBox);
-
+  print(Hive.box(AppStrings.settingsBox).get("Token"));
   runApp(const App());
 }
 
@@ -38,7 +37,7 @@ class App extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
-          themeMode: ThemeMode.light,
+          themeMode: ThemeMode.dark,
           onGenerateRoute: AppRoute.onGenerateRoute,
           initialRoute: "/",
           // home: LoginPage(),

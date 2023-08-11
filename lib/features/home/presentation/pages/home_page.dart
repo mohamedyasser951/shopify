@@ -33,7 +33,10 @@ class HomePage extends StatelessWidget {
                   SizedBox(
                     height: 100,
                     child: BuildHorizontalCategories(
-                      categories: BlocProvider.of<HomeBloc>(context).categoryModel!.data!.data!,
+                      categories: BlocProvider.of<HomeBloc>(context)
+                          .categoryModel!
+                          .data!
+                          .data!,
                     ),
                   ),
                   const SizedBox(
@@ -57,10 +60,16 @@ class HomePage extends StatelessWidget {
               ),
             ),
           );
+        } else if (state is GetCategoriesErrorState) {
+          return Center(
+            child: Text(
+              state.error,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          );
         }
         return const SizedBox.shrink();
       }),
     );
   }
 }
-
