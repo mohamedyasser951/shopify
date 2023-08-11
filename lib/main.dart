@@ -8,6 +8,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'service_locator.dart' as di;
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
@@ -40,6 +41,7 @@ class App extends StatelessWidget {
           themeMode: ThemeMode.light,
           onGenerateRoute: AppRoute.onGenerateRoute,
           initialRoute: "/",
+          // home: LoginPage(),
         ));
   }
 }

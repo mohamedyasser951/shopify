@@ -1,3 +1,4 @@
+import 'package:commerceapp/Config/constants/strings.dart';
 import 'package:commerceapp/Config/widgets/customized_button.dart';
 import 'package:commerceapp/Config/widgets/customized_text_field.dart';
 import 'package:commerceapp/Config/components/dialogs.dart';
@@ -6,6 +7,7 @@ import 'package:commerceapp/features/Auth/presentation/bloc/auth_bloc.dart';
 import 'package:commerceapp/features/Auth/presentation/widgets/custom_social_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -23,9 +25,13 @@ class LoginPage extends StatelessWidget {
               description: "",
               context: context);
 
-          Future.delayed(const Duration(seconds: 4)).then((value) =>
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil("/home", (route) => false));
+          Future.delayed(const Duration(seconds: 4))
+              .then((value) => Navigator.of(context)
+                  .pushNamedAndRemoveUntil("/home", (route) => false))
+              .then((value) {
+            Hive.box(AppStrings.settingsBox)
+                .put("Token", state.userModel.data!.token);
+          });
         } else {
           CustomDialog.animatedDialog(
               title: state.userModel.message!,

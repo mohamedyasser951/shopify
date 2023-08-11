@@ -1,6 +1,6 @@
 import 'package:commerceapp/Config/widgets/loading_widget.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
-import 'package:commerceapp/features/home/presentation/pages/home_page.dart';
+import 'package:commerceapp/features/home/presentation/widgets/vertical_category_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

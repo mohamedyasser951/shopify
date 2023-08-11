@@ -1,11 +1,15 @@
+import 'package:commerceapp/Config/Extensions/validator_extenstion.dart';
 import 'package:commerceapp/Config/components/dialogs.dart';
+import 'package:commerceapp/Config/constants/strings.dart';
 import 'package:commerceapp/Config/widgets/customized_button.dart';
 import 'package:commerceapp/Config/widgets/customized_text_field.dart';
 import 'package:commerceapp/Config/constants/image_paths.dart';
 import 'package:commerceapp/features/Auth/presentation/bloc/auth_bloc.dart';
 import 'package:commerceapp/features/Auth/presentation/widgets/custom_social_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -23,7 +27,11 @@ class RegisterPage extends StatelessWidget {
               description: "",
               context: context);
           Navigator.of(context)
-              .pushNamedAndRemoveUntil("/home", (route) => false);
+              .pushNamedAndRemoveUntil("/home", (route) => false)
+              .then((value) async {
+            Hive.box(AppStrings.settingsBox)
+                .put("Token", state.userModel.data!.token);
+          });
         } else {
           CustomDialog.animatedDialog(
               title: state.userModel.message!,
@@ -82,10 +90,15 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           CustomeTextField(
             textEditingController: nameController,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r"[a-zA-Z]+|\s"))
+            ],
             hintText: "Name",
             validator: (val) {
               if (val!.isEmpty) {
                 return "Name required";
+              } else if (!val.isValidName) {
+                return "Enter valid email";
               }
               return null;
             },
@@ -96,16 +109,24 @@ class _RegisterFormState extends State<RegisterForm> {
             validator: (val) {
               if (val!.isEmpty) {
                 return "Email required";
+              } else if (!val.isValidEmail) {
+                return "Enter valid Email";
               }
               return null;
             },
           ),
           CustomeTextField(
             textEditingController: phoneController,
+            inputFormatters: [
+              FilteringTextInputFormatter.allow(RegExp(r"[0-9]"))
+            ],
             hintText: "Phone",
             validator: (val) {
               if (val!.isEmpty) {
                 return "Phone required";
+              }
+              if (!val.isValidPhone) {
+                return "Enter valid phone";
               }
               return null;
             },
@@ -116,8 +137,8 @@ class _RegisterFormState extends State<RegisterForm> {
             validator: (val) {
               if (val!.isEmpty) {
                 return "password required";
-              } else if (val.length < 6) {
-                return "password should be more 6 digit";
+              } else if (!val.isValidPassword) {
+                return "Enter valid Password";
               }
               return null;
             },

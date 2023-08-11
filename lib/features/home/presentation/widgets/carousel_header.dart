@@ -16,9 +16,11 @@ class CrasoulHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider.builder(
       itemCount: banners.length,
+      
       options: CarouselOptions(
         autoPlay: true,
         height: 150,
+        viewportFraction: 1,
       ),
       itemBuilder: (context, index, realIndex) {
         return CachedNetworkImage(

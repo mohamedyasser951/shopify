@@ -39,8 +39,11 @@ class productItem extends StatelessWidget {
                 )),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
-              Card(
-                shape: const CircleBorder(),
+              Container(
+                decoration: BoxDecoration(
+                   borderRadius: BorderRadius.circular(30),
+                   color: Colors.white,
+                ),
                 child: IconButton(
                   onPressed: () {},
                   icon: SvgPicture.asset(
