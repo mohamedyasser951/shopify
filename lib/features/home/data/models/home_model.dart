@@ -1,20 +1,20 @@
 class HomeModel {
   bool? status;
   String? message;
-  Data? data;
+  HomeData? data;
 
   HomeModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? HomeData.fromJson(json['data']) : null;
   }
 }
 
-class Data {
+class HomeData {
   List<Banners>? banners;
   List<Products>? products;
 
-  Data.fromJson(Map<String, dynamic> json) {
+  HomeData.fromJson(Map<String, dynamic> json) {
     if (json["banners"] != null) {
       banners = <Banners>[];
       json["banners"].forEach((element) {

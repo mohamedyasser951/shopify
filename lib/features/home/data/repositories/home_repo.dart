@@ -1,12 +1,14 @@
 import 'package:commerceapp/Config/Network/failure.dart';
 import 'package:commerceapp/features/home/data/datasources/home_remote_datasource.dart';
 import 'package:commerceapp/features/home/data/models/category_model.dart';
+import 'package:commerceapp/features/home/data/models/favorite_model.dart';
 import 'package:commerceapp/features/home/data/models/home_model.dart';
 import 'package:dartz/dartz.dart';
 
 abstract class HomeRepo {
   Future<Either<Failure, HomeModel>> getHomeData();
   Future<Either<Failure, CategoryModel>> getCategories();
+  Future<Either<Failure, FavoriteModel>> getFavorites();
 }
 
 class HomeRepoImplem implements HomeRepo {
@@ -28,6 +30,18 @@ class HomeRepoImplem implements HomeRepo {
     try {
       var categoryModel = await dataSource.getCategories();
       return Right(categoryModel);
+    } on ServerFailure {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, FavoriteModel>> getFavorites() async {
+    try {
+      var favorites = await dataSource.getFavorites();
+      print("get favorites------------------");
+      // print(favorites[0]);
+      return Right(favorites);
     } on ServerFailure {
       return Left(ServerFailure());
     }

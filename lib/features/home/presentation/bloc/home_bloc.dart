@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:commerceapp/Config/Network/error_strings.dart';
 import 'package:commerceapp/features/home/data/models/category_model.dart';
+import 'package:commerceapp/features/home/data/models/favorite_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:commerceapp/features/home/data/models/home_model.dart';
 import 'package:commerceapp/features/home/data/repositories/home_repo.dart';
@@ -30,6 +32,14 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           categoryModel = model;
           emit(GetCategoriesSuccessState(categoryModel: model));
         });
+      }
+      if (event is GetFavoritesEvent) {
+        emit(GetFavoritesLoadingState());
+        var failureOrData = await homeRepo.getFavorites();
+        failureOrData.fold(
+            (error) => emit(
+                GetCategoriesErrorState(error: mapFailureToMessage(error))),
+            (favorites) => emit(GetFavoriteSuccessSate(favorites: favorites)));
       }
     });
   }

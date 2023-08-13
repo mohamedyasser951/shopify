@@ -1,6 +1,7 @@
 import 'package:commerceapp/Config/Route/app_route.dart';
 import 'package:commerceapp/Config/Theme/theme.dart';
 import 'package:commerceapp/Config/constants/strings.dart';
+import 'package:commerceapp/bloc_observer.dart';
 import 'package:commerceapp/features/Auth/presentation/bloc/auth_bloc.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ void main() async {
   await Hive.initFlutter();
   await Hive.openBox(AppStrings.settingsBox);
   print(Hive.box(AppStrings.settingsBox).get("Token"));
+  Bloc.observer = MyBlocObserver();
   runApp(const App());
 }
 
@@ -30,7 +32,8 @@ class App extends StatelessWidget {
           BlocProvider(
             create: (context) => di.sl<HomeBloc>()
               ..add(GetHomeDataEvent())
-              ..add(GetCategoriesEvent()),
+              ..add(GetCategoriesEvent())
+              ..add(GetFavoritesEvent()),
           )
         ],
         child: MaterialApp(

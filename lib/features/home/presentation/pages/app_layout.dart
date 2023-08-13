@@ -1,6 +1,7 @@
 import 'package:commerceapp/Config/constants/colors.dart';
 import 'package:commerceapp/Config/constants/image_paths.dart';
 import 'package:commerceapp/features/home/presentation/pages/category_page.dart';
+import 'package:commerceapp/features/home/presentation/pages/favorite_page.dart';
 import 'package:commerceapp/features/home/presentation/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,7 +18,7 @@ class _AppLayoutState extends State<AppLayout> {
   List<Widget> screens = const [
     HomePage(),
     CategoryPage(),
-    HomePage(),
+    FavoritePage(),
     HomePage(),
   ];
 

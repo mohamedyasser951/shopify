@@ -30,6 +30,8 @@ class GetHomeDataErrorState extends HomeState {
   List<Object> get props => [error];
 }
 
+// Get Categories
+
 class GetCategoriesLoadingState extends HomeState {}
 
 class GetCategoriesSuccessState extends HomeState {
@@ -44,6 +46,28 @@ class GetCategoriesSuccessState extends HomeState {
 class GetCategoriesErrorState extends HomeState {
   final String error;
   const GetCategoriesErrorState({
+    required this.error,
+  });
+  @override
+  List<Object> get props => [error];
+}
+
+// get Faoirtes
+
+class GetFavoritesLoadingState extends HomeState {}
+
+class GetFavoriteSuccessSate extends HomeState {
+  final FavoriteModel favorites;
+  const GetFavoriteSuccessSate({
+    required this.favorites,
+  });
+  @override
+  List<Object> get props => [favorites];
+}
+
+class GetFavoriteErrorState extends HomeState {
+  final String error;
+  const GetFavoriteErrorState({
     required this.error,
   });
   @override

@@ -1,6 +1,7 @@
 import 'package:commerceapp/Config/Network/end_points.dart';
 import 'package:commerceapp/Config/Network/exception.dart';
 import 'package:commerceapp/features/home/data/models/category_model.dart';
+import 'package:commerceapp/features/home/data/models/favorite_model.dart';
 import 'package:commerceapp/features/home/data/models/home_model.dart';
 import 'package:dio/dio.dart';
 
@@ -23,6 +24,21 @@ class HomeRemoteDataSource {
     var response = await dio.get(EndPoints.category);
     if (response.statusCode == 200) {
       return CategoryModel.fromJson(response.data);
+    } else {
+      throw ServerException();
+    }
+  }
+
+  Future<FavoriteModel> getFavorites() async {
+    var response = await dio.get(EndPoints.favorites,
+        options: Options(headers: {
+          "lang": "ar",
+          "Content-Type": "application/json",
+          "Authorization":
+              "WfIA5OJkBvu1rgRgL3vI5UBuHNNnF1vvBKNpsM1vDpldLqHofMe85oV27uVSTVNyypQRCs"
+        }));
+    if (response.statusCode == 200) {
+      return FavoriteModel.fromJson(response.data);
     } else {
       throw ServerException();
     }

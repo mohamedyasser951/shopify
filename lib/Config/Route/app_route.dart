@@ -10,9 +10,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class AppRoute {
   static Route onGenerateRoute(RouteSettings routeSettings) {
-    Widget startWidget = const LoginPage();
+    Widget startWidget = const AppLayout();
 
-    if (Hive.box(AppStrings.settingsBox).get("Token") != null) {
+    if ( Hive.box(AppStrings.settingsBox).get("Token") != null) {
       startWidget = const AppLayout();
     }
 
@@ -28,7 +28,7 @@ class AppRoute {
             builder: (context) => BlocProvider(
                 create: (context) => sl<HomeBloc>()
                   ..add(GetHomeDataEvent())
-                  ..add(GetCategoriesEvent()),
+                  ..add(GetCategoriesEvent())..add(GetFavoritesEvent()),
                 child: const AppLayout()));
 
       case "/login":

@@ -29,8 +29,8 @@ class LoginPage extends StatelessWidget {
           Future.delayed(const Duration(seconds: 4))
               .then((value) => Navigator.of(context)
                   .pushNamedAndRemoveUntil("/home", (route) => false))
-              .then((value) {
-            Hive.box(AppStrings.settingsBox)
+              .then((value) async {
+            await Hive.box(AppStrings.settingsBox)
                 .put("Token", state.userModel.data!.token);
           });
         } else {
