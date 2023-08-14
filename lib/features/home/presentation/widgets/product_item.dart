@@ -1,7 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:commerceapp/Config/components/loading.dart';
 import 'package:commerceapp/Config/components/skelton.dart';
 import 'package:commerceapp/Config/constants/colors.dart';
@@ -39,13 +40,14 @@ class productItem extends StatelessWidget {
                 )),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
-              Container(
-                decoration: BoxDecoration(
-                   borderRadius: BorderRadius.circular(30),
-                   color: Colors.white,
-                ),
+              CircleAvatar(
+                radius: 15.0,
+                backgroundColor: Colors.white,
                 child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    BlocProvider.of<HomeBloc>(context)
+                        .add(SetOrDeleteFavoriteEvent(id: product.id!));
+                  },
                   icon: SvgPicture.asset(
                     ImagesPath.favorite,
                     width: 18,

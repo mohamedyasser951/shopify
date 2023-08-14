@@ -5,4 +5,8 @@ abstract class ImagesPath {
   static String home = "assets/svg/icons/home.svg";
   static String profile = "assets/svg/icons/profile.svg";
   static String shop = "assets/svg/icons/shop.svg";
+  static String activeFavorite = "assets/svg/icons/active_favorite.svg";
+  static String activeHome = "assets/svg/icons/active_home.svg";
+  static String activeProfile = "assets/svg/icons/active_profile.svg";
+  static String activeShop = "assets/svg/icons/active_shop.svg";
 }

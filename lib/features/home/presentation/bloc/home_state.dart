@@ -73,3 +73,20 @@ class GetFavoriteErrorState extends HomeState {
   @override
   List<Object> get props => [error];
 }
+
+
+class SetOrDeleteSuccessState extends HomeState {
+    final String successMessage;
+  const SetOrDeleteSuccessState({
+    required this.successMessage,
+  });
+
+}
+
+class SetOrDeleteErrorState extends HomeState {
+    final String error;
+  const SetOrDeleteErrorState({
+    required this.error,
+  });
+
+}

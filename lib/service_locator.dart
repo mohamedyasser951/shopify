@@ -24,7 +24,7 @@ Future<void> init() async {
       () => AuthRepoImplem(internetChecker: sl(), remoteDataSource: sl()));
 
   sl.registerLazySingleton<HomeRepo>(
-    () => HomeRepoImplem(dataSource: sl()),
+    () => HomeRepoImplem(dataSource: sl(),internetChecker: sl()),
   );
 
   //DataSource

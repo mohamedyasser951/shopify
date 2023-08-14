@@ -128,7 +128,8 @@ class FavoriteItem extends StatelessWidget {
                     child: IconButton(
                       padding: const EdgeInsets.all(0.0),
                       onPressed: () {
-                        // CubitHomeLayout.get(context).changeFavorItes(model.id!);
+                               BlocProvider.of<HomeBloc>(context)
+                        .add(SetOrDeleteFavoriteEvent(id: model.id!));
                       },
                       icon: const Icon(
                         Icons.favorite_border_outlined,

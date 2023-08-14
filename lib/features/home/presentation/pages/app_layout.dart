@@ -15,6 +15,8 @@ class AppLayout extends StatefulWidget {
 
 class _AppLayoutState extends State<AppLayout> {
   int currentIndex = 0;
+
+  List<String> titles = ["Home", "Categories", "Favorites", "My profile"];
   List<Widget> screens = const [
     HomePage(),
     CategoryPage(),
@@ -25,7 +27,9 @@ class _AppLayoutState extends State<AppLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text(titles[currentIndex]),
+      ),
       body: screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: AppColors.primaryColor,
@@ -39,10 +43,10 @@ class _AppLayoutState extends State<AppLayout> {
             });
           },
           items: [
-            bottomNavBarItem(icon: ImagesPath.home, label: "Home"),
-            bottomNavBarItem(icon: ImagesPath.shop, label: "Shop"),
-            bottomNavBarItem(icon: ImagesPath.favorite, label: "Favorite"),
-            bottomNavBarItem(icon: ImagesPath.profile, label: "Profile"),
+            bottomNavBarItem(icon: ImagesPath.home, label: "home"),
+            bottomNavBarItem(icon: ImagesPath.shop, label: "shop"),
+            bottomNavBarItem(icon: ImagesPath.favorite, label: "favorite"),
+            bottomNavBarItem(icon: ImagesPath.profile, label: "profile"),
           ]),
     );
   }
@@ -53,11 +57,9 @@ BottomNavigationBarItem bottomNavBarItem(
     BottomNavigationBarItem(
       icon: SvgPicture.asset(
         icon,
-        color: AppColors.grayColor,
       ),
       activeIcon: SvgPicture.asset(
-        icon,
-        color: AppColors.primaryColor,
+        "assets/svg/icons/active_$label.svg",
       ),
       label: label,
     );

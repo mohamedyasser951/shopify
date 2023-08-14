@@ -43,4 +43,22 @@ class HomeRemoteDataSource {
       throw ServerException();
     }
   }
+
+  Future<FavoriteModel> setOrDeleteFromFavorites({required int id}) async {
+    var response = await dio.post(EndPoints.favorites,
+        data: {"product_id": id},
+        options: Options(
+          headers: {
+            "lang": "ar",
+            "Content-Type": "application/json",
+            "Authorization":
+                "JYk0IDDRZHi95RFJgAqltJM2BZuUm8U9KNtEzh9f3azN0tZGtjkDajkiesYcJSy2UfqoLh"
+          },
+        ));
+    if (response.statusCode == 200) {
+      return FavoriteModel.fromJson(response.data);
+    } else {
+      throw ServerException();
+    }
+  }
 }

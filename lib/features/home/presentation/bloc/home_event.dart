@@ -7,8 +7,15 @@ abstract class HomeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class GetHomeDataEvent extends HomeEvent{}
+class GetHomeDataEvent extends HomeEvent {}
 
-class GetCategoriesEvent extends HomeEvent{}
+class GetCategoriesEvent extends HomeEvent {}
 
-class GetFavoritesEvent extends HomeEvent{}
+class GetFavoritesEvent extends HomeEvent {}
+
+class SetOrDeleteFavoriteEvent extends HomeEvent {
+  final int id;
+  const SetOrDeleteFavoriteEvent({
+    required this.id,
+  });
+}
