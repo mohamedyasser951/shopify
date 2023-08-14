@@ -13,8 +13,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
   await Hive.initFlutter();
-  await Hive.openBox(AppStrings.settingsBox);
-  print(Hive.box(AppStrings.settingsBox).get("Token"));
+  var box = await Hive.openBox(AppStrings.settingsBox);
+  print(box.get("Token"));
   Bloc.observer = MyBlocObserver();
   runApp(const App());
 }

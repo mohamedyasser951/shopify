@@ -10,7 +10,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class AppRoute {
   static Route onGenerateRoute(RouteSettings routeSettings) {
-    Widget startWidget = const AppLayout();
+    Widget startWidget = const LoginPage();
 
     if ( Hive.box(AppStrings.settingsBox).get("Token") != null) {
       startWidget = const AppLayout();
@@ -25,7 +25,7 @@ class AppRoute {
                 }));
       case "/home":
         return MaterialPageRoute(
-            builder: (context) => BlocProvider(
+            builder: (_) => BlocProvider<HomeBloc>(
                 create: (context) => sl<HomeBloc>()
                   ..add(GetHomeDataEvent())
                   ..add(GetCategoriesEvent())..add(GetFavoritesEvent()),

@@ -20,18 +20,18 @@ class LoginPage extends StatelessWidget {
             title: state.error, description: "", context: context);
       } else if (state is AuthSuccessState) {
         if (state.userModel.status == true) {
-          CustomDialog.animatedDialog(
-              isError: false,
-              title: state.userModel.message!,
-              description: "",
-              context: context);
+          var box = Hive.box(AppStrings.settingsBox);
+          box.put("Token", state.userModel.data!.token).then((value) {
+            CustomDialog.animatedDialog(
+                isError: false,
+                title: state.userModel.message!,
+                description: "",
+                context: context);
 
-          Future.delayed(const Duration(seconds: 4))
-              .then((value) => Navigator.of(context)
-                  .pushNamedAndRemoveUntil("/home", (route) => false))
-              .then((value) async {
-            await Hive.box(AppStrings.settingsBox)
-                .put("Token", state.userModel.data!.token);
+            Future.delayed(const Duration(seconds: 5))
+                .then((value) => Navigator.of(context)
+                    .pushNamedAndRemoveUntil("/home", (route) => false))
+                .then((value) async {});
           });
         } else {
           CustomDialog.animatedDialog(

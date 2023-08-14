@@ -1,3 +1,4 @@
+import 'package:commerceapp/Config/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class LoadingWidget extends StatelessWidget {
@@ -5,8 +6,8 @@ class LoadingWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: CircularProgressIndicator(color: Colors.black),
+    return  Center(
+      child: CircularProgressIndicator(color: AppColors.grayColor),
     );
   }
 }

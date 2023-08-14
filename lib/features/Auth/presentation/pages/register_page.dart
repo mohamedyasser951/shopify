@@ -21,16 +21,16 @@ class RegisterPage extends StatelessWidget {
         snackBarWidget(context, state.error, Colors.red);
       } else if (state is AuthSuccessState) {
         if (state.userModel.status == true) {
-          CustomDialog.animatedDialog(
-              isError: false,
-              title: state.userModel.message!,
-              description: "",
-              context: context);
-          Navigator.of(context)
-              .pushNamedAndRemoveUntil("/home", (route) => false)
-              .then((value) async {
-            Hive.box(AppStrings.settingsBox)
-                .put("Token", state.userModel.data!.token);
+          var box = Hive.box(AppStrings.settingsBox);
+          box.put("Token", state.userModel.data!.token).then((value) {
+            CustomDialog.animatedDialog(
+                isError: false,
+                title: state.userModel.message!,
+                description: "",
+                context: context);
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil("/home", (route) => false)
+                .then((value) async {});
           });
         } else {
           CustomDialog.animatedDialog(

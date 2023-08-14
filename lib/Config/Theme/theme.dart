@@ -17,10 +17,10 @@ class AppTheme {
     iconTheme: const IconThemeData(
       color: Colors.black,
     ),
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(color: Colors.white),
-        titleTextStyle: const TextStyle(color: Colors.white, fontSize: 22)),
+        iconTheme: IconThemeData(color: Colors.white),
+        titleTextStyle: TextStyle(color: Colors.white, fontSize: 22)),
     textTheme: const TextTheme(
         bodyMedium: TextStyle(
             color: Colors.black, fontWeight: FontWeight.w500, fontSize: 20),

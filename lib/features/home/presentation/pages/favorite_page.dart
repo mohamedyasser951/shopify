@@ -1,3 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:commerceapp/Config/components/loading.dart';
+import 'package:commerceapp/Config/components/skelton.dart';
 import 'package:commerceapp/Config/constants/colors.dart';
 import 'package:commerceapp/Config/widgets/loading_widget.dart';
 import 'package:commerceapp/features/home/data/models/favorite_model.dart';
@@ -10,6 +13,7 @@ class FavoritePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<HomeBloc>(context).add(GetFavoritesEvent());
     return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         if (state is GetFavoritesLoadingState) {
@@ -21,22 +25,23 @@ class FavoritePage extends StatelessWidget {
         } else if (state is GetFavoriteSuccessSate) {
           return Scaffold(
             body: ListView.separated(
-              itemCount: state.favorites.data!.data!.length,
-              itemBuilder: (context, index) => Text(state.favorites.data!.data!.length.toString()),
+              itemCount: state.favorites.data!.data.length,
+              itemBuilder: (context, index) => FavoriteItem(
+                  model: state.favorites.data!.data[index].product!),
               separatorBuilder: (context, index) => const SizedBox(
                 height: 10,
               ),
             ),
           );
         }
-        return Text("000");
+        return const SizedBox.shrink();
       },
     );
   }
 }
 
 class FavoriteItem extends StatelessWidget {
-  final FavoriteData model;
+  final Product model;
   const FavoriteItem({
     Key? key,
     required this.model,
@@ -55,9 +60,19 @@ class FavoriteItem extends StatelessWidget {
             child: Stack(
               alignment: AlignmentDirectional.bottomStart,
               children: [
-                Image(
-                    height: 200.0, image: NetworkImage(model.product!.image!)),
-                if (model.product!.discount != 0)
+                CachedNetworkImage(
+                  width: double.infinity,
+                  height: 200,
+                  fit: BoxFit.contain,
+                  imageUrl: model.image,
+                  placeholder: (context, url) => const Loadingitem(
+                      widget: Skeleton(
+                    width: 180,
+                    height: 140,
+                  )),
+                  errorWidget: (context, url, error) => const Icon(Icons.error),
+                ),
+                if (model.discount != 0)
                   Container(
                     decoration: const BoxDecoration(
                         color: Colors.pink,
@@ -82,19 +97,15 @@ class FavoriteItem extends StatelessWidget {
               child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text("${model.product!.name}",
+              Text("${model.name}",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    height: 1.3,
-                    color: Colors.black,
-                  )),
+                  style: Theme.of(context).textTheme.bodyMedium),
               const Spacer(),
               Row(
                 children: [
                   Text(
-                    "${model.product!.price}}",
+                    "${model.price}",
                     style: TextStyle(color: AppColors.primaryColor),
                   ),
                   const SizedBox(
@@ -102,7 +113,7 @@ class FavoriteItem extends StatelessWidget {
                   ),
                   if (true)
                     Text(
-                      "${model.product!.oldPrice}",
+                      "${model.oldPrice}",
                       style: const TextStyle(
                           color: Colors.grey,
                           decoration: TextDecoration.lineThrough),
