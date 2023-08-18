@@ -13,6 +13,9 @@ class GetCategoriesEvent extends HomeEvent {}
 
 class GetFavoritesEvent extends HomeEvent {}
 
+class GetCardEvent extends HomeEvent {}
+
+
 class SetOrDeleteFavoriteEvent extends HomeEvent {
   final int id;
   const SetOrDeleteFavoriteEvent({

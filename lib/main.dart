@@ -33,7 +33,8 @@ class App extends StatelessWidget {
             create: (context) => di.sl<HomeBloc>()
               ..add(GetHomeDataEvent())
               ..add(GetCategoriesEvent())
-              ..add(GetFavoritesEvent()),
+              ..add(GetFavoritesEvent())
+              ..add(GetCardEvent()),
           )
         ],
         child: MaterialApp(

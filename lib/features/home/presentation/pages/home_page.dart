@@ -1,4 +1,3 @@
-import 'package:commerceapp/Config/components/dialogs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:commerceapp/Config/widgets/loading_widget.dart';
@@ -16,19 +15,7 @@ class HomePage extends StatelessWidget {
     var cubit = BlocProvider.of<HomeBloc>(context);
     return Scaffold(
       body: BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
-        if (state is SetOrDeleteErrorState) {
-          CustomDialog.animatedDialog(
-              title: state.error,
-              description: "",
-              context: context,
-              isError: true);
-        } else if (state is SetOrDeleteSuccessState) {
-          CustomDialog.animatedDialog(
-            title: state.successMessage,
-            description: "",
-            context: context,
-          );
-        }
+       
       }, builder: (context, state) {
         if (state is GetCategoriesErrorState) {
           return Center(

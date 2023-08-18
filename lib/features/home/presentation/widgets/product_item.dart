@@ -40,23 +40,41 @@ class productItem extends StatelessWidget {
                 )),
                 errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
-              CircleAvatar(
-                radius: 15.0,
-                backgroundColor: Colors.white,
-                child: IconButton(
-                  onPressed: () {
-                    BlocProvider.of<HomeBloc>(context)
-                        .add(SetOrDeleteFavoriteEvent(id: product.id!));
-                  },
-                  icon: SvgPicture.asset(
-                    ImagesPath.favorite,
-                    width: 18,
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CircleAvatar(
+                    radius: 15.0,
+                    backgroundColor: Colors.white,
+                    child: IconButton(
+                      onPressed: () {
+                        BlocProvider.of<HomeBloc>(context)
+                            .add(SetOrDeleteFavoriteEvent(id: product.id!));
+                      },
+                      icon: SvgPicture.asset(
+                        ImagesPath.favorite,
+                        width: 18,
+                      ),
+                    ),
                   ),
-                ),
+                 const SizedBox(width: 8,),
+                  CircleAvatar(
+                    radius: 15.0,
+                    backgroundColor: Colors.white,
+                    child: IconButton(
+                      onPressed: () {
+                       
+                      },
+                      icon: SvgPicture.asset(
+                        ImagesPath.card,
+                        width: 18,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-          // const SizedBox(height: 4.0),
           Text(
             product.name!,
             style: Theme.of(context).textTheme.bodyMedium,

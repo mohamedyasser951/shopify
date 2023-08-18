@@ -1,8 +1,10 @@
 import 'package:commerceapp/Config/constants/colors.dart';
 import 'package:commerceapp/Config/constants/image_paths.dart';
+import 'package:commerceapp/features/home/presentation/pages/card_page.dart';
 import 'package:commerceapp/features/home/presentation/pages/category_page.dart';
 import 'package:commerceapp/features/home/presentation/pages/favorite_page.dart';
 import 'package:commerceapp/features/home/presentation/pages/home_page.dart';
+import 'package:commerceapp/features/home/presentation/pages/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -16,12 +18,19 @@ class AppLayout extends StatefulWidget {
 class _AppLayoutState extends State<AppLayout> {
   int currentIndex = 0;
 
-  List<String> titles = ["Home", "Categories", "Favorites", "My profile"];
+  List<String> titles = [
+    "Home",
+    "Categories",
+    "Card",
+    "Favorites",
+    "My profile"
+  ];
   List<Widget> screens = const [
     HomePage(),
     CategoryPage(),
+    CardPage(),
     FavoritePage(),
-    HomePage(),
+    SettingsPage(),
   ];
 
   @override
@@ -45,6 +54,7 @@ class _AppLayoutState extends State<AppLayout> {
           items: [
             bottomNavBarItem(icon: ImagesPath.home, label: "home"),
             bottomNavBarItem(icon: ImagesPath.shop, label: "shop"),
+            bottomNavBarItem(icon: ImagesPath.card, label: "card"),
             bottomNavBarItem(icon: ImagesPath.favorite, label: "favorite"),
             bottomNavBarItem(icon: ImagesPath.profile, label: "profile"),
           ]),

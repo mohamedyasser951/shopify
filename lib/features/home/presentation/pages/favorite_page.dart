@@ -14,7 +14,17 @@ class FavoritePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<HomeBloc>(context).add(GetFavoritesEvent());
-    return BlocBuilder<HomeBloc, HomeState>(
+    return BlocConsumer<HomeBloc, HomeState>(
+      listener: (context, state) {
+        if (state is SetOrDeleteErrorState) {
+      
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.error)));
+        } else if (state is SetOrDeleteSuccessState) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.successMessage)));
+        }
+      },
       builder: (context, state) {
         if (state is GetFavoritesLoadingState) {
           return const LoadingWidget();
@@ -74,17 +84,16 @@ class FavoriteItem extends StatelessWidget {
                 ),
                 if (model.discount != 0)
                   Container(
-                    decoration: const BoxDecoration(
-                        color: Colors.pink,
+                    decoration: BoxDecoration(
+                        color: AppColors.primaryColor,
                         borderRadius:
                             BorderRadius.only(topRight: Radius.circular(50.0))),
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 12.0),
-                      child: Text(
-                        "DISCOUNT",
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
+                    child: Text(
+                      "DISCOUNT",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12),
                     ),
                   ),
               ],
@@ -128,8 +137,8 @@ class FavoriteItem extends StatelessWidget {
                     child: IconButton(
                       padding: const EdgeInsets.all(0.0),
                       onPressed: () {
-                               BlocProvider.of<HomeBloc>(context)
-                        .add(SetOrDeleteFavoriteEvent(id: model.id!));
+                        BlocProvider.of<HomeBloc>(context)
+                            .add(SetOrDeleteFavoriteEvent(id: model.id!));
                       },
                       icon: const Icon(
                         Icons.favorite_border_outlined,

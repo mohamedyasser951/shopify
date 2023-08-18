@@ -52,6 +52,18 @@ class GetCategoriesErrorState extends HomeState {
   List<Object> get props => [error];
 }
 
+// get Card
+class GetCardLoadingState extends HomeState {}
+
+class GetCardSuceessState extends HomeState {}
+
+class GetCardSErrorState extends HomeState {
+  final String error;
+  const GetCardSErrorState({
+    required this.error,
+  });
+}
+
 // get Faoirtes
 
 class GetFavoritesLoadingState extends HomeState {}
@@ -74,19 +86,16 @@ class GetFavoriteErrorState extends HomeState {
   List<Object> get props => [error];
 }
 
-
 class SetOrDeleteSuccessState extends HomeState {
-    final String successMessage;
+  final String successMessage;
   const SetOrDeleteSuccessState({
     required this.successMessage,
   });
-
 }
 
 class SetOrDeleteErrorState extends HomeState {
-    final String error;
+  final String error;
   const SetOrDeleteErrorState({
     required this.error,
   });
-
 }

@@ -10,7 +10,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class AppRoute {
   static Route onGenerateRoute(RouteSettings routeSettings) {
-    Widget startWidget = const LoginPage();
+    Widget startWidget = const AppLayout();
 
     if ( Hive.box(AppStrings.settingsBox).get("Token") != null) {
       startWidget = const AppLayout();

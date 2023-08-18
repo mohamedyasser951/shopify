@@ -6,6 +6,7 @@ abstract class EndPoints {
   static String home = "$url/home";
   static String category = "$url/categories";
   static String favorites = "$url/favorites";
+  static String carts = "$url/carts";
 }
 
 // const LOGIN = 'login';

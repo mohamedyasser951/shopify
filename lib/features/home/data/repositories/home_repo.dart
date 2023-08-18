@@ -1,3 +1,4 @@
+import 'package:commerceapp/features/home/data/models/card_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:commerceapp/Config/Network/failure.dart';
 import 'package:commerceapp/Config/Network/internet_checker.dart';
@@ -9,6 +10,7 @@ import 'package:commerceapp/features/home/data/models/home_model.dart';
 abstract class HomeRepo {
   Future<Either<Failure, HomeModel>> getHomeData();
   Future<Either<Failure, CategoryModel>> getCategories();
+  Future<Either<Failure, CardModel>> getCard();
   Future<Either<Failure, FavoriteModel>> getFavorites();
   Future<Either<Failure, FavoriteModel>> setOrDeleteFromFavorites(
       {required int id});
@@ -77,6 +79,16 @@ class HomeRepoImplem implements HomeRepo {
       }
     } else {
       throw OfflineFailure();
+    }
+  }
+
+  @override
+  Future<Either<Failure, CardModel>> getCard() async {
+    try {
+      var cardModel = await dataSource.getCard();
+      return Right(cardModel);
+    } on ServerFailure {
+      return Left(ServerFailure());
     }
   }
 }

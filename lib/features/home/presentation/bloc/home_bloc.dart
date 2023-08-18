@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:commerceapp/Config/Network/error_strings.dart';
+import 'package:commerceapp/features/home/data/models/card_model.dart';
 import 'package:commerceapp/features/home/data/models/category_model.dart';
 import 'package:commerceapp/features/home/data/models/favorite_model.dart';
 import 'package:equatable/equatable.dart';
@@ -11,6 +12,7 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeRepo homeRepo;
   CategoryModel? categoryModel;
+  CardModel? cardModel;
   HomeModel? homeModel;
 
   HomeBloc({
@@ -51,8 +53,20 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         failureOrData.fold(
             (failure) => emit(
                 SetOrDeleteErrorState(error: mapFailureToMessage(failure))),
-            (model) => SetOrDeleteSuccessState(
-                successMessage: model.message.toString()));
+            (model) => emit(SetOrDeleteSuccessState(
+                successMessage: model.message.toString())));
+      }
+
+      if (event is GetCardEvent) {
+        emit(GetCardLoadingState());
+        var failureOrData = await homeRepo.getCard();
+        failureOrData.fold(
+            (failure) =>
+                emit(GetCardSErrorState(error: mapFailureToMessage(failure))),
+            (model) {
+          cardModel = model;
+          emit(GetCardSuceessState());
+        });
       }
     });
   }
