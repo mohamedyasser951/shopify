@@ -25,15 +25,10 @@ class HomeRepoImplem implements HomeRepo {
     required this.internetChecker,
   });
 
-  static Map<int, bool> favorites = {};
-
   @override
   Future<Either<Failure, HomeModel>> getHomeData() async {
     try {
       var homeModel = await dataSource.getHomeData();
-      for (var item in homeModel.data!.products!) {
-        favorites.addAll({item.id!: item.inFavorites!});
-      }
       return Right(homeModel);
     } on ServerFailure {
       return Left(ServerFailure());
@@ -65,16 +60,9 @@ class HomeRepoImplem implements HomeRepo {
       {required int id}) async {
     if (await internetChecker.isConnected) {
       try {
-        favorites[id] = favorites[id]!;
         var favorite = await dataSource.setOrDeleteFromFavorites(id: id);
-        if (!favorite.status!) {
-          favorites[id] = favorites[id]!;
-        } else {
-          getFavorites();
-        }
         return Right(favorite);
       } on ServerFailure {
-        favorites[id] = favorites[id]!;
         return Left(ServerFailure());
       }
     } else {

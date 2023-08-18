@@ -16,14 +16,7 @@ class FavoritePage extends StatelessWidget {
     BlocProvider.of<HomeBloc>(context).add(GetFavoritesEvent());
     return BlocConsumer<HomeBloc, HomeState>(
       listener: (context, state) {
-        if (state is SetOrDeleteErrorState) {
-      
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(state.error)));
-        } else if (state is SetOrDeleteSuccessState) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(state.successMessage)));
-        }
+       
       },
       builder: (context, state) {
         if (state is GetFavoritesLoadingState) {

@@ -15,7 +15,14 @@ class HomePage extends StatelessWidget {
     var cubit = BlocProvider.of<HomeBloc>(context);
     return Scaffold(
       body: BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
-       
+        if (state is SetOrDeleteErrorState) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.error)));
+        }
+        if (state is SetOrDeleteSuccessState) {
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.successMessage)));
+        }
       }, builder: (context, state) {
         if (state is GetCategoriesErrorState) {
           return Center(

@@ -1,5 +1,7 @@
 import 'package:commerceapp/Config/constants/colors.dart';
+import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -17,8 +19,8 @@ class SettingsPage extends StatelessWidget {
                   radius: 30,
                 ),
                 const SizedBox(
-                      width: 6,
-                    ),
+                  width: 6,
+                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -28,10 +30,10 @@ class SettingsPage extends StatelessWidget {
                     ),
                     Text(
                       "Mohamedhcjdiv@gmail.com",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: AppColors.grayColor),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodySmall!
+                          .copyWith(color: AppColors.grayColor),
                     )
                   ],
                 )
@@ -92,6 +94,10 @@ class SettingsPage extends StatelessWidget {
               height: 6,
             ),
             ListTile(
+              onTap: () {
+                BlocProvider.of<HomeBloc>(context)
+                    .add( ChangeAppModeEvent());
+              },
               title: Text(
                 'Settings',
                 style: Theme.of(context).textTheme.bodyMedium,

@@ -14,6 +14,7 @@ void main() async {
   await di.init();
   await Hive.initFlutter();
   var box = await Hive.openBox(AppStrings.settingsBox);
+  TOKEN = box.get("Token");
   print(box.get("Token"));
   Bloc.observer = MyBlocObserver();
   runApp(const App());
@@ -24,27 +25,38 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-        providers: [
-          BlocProvider(
-            create: (context) => di.sl<AuthBloc>(),
-          ),
-          BlocProvider(
-            create: (context) => di.sl<HomeBloc>()
-              ..add(GetHomeDataEvent())
-              ..add(GetCategoriesEvent())
-              ..add(GetFavoritesEvent())
-              ..add(GetCardEvent()),
-          )
-        ],
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: AppTheme.lightTheme,
-          darkTheme: AppTheme.darkTheme,
-          themeMode: ThemeMode.dark,
-          onGenerateRoute: AppRoute.onGenerateRoute,
-          initialRoute: "/",
-          // home: LoginPage(),
-        ));
+    return ValueListenableBuilder(
+      valueListenable: Hive.box(AppStrings.settingsBox).listenable(),
+      builder: (context, box, child) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => di.sl<AuthBloc>(),
+            ),
+            BlocProvider(
+              create: (context) => di.sl<HomeBloc>()
+                ..add(ChangeAppModeEvent(
+                    modeFromCashe: box.get("darkMode", defaultValue: false)))
+                ..add(GetHomeDataEvent())
+                ..add(GetCategoriesEvent())
+                ..add(GetFavoritesEvent())
+                ..add(GetCardEvent()),
+            )
+          ],
+          child: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: AppTheme.lightTheme,
+              darkTheme: AppTheme.darkTheme,
+              themeMode: BlocProvider.of<HomeBloc>(context).isDarkMode
+                  ? ThemeMode.dark
+                  : ThemeMode.light,
+              onGenerateRoute: AppRoute.onGenerateRoute,
+              initialRoute: "/",
+            );
+          }),
+        );
+      },
+    );
   }
 }

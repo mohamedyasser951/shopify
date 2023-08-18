@@ -1,5 +1,6 @@
 import 'package:commerceapp/Config/Network/end_points.dart';
 import 'package:commerceapp/Config/Network/exception.dart';
+import 'package:commerceapp/Config/constants/strings.dart';
 import 'package:commerceapp/features/home/data/models/card_model.dart';
 import 'package:commerceapp/features/home/data/models/category_model.dart';
 import 'package:commerceapp/features/home/data/models/favorite_model.dart';
@@ -13,10 +14,9 @@ class HomeRemoteDataSource {
   });
 
   Map<String, String> header = {
-    "lang": "ar",
+    "lang": "en",
     "Content-Type": "application/json",
-    "Authorization":
-        "GsRvI0dJWA7OdqG1rDgqPtsQyGx8VME4bJWH7keIc9mwSNjKqxwnTySyu9fdyx08ZwWXlc"
+    "Authorization": TOKEN!
   };
 
   Future<HomeModel> getHomeData() async {
@@ -38,13 +38,8 @@ class HomeRemoteDataSource {
   }
 
   Future<FavoriteModel> getFavorites() async {
-    var response = await dio.get(EndPoints.favorites,
-        options: Options(headers: {
-          "lang": "ar",
-          "Content-Type": "application/json",
-          "Authorization":
-              "WfIA5OJkBvu1rgRgL3vI5UBuHNNnF1vvBKNpsM1vDpldLqHofMe85oV27uVSTVNyypQRCs"
-        }));
+    var response =
+        await dio.get(EndPoints.favorites, options: Options(headers: header));
     if (response.statusCode == 200) {
       return FavoriteModel.fromJson(response.data);
     } else {

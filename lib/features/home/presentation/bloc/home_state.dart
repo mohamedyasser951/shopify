@@ -9,6 +9,8 @@ abstract class HomeState extends Equatable {
 
 class HomeInitial extends HomeState {}
 
+class ChangeAppModeState extends HomeState{}
+
 class GetHomeDataLoadingState extends HomeState {}
 
 class GetHomeDataSuccessState extends HomeState {

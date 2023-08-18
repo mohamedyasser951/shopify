@@ -45,7 +45,11 @@ class productItem extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     radius: 15.0,
-                    backgroundColor: Colors.white,
+                    backgroundColor: BlocProvider.of<HomeBloc>(context)
+                                .inFavorites[product.id] ==
+                            true
+                        ? AppColors.primaryColor
+                        : Colors.white,
                     child: IconButton(
                       onPressed: () {
                         BlocProvider.of<HomeBloc>(context)
@@ -53,18 +57,23 @@ class productItem extends StatelessWidget {
                       },
                       icon: SvgPicture.asset(
                         ImagesPath.favorite,
+                        color: BlocProvider.of<HomeBloc>(context)
+                                    .inFavorites[product.id] ==
+                                true
+                            ? Colors.white
+                            : null,
                         width: 18,
                       ),
                     ),
                   ),
-                 const SizedBox(width: 8,),
+                  const SizedBox(
+                    width: 8,
+                  ),
                   CircleAvatar(
                     radius: 15.0,
                     backgroundColor: Colors.white,
                     child: IconButton(
-                      onPressed: () {
-                       
-                      },
+                      onPressed: () {},
                       icon: SvgPicture.asset(
                         ImagesPath.card,
                         width: 18,
@@ -81,7 +90,6 @@ class productItem extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
           ),
-
           Row(
             children: [
               Text(product.price.toString(),
