@@ -43,18 +43,18 @@ class App extends StatelessWidget {
                 ..add(GetCardEvent()),
             )
           ],
-          child: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
-            return MaterialApp(
-              debugShowCheckedModeBanner: false,
-              theme: AppTheme.lightTheme,
-              darkTheme: AppTheme.darkTheme,
-              themeMode: BlocProvider.of<HomeBloc>(context).isDarkMode
-                  ? ThemeMode.dark
-                  : ThemeMode.light,
-              onGenerateRoute: AppRoute.onGenerateRoute,
-              initialRoute: "/",
-            );
-          }),
+          child: MaterialApp(
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.lightTheme,
+            darkTheme: AppTheme.darkTheme,
+            themeMode:
+                // BlocProvider.of<HomeBloc>(context).isDarkMode
+                //     ? ThemeMode.dark
+                // :
+                ThemeMode.light,
+            onGenerateRoute: AppRoute.onGenerateRoute,
+            initialRoute: "/",
+          ),
         );
       },
     );

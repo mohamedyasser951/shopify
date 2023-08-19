@@ -15,9 +15,7 @@ class FavoritePage extends StatelessWidget {
   Widget build(BuildContext context) {
     BlocProvider.of<HomeBloc>(context).add(GetFavoritesEvent());
     return BlocConsumer<HomeBloc, HomeState>(
-      listener: (context, state) {
-       
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         if (state is GetFavoritesLoadingState) {
           return const LoadingWidget();
@@ -77,11 +75,12 @@ class FavoriteItem extends StatelessWidget {
                 ),
                 if (model.discount != 0)
                   Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 4),
                     decoration: BoxDecoration(
                         color: AppColors.primaryColor,
-                        borderRadius:
-                            BorderRadius.only(topRight: Radius.circular(50.0))),
-                    child: Text(
+                        borderRadius: const BorderRadius.only(
+                            topRight: Radius.circular(40.0))),
+                    child: const Text(
                       "DISCOUNT",
                       style: TextStyle(
                           color: Colors.white,
@@ -107,19 +106,19 @@ class FavoriteItem extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    "${model.price}",
-                    style: TextStyle(color: AppColors.primaryColor),
+                    "${model.oldPrice}\$",
+                    style: TextStyle(
+                        decoration: TextDecoration.lineThrough,
+                        color: AppColors.grayColor,
+                        fontSize: 16),
                   ),
                   const SizedBox(
                     width: 5.0,
                   ),
-                  if (true)
-                    Text(
-                      "${model.oldPrice}",
-                      style: const TextStyle(
-                          color: Colors.grey,
-                          decoration: TextDecoration.lineThrough),
-                    ),
+                  if (model.oldPrice != 0)
+                    Text("${model.price}\$",
+                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontSize: 16, color: AppColors.primaryColor)),
                   const Spacer(),
                   CircleAvatar(
                     radius: 15.0,

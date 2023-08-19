@@ -17,10 +17,11 @@ class AppTheme {
     iconTheme: const IconThemeData(
       color: Colors.black,
     ),
-    appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.transparent,
-        iconTheme: IconThemeData(color: Colors.white),
-        titleTextStyle: TextStyle(color: Colors.white, fontSize: 22)),
+    appBarTheme:  AppBarTheme(
+      
+        backgroundColor: AppColors.lightBackgroud,
+        iconTheme: const IconThemeData(color: Colors.white),
+        titleTextStyle: const TextStyle(color: Colors.black, fontSize: 22)),
     textTheme: const TextTheme(
         bodyMedium: TextStyle(
             color: Colors.black, fontWeight: FontWeight.w500, fontSize: 20),
@@ -45,10 +46,10 @@ class AppTheme {
         color: Colors.white,
       ),
       primaryColor: AppColors.primaryColor,
-      appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.transparent,
-          titleTextStyle: TextStyle(color: Colors.white, fontSize: 22),
-          systemOverlayStyle: SystemUiOverlayStyle(
+      appBarTheme:  AppBarTheme(
+          backgroundColor: AppColors.darkColor,
+          titleTextStyle: const TextStyle(color: Colors.white, fontSize: 22),
+          systemOverlayStyle: const SystemUiOverlayStyle(
             statusBarBrightness: Brightness.dark,
             statusBarIconBrightness: Brightness.light,
           )),

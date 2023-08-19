@@ -3,4 +3,5 @@ abstract class AppStrings {
 }
 
 // ignore: non_constant_identifier_names
-String? TOKEN;
+String? TOKEN =
+    "RQSKcGhDRWDLNOsuEqvWBLIBZl3tEnQj3ByEaZAzKYDfdDhwQRhEStJmoxsMHHV0hWOa1b";

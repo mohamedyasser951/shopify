@@ -56,13 +56,17 @@ class productItem extends StatelessWidget {
                             .add(SetOrDeleteFavoriteEvent(id: product.id!));
                       },
                       icon: SvgPicture.asset(
-                        ImagesPath.favorite,
-                        color: BlocProvider.of<HomeBloc>(context)
+                        BlocProvider.of<HomeBloc>(context)
                                     .inFavorites[product.id] ==
                                 true
-                            ? Colors.white
-                            : null,
-                        width: 18,
+                            ? ImagesPath.love
+                            : ImagesPath.notLove,
+                        // color: BlocProvider.of<HomeBloc>(context)
+                        //             .inFavorites[product.id] ==
+                        //         true
+                        //     ? Colors.white
+                        //     : null,
+                       
                       ),
                     ),
                   ),
@@ -92,19 +96,20 @@ class productItem extends StatelessWidget {
           ),
           Row(
             children: [
-              Text(product.price.toString(),
+              if (product.discount != 0)
+                Text(
+                  "${product.discount}\$",
+                  style: TextStyle(
+                      decoration: TextDecoration.lineThrough,
+                      color: AppColors.grayColor,
+                      fontSize: 16),
+                ),
+              if (product.discount != 0) const SizedBox(width: 15.0),
+              Text("${product.price}\$",
                   style: Theme.of(context)
                       .textTheme
                       .bodyMedium!
-                      .copyWith(fontSize: 16)),
-              const SizedBox(width: 15.0),
-              Text(
-                product.discount.toString(),
-                style: TextStyle(
-                    decoration: TextDecoration.lineThrough,
-                    color: AppColors.primaryColor,
-                    fontSize: 16),
-              )
+                      .copyWith(fontSize: 16, color: AppColors.primaryColor)),
             ],
           )
         ],
