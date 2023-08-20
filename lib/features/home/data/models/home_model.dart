@@ -48,7 +48,7 @@ class Products {
   String? image;
   String? name;
   String? description;
-  List<String>? images;
+  List? images;
   bool? inFavorites;
   bool? inCart;
 
@@ -60,7 +60,7 @@ class Products {
     image = json['image'];
     name = json['name'];
     description = json['description'];
-    images = json['images'].cast<String>();
+    images = json['images'];
     inFavorites = json['in_favorites'];
     inCart = json['in_cart'];
   }

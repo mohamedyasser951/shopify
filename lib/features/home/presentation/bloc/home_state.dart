@@ -9,7 +9,7 @@ abstract class HomeState extends Equatable {
 
 class HomeInitial extends HomeState {}
 
-class ChangeAppModeState extends HomeState{}
+class ChangeAppModeState extends HomeState {}
 
 class GetHomeDataLoadingState extends HomeState {}
 
@@ -98,6 +98,22 @@ class SetOrDeleteSuccessState extends HomeState {
 class SetOrDeleteErrorState extends HomeState {
   final String error;
   const SetOrDeleteErrorState({
+    required this.error,
+  });
+}
+
+class SearchLoadingState extends HomeState {}
+
+class SearchSuccessState extends HomeState {
+  final List<Products> products;
+  const SearchSuccessState({
+    required this.products,
+  });
+}
+
+class SearchErrorState extends HomeState {
+  final String error;
+  const SearchErrorState({
     required this.error,
   });
 }

@@ -1,7 +1,6 @@
 import 'package:commerceapp/Config/constants/strings.dart';
 import 'package:commerceapp/features/Auth/presentation/pages/login_page.dart';
 import 'package:commerceapp/features/Auth/presentation/pages/register_page.dart';
-import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:commerceapp/features/home/presentation/pages/app_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';

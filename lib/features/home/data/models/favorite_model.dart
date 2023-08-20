@@ -1,3 +1,6 @@
+
+import 'package:commerceapp/features/home/data/models/home_model.dart';
+
 class FavoriteModel {
   bool? status;
   String? message;
@@ -24,31 +27,31 @@ class Data {
 
 class ProductData {
   int? id;
-  Product? product;
+  Products? product;
 
   ProductData.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     product =
-        json['product'] != null ? Product.fromJson(json['product']) : null;
+        json['product'] != null ? Products.fromJson(json['product']) : null;
   }
 }
 
-class Product {
-  int? id;
-  dynamic price;
-  dynamic oldPrice;
-  int? discount;
-  late String image;
-  String? name;
-  String? description;
+// class Product {
+//   int? id;
+//   dynamic price;
+//   dynamic oldPrice;
+//   int? discount;
+//   late String image;
+//   String? name;
+//   String? description;
 
-  Product.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    price = json['price'];
-    oldPrice = json['old_price'];
-    discount = json['discount'];
-    image = json['image'];
-    name = json['name'];
-    description = json['description'];
-  }
-}
+//   Product.fromJson(Map<String, dynamic> json) {
+//     id = json['id'];
+//     price = json['price'];
+//     oldPrice = json['old_price'];
+//     discount = json['discount'];
+//     image = json['image'];
+//     name = json['name'];
+//     description = json['description'];
+//   }
+// }

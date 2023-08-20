@@ -13,36 +13,32 @@ class HorizontalCategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(500)),
-      child: Stack(alignment: AlignmentDirectional.bottomCenter, children: [
-        CachedNetworkImage(
-          width: 100,
-          height: 100,
-          fit: BoxFit.cover,
-          imageUrl: model.image!,
-          placeholder: (context, url) => const Loadingitem(
-              widget: Skeleton(
+    return Card(
+      
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 6),
+        child: Column(children: [
+          CachedNetworkImage(
             width: 100,
             height: 100,
-          )),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
-        ),
-        Container(
-          width: 100,
-          height: 25.0,
-          color: Colors.black.withOpacity(0.6),
-          child: Text(
-            ' ${model.name}',
+            fit: BoxFit.contain,
+            imageUrl: model.image!,
+            placeholder: (context, url) => const Loadingitem(
+                widget: Skeleton(
+              width: 100,
+              height: 100,
+            )),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
+          ),
+          Text(
+            model.name!.split(" ")[0],
             style: const TextStyle(
-                overflow: TextOverflow.ellipsis,
-                color: Colors.white,
-                fontWeight: FontWeight.bold),
+                overflow: TextOverflow.ellipsis, fontWeight: FontWeight.bold),
             maxLines: 1,
             textAlign: TextAlign.center,
           ),
-        ),
-      ]),
+        ]),
+      ),
     );
   }
 }

@@ -20,7 +20,8 @@ class HomeRemoteDataSource {
   };
 
   Future<HomeModel> getHomeData() async {
-    var response = await dio.get(EndPoints.home);
+    var response =
+        await dio.get(EndPoints.home, options: Options(headers: header));
     if (response.statusCode == 200) {
       return HomeModel.fromJson(response.data);
     } else {
@@ -29,7 +30,7 @@ class HomeRemoteDataSource {
   }
 
   Future<CategoryModel> getCategories() async {
-    var response = await dio.get(EndPoints.category);
+    var response = await dio.get(EndPoints.category, options: Options(headers: header));
     if (response.statusCode == 200) {
       return CategoryModel.fromJson(response.data);
     } else {
@@ -62,6 +63,20 @@ class HomeRemoteDataSource {
         data: {"product_id": id}, options: Options(headers: header));
     if (response.statusCode == 200) {
       return FavoriteModel.fromJson(response.data);
+    } else {
+      throw ServerException();
+    }
+  }
+
+  Future<List<Products>> search({required String text}) async {
+    Response response = await dio.post(EndPoints.search,
+        data: {"text": text}, options: Options(headers: header));
+    if (response.statusCode == 200) {
+      List<Products> searchResult = [];
+      response.data["data"]["data"].forEach((product) {
+        searchResult.add(Products.fromJson(product));
+      });
+      return searchResult;
     } else {
       throw ServerException();
     }

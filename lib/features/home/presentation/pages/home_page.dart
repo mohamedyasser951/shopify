@@ -1,3 +1,4 @@
+import 'package:commerceapp/features/home/presentation/pages/search_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:commerceapp/Config/widgets/loading_widget.dart';
@@ -14,6 +15,16 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     var cubit = BlocProvider.of<HomeBloc>(context);
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Home"),
+        actions: [
+          IconButton(
+              onPressed: () {
+                showSearch(context: context, delegate: SearchPage());
+              },
+              icon: const Icon(Icons.search)),
+        ],
+      ),
       body: BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
         if (state is SetOrDeleteErrorState) {
           ScaffoldMessenger.of(context)
@@ -62,11 +73,11 @@ class HomeBody extends StatelessWidget {
           height: 10,
         ),
         Text(
-          "Category",
+          "Categories",
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         SizedBox(
-          height: 100,
+          height: 150,
           child: BuildHorizontalCategories(
             categories:
                 BlocProvider.of<HomeBloc>(context).categoryModel!.data!.data!,

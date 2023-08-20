@@ -18,13 +18,13 @@ class AppLayout extends StatefulWidget {
 class _AppLayoutState extends State<AppLayout> {
   int currentIndex = 0;
 
-  List<String> titles = [
-    "Home",
-    "Categories",
-    "Card",
-    "Favorites",
-    "My profile"
-  ];
+  // List<String> titles = [
+  //   "Home",
+  //   "Categories",
+  //   "Card",
+  //   "Favorites",
+  //   "My profile"
+  // ];
   List<Widget> screens = const [
     HomePage(),
     CategoryPage(),
@@ -36,9 +36,6 @@ class _AppLayoutState extends State<AppLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(titles[currentIndex]),
-      ),
       body: screens[currentIndex],
       bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: AppColors.primaryColor,

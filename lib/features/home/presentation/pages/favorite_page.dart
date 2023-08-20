@@ -3,7 +3,7 @@ import 'package:commerceapp/Config/components/loading.dart';
 import 'package:commerceapp/Config/components/skelton.dart';
 import 'package:commerceapp/Config/constants/colors.dart';
 import 'package:commerceapp/Config/widgets/loading_widget.dart';
-import 'package:commerceapp/features/home/data/models/favorite_model.dart';
+import 'package:commerceapp/features/home/data/models/home_model.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,36 +13,38 @@ class FavoritePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<HomeBloc>(context).add(GetFavoritesEvent());
+    var favoriteModel = BlocProvider.of<HomeBloc>(context).favoriteModel;
+    // BlocProvider.of<HomeBloc>(context).add(GetFavoritesEvent());
     return BlocConsumer<HomeBloc, HomeState>(
       listener: (context, state) {},
       builder: (context, state) {
-        if (state is GetFavoritesLoadingState) {
-          return const LoadingWidget();
-        } else if (state is GetFavoriteErrorState) {
+        if (state is GetFavoriteErrorState) {
           return Center(
             child: Text(state.error.toString()),
           );
-        } else if (state is GetFavoriteSuccessSate) {
-          return Scaffold(
-            body: ListView.separated(
-              itemCount: state.favorites.data!.data.length,
-              itemBuilder: (context, index) => FavoriteItem(
-                  model: state.favorites.data!.data[index].product!),
-              separatorBuilder: (context, index) => const SizedBox(
-                height: 10,
-              ),
-            ),
-          );
         }
-        return const SizedBox.shrink();
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text("Favorites"),
+          ),
+          body: state is GetFavoritesLoadingState
+              ? const LoadingWidget()
+              : ListView.separated(
+                  itemCount: favoriteModel!.data!.data.length,
+                  itemBuilder: (context, index) => FavoriteItem(
+                      model: favoriteModel.data!.data[index].product!),
+                  separatorBuilder: (context, index) => const SizedBox(
+                    height: 10,
+                  ),
+                ),
+        );
       },
     );
   }
 }
 
 class FavoriteItem extends StatelessWidget {
-  final Product model;
+  final Products model;
   const FavoriteItem({
     Key? key,
     required this.model,
@@ -65,7 +67,7 @@ class FavoriteItem extends StatelessWidget {
                   width: double.infinity,
                   height: 200,
                   fit: BoxFit.contain,
-                  imageUrl: model.image,
+                  imageUrl: model.image!,
                   placeholder: (context, url) => const Loadingitem(
                       widget: Skeleton(
                     width: 180,
@@ -73,7 +75,7 @@ class FavoriteItem extends StatelessWidget {
                   )),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
-                if (model.discount != 0)
+                if (model.discount != 0 && model.discount != null)
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     decoration: BoxDecoration(
@@ -105,20 +107,20 @@ class FavoriteItem extends StatelessWidget {
               const Spacer(),
               Row(
                 children: [
-                  Text(
-                    "${model.oldPrice}\$",
-                    style: TextStyle(
-                        decoration: TextDecoration.lineThrough,
-                        color: AppColors.grayColor,
-                        fontSize: 16),
-                  ),
+                  if (model.discount != 0 && model.discount != null)
+                    Text(
+                      "${model.oldPrice}\$",
+                      style: TextStyle(
+                          decoration: TextDecoration.lineThrough,
+                          color: AppColors.grayColor,
+                          fontSize: 16),
+                    ),
                   const SizedBox(
                     width: 5.0,
                   ),
-                  if (model.oldPrice != 0)
-                    Text("${model.price}\$",
-                        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                            fontSize: 16, color: AppColors.primaryColor)),
+                  Text("${model.price}\$",
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontSize: 16, color: AppColors.primaryColor)),
                   const Spacer(),
                   CircleAvatar(
                     radius: 15.0,

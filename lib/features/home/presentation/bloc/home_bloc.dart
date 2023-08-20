@@ -15,6 +15,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeRepo homeRepo;
   CategoryModel? categoryModel;
   CardModel? cardModel;
+  FavoriteModel? favoriteModel;
   HomeModel? homeModel;
   Map<int, bool> inFavorites = {};
   Map<int, bool> inCards = {};
@@ -65,7 +66,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         failureOrData.fold(
             (error) => emit(
                 GetCategoriesErrorState(error: mapFailureToMessage(error))),
-            (favorites) => emit(GetFavoriteSuccessSate(favorites: favorites)));
+            (favorites) {
+          favoriteModel = favorites;
+          emit(GetFavoriteSuccessSate(favorites: favorites));
+        });
       }
       if (event is SetOrDeleteFavoriteEvent) {
         inFavorites[event.id] = !inFavorites[event.id]!;
@@ -96,6 +100,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             (model) {
           cardModel = model;
           emit(GetCardSuceessState());
+        });
+      }
+      if (event is SearchEvent) {
+        emit(SearchLoadingState());
+        var failureOrData = await homeRepo.search(text: event.text);
+        failureOrData.fold(
+            (failure) =>
+                emit(SearchErrorState(error: mapFailureToMessage(failure))),
+            (products) {
+          emit(SearchSuccessState(products: products));
         });
       }
     });

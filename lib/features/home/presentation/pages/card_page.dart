@@ -1,12 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:commerceapp/Config/constants/image_paths.dart';
+import 'package:commerceapp/features/home/data/models/home_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:commerceapp/Config/components/loading.dart';
 import 'package:commerceapp/Config/components/skelton.dart';
 import 'package:commerceapp/Config/constants/colors.dart';
 import 'package:commerceapp/Config/widgets/loading_widget.dart';
-import 'package:commerceapp/features/home/data/models/favorite_model.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -17,6 +17,9 @@ class CardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var cardModel = BlocProvider.of<HomeBloc>(context).cardModel;
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Card"),
+      ),
       body: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
         if (state is GetCardSErrorState) {
           return Center(
@@ -39,7 +42,7 @@ class CardPage extends StatelessWidget {
 }
 
 class CardWidget extends StatelessWidget {
-  final Product product;
+  final Products product;
   const CardWidget({
     Key? key,
     required this.product,
@@ -55,7 +58,7 @@ class CardWidget extends StatelessWidget {
           child: Card(
             color: Theme.of(context).colorScheme.background,
             clipBehavior: Clip.antiAlias,
-            child: Container(
+            child: SizedBox(
               height: 110,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -65,7 +68,7 @@ class CardWidget extends StatelessWidget {
                     width: 100,
                     height: 100,
                     fit: BoxFit.contain,
-                    imageUrl: product.image,
+                    imageUrl: product.image!,
                     placeholder: (context, url) => const Loadingitem(
                         widget: Skeleton(
                       width: 100,
@@ -77,7 +80,7 @@ class CardWidget extends StatelessWidget {
                   const SizedBox(width: 6.0),
                   Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
@@ -86,29 +89,11 @@ class CardWidget extends StatelessWidget {
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        Row(
-                          children: [
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: const Size(0, 0),
-                              ),
-                              onPressed: () {},
-                              child: const Icon(Icons.add),
-                            ),
-                            Text("  1  ",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium!
-                                    .copyWith(fontSize: 16)),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: const Size(0, 0),
-                              ),
-                              onPressed: () {},
-                              child: const Icon(Icons.remove),
-                            ),
-                          ],
-                        )
+                        Text(
+                          "${product.price}\$",
+                          style: TextStyle(
+                              color: AppColors.primaryColor, fontSize: 16),
+                        ),
                       ],
                     ),
                   ),
@@ -116,14 +101,25 @@ class CardWidget extends StatelessWidget {
                     padding: const EdgeInsets.only(right: 4),
                     child: Column(
                       children: [
-                        const Icon(Icons.more_horiz),
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Text(
-                          "${product.price}\$",
-                          style: TextStyle(
-                              color: AppColors.primaryColor, fontSize: 16),
+                        Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                Icons.add,
+                                color: AppColors.primaryColor,
+                              ),
+                            ),
+                            Text("  1  ",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium!
+                                    .copyWith(fontSize: 16)),
+                            IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.remove),
+                            ),
+                          ],
                         )
                       ],
                     ),

@@ -14,6 +14,7 @@ abstract class HomeRepo {
   Future<Either<Failure, FavoriteModel>> getFavorites();
   Future<Either<Failure, FavoriteModel>> setOrDeleteFromFavorites(
       {required int id});
+  Future<Either<Failure, List<Products>>> search({required String text});
 }
 
 class HomeRepoImplem implements HomeRepo {
@@ -75,6 +76,16 @@ class HomeRepoImplem implements HomeRepo {
     try {
       var cardModel = await dataSource.getCard();
       return Right(cardModel);
+    } on ServerFailure {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Products>>> search({required String text}) async {
+    try {
+      var searchResult = await dataSource.search(text: text);
+      return Right(searchResult);
     } on ServerFailure {
       return Left(ServerFailure());
     }

@@ -1,4 +1,5 @@
-import 'package:commerceapp/features/home/data/models/favorite_model.dart';
+
+import 'package:commerceapp/features/home/data/models/home_model.dart';
 
 class CardModel {
   bool? status;
@@ -36,7 +37,7 @@ class CardData {
 class CartItems {
   int? id;
   int? quantity;
-  Product? product;
+  Products? product;
 
   CartItems({this.id, this.quantity, this.product});
 
@@ -44,7 +45,7 @@ class CartItems {
     id = json['id'];
     quantity = json['quantity'];
     product =
-        json['product'] != null ?  Product.fromJson(json['product']) : null;
+        json['product'] != null ?  Products.fromJson(json['product']) : null;
   }
 
 

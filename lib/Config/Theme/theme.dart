@@ -17,10 +17,9 @@ class AppTheme {
     iconTheme: const IconThemeData(
       color: Colors.black,
     ),
-    appBarTheme:  AppBarTheme(
-      
+    appBarTheme: AppBarTheme(
         backgroundColor: AppColors.lightBackgroud,
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.black),
         titleTextStyle: const TextStyle(color: Colors.black, fontSize: 22)),
     textTheme: const TextTheme(
         bodyMedium: TextStyle(
@@ -29,9 +28,7 @@ class AppTheme {
             color: Colors.black, fontWeight: FontWeight.w500, fontSize: 22)),
     bottomAppBarTheme: BottomAppBarTheme(
       color: AppColors.grayColor,
-
     ),
-  
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -46,7 +43,7 @@ class AppTheme {
         color: Colors.white,
       ),
       primaryColor: AppColors.primaryColor,
-      appBarTheme:  AppBarTheme(
+      appBarTheme: AppBarTheme(
           backgroundColor: AppColors.darkColor,
           titleTextStyle: const TextStyle(color: Colors.white, fontSize: 22),
           systemOverlayStyle: const SystemUiOverlayStyle(
@@ -60,9 +57,8 @@ class AppTheme {
               color: Colors.white, fontWeight: FontWeight.w500, fontSize: 22)),
       bottomAppBarTheme: BottomAppBarTheme(
         color: AppColors.darkColor,
-      
       ),
-      inputDecorationTheme:  InputDecorationTheme(
+      inputDecorationTheme: InputDecorationTheme(
         hintStyle: const TextStyle(color: Colors.black),
         fillColor: AppColors.grayColor,
       ));

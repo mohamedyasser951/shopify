@@ -28,3 +28,10 @@ class SetOrDeleteFavoriteEvent extends HomeEvent {
     required this.id,
   });
 }
+
+class SearchEvent extends HomeEvent {
+  final String text;
+  const SearchEvent({
+    required this.text,
+  });
+}

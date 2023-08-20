@@ -10,6 +10,9 @@ class CategoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+       appBar: AppBar(
+        title: const Text("Categories"),
+      ),
         body: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
       if (state is GetCategoriesLoadingState) {
         return const LoadingWidget();
