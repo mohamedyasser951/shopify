@@ -4,7 +4,7 @@ import 'package:commerceapp/features/home/presentation/pages/card_page.dart';
 import 'package:commerceapp/features/home/presentation/pages/category_page.dart';
 import 'package:commerceapp/features/home/presentation/pages/favorite_page.dart';
 import 'package:commerceapp/features/home/presentation/pages/home_page.dart';
-import 'package:commerceapp/features/home/presentation/pages/settings.dart';
+import 'package:commerceapp/features/settings/presentation/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -30,7 +30,7 @@ class _AppLayoutState extends State<AppLayout> {
     CategoryPage(),
     CardPage(),
     FavoritePage(),
-    SettingsPage(),
+    ProfilePage(),
   ];
 
   @override

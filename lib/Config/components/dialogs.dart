@@ -20,7 +20,6 @@ class CustomDialog {
     return AwesomeDialog(
       context: context,
       dialogType: isError ? DialogType.error : DialogType.success,
-
       animType: AnimType.rightSlide,
       title: title,
       btnCancelOnPress: isError ? () {} : null,

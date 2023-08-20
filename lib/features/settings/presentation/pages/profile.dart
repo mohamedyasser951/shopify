@@ -1,15 +1,13 @@
 import 'package:commerceapp/Config/constants/colors.dart';
-import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
+      appBar: AppBar(
         title: const Text("My profile"),
       ),
       body: Padding(
@@ -98,8 +96,7 @@ class SettingsPage extends StatelessWidget {
             ),
             ListTile(
               onTap: () {
-                BlocProvider.of<HomeBloc>(context)
-                    .add( ChangeAppModeEvent());
+                Navigator.pushNamed(context, "/settings");
               },
               title: Text(
                 'Settings',
