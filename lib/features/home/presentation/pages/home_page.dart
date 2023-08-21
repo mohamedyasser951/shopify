@@ -1,3 +1,4 @@
+import 'package:commerceapp/Config/components/custom_toast.dart';
 import 'package:commerceapp/features/home/presentation/pages/search_page.dart';
 import 'package:commerceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class HomePage extends StatelessWidget {
     var cubit = BlocProvider.of<HomeBloc>(context);
     return Scaffold(
       appBar: AppBar(
-        title:  Text(S.of(context).home),
+        title: Text(S.of(context).home),
         actions: [
           IconButton(
               onPressed: () {
@@ -28,12 +29,10 @@ class HomePage extends StatelessWidget {
       ),
       body: BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
         if (state is SetOrDeleteErrorState) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(state.error)));
+          customToast(mesg: state.error, color: Colors.red);
         }
         if (state is SetOrDeleteSuccessState) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(state.successMessage)));
+          customToast(mesg: state.successMessage);
         }
       }, builder: (context, state) {
         if (state is GetCategoriesErrorState) {
@@ -74,7 +73,7 @@ class HomeBody extends StatelessWidget {
           height: 10,
         ),
         Text(
-          "Categories",
+          S.of(context).categories,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         SizedBox(
@@ -88,7 +87,7 @@ class HomeBody extends StatelessWidget {
           height: 10,
         ),
         Text(
-          "Products",
+          S.of(context).products,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
         GridView.builder(

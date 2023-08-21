@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:commerceapp/Config/components/custom_toast.dart';
 import 'package:commerceapp/Config/components/loading.dart';
 import 'package:commerceapp/Config/components/skelton.dart';
 import 'package:commerceapp/Config/constants/colors.dart';
@@ -17,7 +18,14 @@ class FavoritePage extends StatelessWidget {
     var favoriteModel = BlocProvider.of<HomeBloc>(context).favoriteModel;
     // BlocProvider.of<HomeBloc>(context).add(GetFavoritesEvent());
     return BlocConsumer<HomeBloc, HomeState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is SetOrDeleteErrorState) {
+          customToast(mesg: state.error, color: Colors.red);
+        }
+        if (state is SetOrDeleteSuccessState) {
+          customToast(mesg: state.successMessage);
+        }
+      },
       builder: (context, state) {
         if (state is GetFavoriteErrorState) {
           return Center(
@@ -26,7 +34,7 @@ class FavoritePage extends StatelessWidget {
         }
         return Scaffold(
           appBar: AppBar(
-            title:  Text(S.of(context).favorites),
+            title: Text(S.of(context).favorites),
           ),
           body: state is GetFavoritesLoadingState
               ? const LoadingWidget()
@@ -83,7 +91,7 @@ class FavoriteItem extends StatelessWidget {
                         color: AppColors.primaryColor,
                         borderRadius: const BorderRadius.only(
                             topRight: Radius.circular(40.0))),
-                    child:  Text(
+                    child: Text(
                       S.of(context).discount,
                       style: const TextStyle(
                           color: Colors.white,

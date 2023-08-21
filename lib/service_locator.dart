@@ -19,7 +19,7 @@ Future<void> init() async {
   //BLOCS
   sl.registerFactory<AuthBloc>(() => AuthBloc(authRepo: sl()));
   sl.registerFactory<HomeBloc>(() => HomeBloc(homeRepo: sl()));
-  sl.registerFactory<SettingsBloc>(() => SettingsBloc());
+  sl.registerFactory<SettingsBloc>(() => SettingsBloc(homeRepo: sl()));
 
   //Repositories
   sl.registerLazySingleton<AuthRepo>(

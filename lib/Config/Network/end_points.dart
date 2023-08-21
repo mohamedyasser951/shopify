@@ -3,6 +3,9 @@ abstract class EndPoints {
 
   static String login = "$url/login";
   static String register = "$url/register";
+  static String profile = "$url/profile";
+  static String updateProfile = "$url/update-profile";
+  static String changePassword = "$url/change-password";
   static String home = "$url/home";
   static String category = "$url/categories";
   static String favorites = "$url/favorites";

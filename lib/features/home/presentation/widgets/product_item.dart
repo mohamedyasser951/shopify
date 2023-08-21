@@ -20,6 +20,7 @@ class productItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      
       child: InkWell(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(

@@ -3,7 +3,7 @@ import 'data.dart';
 class UserModel {
   bool? status;
   String? message;
-  Data? data;
+  UserData? data;
 
   UserModel({this.status, this.message, this.data});
 
@@ -12,7 +12,7 @@ class UserModel {
         message: json['message'] as String?,
         data: json['data'] == null
             ? null
-            : Data.fromJson(json['data'] as Map<String, dynamic>),
+            : UserData.fromJson(json['data'] as Map<String, dynamic>),
       );
 
   Map<String, dynamic> toJson() => {

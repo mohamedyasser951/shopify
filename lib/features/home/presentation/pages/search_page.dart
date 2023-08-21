@@ -11,7 +11,7 @@ class SearchPage extends SearchDelegate {
     return [
       IconButton(
           onPressed: () {
-            BlocProvider.of<HomeBloc>(context)..add(SearchEvent(text: query));
+            BlocProvider.of<HomeBloc>(context).add(SearchEvent(text: query));
             // query = "";
           },
           icon: const Icon(Icons.close)),

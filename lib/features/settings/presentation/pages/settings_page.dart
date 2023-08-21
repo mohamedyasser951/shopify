@@ -39,7 +39,10 @@ class SettingsPage extends StatelessWidget {
             height: 35.0,
           ),
           ListTile(
-            title:  Text(S.of(context).personal_information),
+            onTap: () {
+              Navigator.pushNamed(context, "/updateProfile");
+            },
+            title: Text(S.of(context).personal_information),
             subtitle: Text(
               S.of(context).Name_phone_Email,
               style: Theme.of(context)
@@ -64,9 +67,9 @@ class SettingsPage extends StatelessWidget {
                 ),
               );
             },
-            title:  Text(S.of(context).password),
+            title: Text(S.of(context).password),
             subtitle: Text(
-             S.of(context).password_settings,
+              S.of(context).password_settings,
               style: Theme.of(context)
                   .textTheme
                   .bodySmall!
@@ -89,7 +92,7 @@ class SettingsPage extends StatelessWidget {
                 ),
               );
             },
-            title:  Text(S.of(context).language),
+            title: Text(S.of(context).language),
             subtitle: Text(
               S.of(context).arabic_english,
               style: Theme.of(context)
@@ -125,9 +128,9 @@ class PasswordChangeSheet extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                 Padding(
+                Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Text(S.of(context).password_change),
                 ),
@@ -147,7 +150,7 @@ class PasswordChangeSheet extends StatelessWidget {
                   height: 30.0,
                 ),
                 CustomButton(
-                    widget:  Text(
+                    widget: Text(
                       S.of(context).save_password,
                       style: const TextStyle(color: Colors.white),
                     ),
@@ -187,7 +190,7 @@ class LanguageSheet extends StatelessWidget {
                           BlocProvider.of<SettingsBloc>(context)
                               .add(ChangeLanguageEvent(lang: i.toString()));
                         }),
-                     Text(S.of(context).arabic),
+                    Text(S.of(context).arabic),
                   ],
                 ),
                 const Divider(
@@ -202,7 +205,7 @@ class LanguageSheet extends StatelessWidget {
                           BlocProvider.of<SettingsBloc>(context)
                               .add(ChangeLanguageEvent(lang: i.toString()));
                         }),
-                     Text(S.of(context).english),
+                    Text(S.of(context).english),
                   ],
                 ),
               ],

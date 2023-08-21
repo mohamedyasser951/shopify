@@ -22,7 +22,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     required this.homeRepo,
   }) : super(HomeInitial()) {
     on<HomeEvent>((event, emit) async {
-      
       if (event is GetHomeDataEvent) {
         emit(GetHomeDataLoadingState());
         var failureOrData = await homeRepo.getHomeData();
@@ -71,7 +70,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           if (!model.status!) {
             inFavorites[event.id] = !inFavorites[event.id]!;
           } else {
-            homeRepo.getFavorites();
+            add(GetFavoritesEvent());
           }
           emit(SetOrDeleteSuccessState(
               successMessage: model.message.toString()));

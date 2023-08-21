@@ -110,7 +110,7 @@ class ProductDetails extends StatelessWidget {
                           backgroundColor: AppColors.primaryColor),
                       child:  Text(
                         S.of(context).buy_now,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
                   )
