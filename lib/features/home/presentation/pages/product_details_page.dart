@@ -4,6 +4,7 @@ import 'package:commerceapp/Config/components/loading.dart';
 import 'package:commerceapp/Config/components/skelton.dart';
 import 'package:commerceapp/Config/constants/colors.dart';
 import 'package:commerceapp/Config/constants/image_paths.dart';
+import 'package:commerceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 import 'package:commerceapp/features/home/data/models/home_model.dart';
@@ -19,7 +20,7 @@ class ProductDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Product Detail")),
+      appBar: AppBar(title: Text(S.of(context).product_detail)),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -58,7 +59,7 @@ class ProductDetails extends StatelessWidget {
               Row(
                 children: [
                   Text(
-                    "Name",
+                    S.of(context).name,
                     style: TextStyle(color: AppColors.primaryColor),
                   ),
                   const Spacer(),
@@ -78,7 +79,7 @@ class ProductDetails extends StatelessWidget {
                 height: 8,
               ),
               Text(
-                "Description",
+                S.of(context).description,
                 style: TextStyle(color: AppColors.primaryColor),
               ),
               const SizedBox(
@@ -94,9 +95,8 @@ class ProductDetails extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        
-                        ),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                    ),
                     child: SvgPicture.asset(ImagesPath.activeCard),
                   ),
                   const SizedBox(
@@ -108,8 +108,8 @@ class ProductDetails extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 14),
                           backgroundColor: AppColors.primaryColor),
-                      child:  const Text(
-                        "Buy Now",
+                      child:  Text(
+                        S.of(context).buy_now,
                         style: TextStyle(color: Colors.white),
                       ),
                     ),

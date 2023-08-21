@@ -1,9 +1,14 @@
 part of 'settings_bloc.dart';
 
 abstract class SettingsState extends Equatable {
-  const SettingsState();  
+  const SettingsState();
 
   @override
   List<Object> get props => [];
 }
+
 class SettingsInitial extends SettingsState {}
+
+class ChangeAppLangState extends SettingsState {}
+
+class ChangeAppModeState extends SettingsState {}

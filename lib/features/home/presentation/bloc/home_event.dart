@@ -7,12 +7,7 @@ abstract class HomeEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ChangeAppModeEvent extends HomeEvent {
-  final bool? modeFromCashe;
-  const ChangeAppModeEvent({
-    this.modeFromCashe,
-  });
-}
+
 
 class GetHomeDataEvent extends HomeEvent {}
 

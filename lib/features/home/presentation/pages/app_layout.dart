@@ -18,13 +18,7 @@ class AppLayout extends StatefulWidget {
 class _AppLayoutState extends State<AppLayout> {
   int currentIndex = 0;
 
-  // List<String> titles = [
-  //   "Home",
-  //   "Categories",
-  //   "Card",
-  //   "Favorites",
-  //   "My profile"
-  // ];
+
   List<Widget> screens = const [
     HomePage(),
     CategoryPage(),

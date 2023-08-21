@@ -1,13 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:commerceapp/Config/Network/error_strings.dart';
-import 'package:commerceapp/Config/constants/strings.dart';
 import 'package:commerceapp/features/home/data/models/card_model.dart';
 import 'package:commerceapp/features/home/data/models/category_model.dart';
 import 'package:commerceapp/features/home/data/models/favorite_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:commerceapp/features/home/data/models/home_model.dart';
 import 'package:commerceapp/features/home/data/repositories/home_repo.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 part 'home_event.dart';
 part 'home_state.dart';
 
@@ -19,23 +17,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeModel? homeModel;
   Map<int, bool> inFavorites = {};
   Map<int, bool> inCards = {};
-  bool isDarkMode = false;
 
   HomeBloc({
     required this.homeRepo,
   }) : super(HomeInitial()) {
     on<HomeEvent>((event, emit) async {
-      if (event is ChangeAppModeEvent) {
-        if (event.modeFromCashe != null) {
-          isDarkMode = event.modeFromCashe!;
-          emit(ChangeAppModeState());
-        } else {
-          isDarkMode = !isDarkMode;
-          var box = Hive.box(AppStrings.settingsBox);
-          box.put("darkMode", isDarkMode);
-          emit(ChangeAppModeState());
-        }
-      }
+      
       if (event is GetHomeDataEvent) {
         emit(GetHomeDataLoadingState());
         var failureOrData = await homeRepo.getHomeData();

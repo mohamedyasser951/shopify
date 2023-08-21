@@ -13,7 +13,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-
   cupertino_icons: ^1.0.2
   dio: ^5.3.2
   bloc: ^8.1.2
@@ -29,12 +28,11 @@ dependencies:
   awesome_dialog: ^3.1.0
   carousel_slider: ^4.2.1
   internet_connection_checker: ^1.0.0+1
-  
-
+  flutter_localizations:
+        sdk: flutter
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
 
   flutter_lints: ^2.0.0
   hive_generator: ^2.0.0
@@ -42,15 +40,12 @@ dev_dependencies:
 
 flutter:
 
-  
   uses-material-design: true
 
   assets:
     - assets/images/
     - assets/svg/icons/
     - assets/svg/images/
-
-
   # fonts:
   #   - family: Schyler
   #     fonts:
@@ -62,4 +57,5 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
-
+flutter_intl:
+  enabled: true

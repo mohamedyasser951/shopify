@@ -1,7 +1,10 @@
 import 'package:commerceapp/Config/constants/colors.dart';
 import 'package:commerceapp/Config/widgets/customized_button.dart';
 import 'package:commerceapp/Config/widgets/customized_text_field.dart';
+import 'package:commerceapp/features/settings/presentation/bloc/settings_bloc.dart';
+import 'package:commerceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -9,7 +12,16 @@ class SettingsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                BlocProvider.of<SettingsBloc>(context)
+                    .add(const ChangeAppModeEvent());
+              },
+              icon: const Icon(Icons.dark_mode))
+        ],
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -19,7 +31,7 @@ class SettingsPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Text(
-              "Settings",
+              S.of(context).settings,
               style: Theme.of(context).textTheme.displaySmall,
             ),
           ),
@@ -27,9 +39,9 @@ class SettingsPage extends StatelessWidget {
             height: 35.0,
           ),
           ListTile(
-            title: const Text("Personal information"),
+            title:  Text(S.of(context).personal_information),
             subtitle: Text(
-              "Name,phone,Email",
+              S.of(context).Name_phone_Email,
               style: Theme.of(context)
                   .textTheme
                   .bodySmall!
@@ -52,9 +64,9 @@ class SettingsPage extends StatelessWidget {
                 ),
               );
             },
-            title: const Text("Password"),
+            title:  Text(S.of(context).password),
             subtitle: Text(
-              "Password Settings",
+             S.of(context).password_settings,
               style: Theme.of(context)
                   .textTheme
                   .bodySmall!
@@ -73,13 +85,13 @@ class SettingsPage extends StatelessWidget {
                 builder: (context) => Padding(
                   padding: EdgeInsets.only(
                       bottom: MediaQuery.of(context).viewInsets.bottom),
-                  child: LanguageSheet(),
+                  child: const LanguageSheet(),
                 ),
               );
             },
-            title: const Text("Language"),
+            title:  Text(S.of(context).language),
             subtitle: Text(
-              "Arabic, English",
+              S.of(context).arabic_english,
               style: Theme.of(context)
                   .textTheme
                   .bodySmall!
@@ -115,29 +127,29 @@ class PasswordChangeSheet extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 10),
-                  child: Text("Password Change"),
+                 Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10),
+                  child: Text(S.of(context).password_change),
                 ),
                 CustomeTextField(
                     textEditingController: oldPasswordController,
-                    hintText: "Old Password"),
+                    hintText: S.of(context).old_password),
                 const SizedBox(
                   height: 6.0,
                 ),
                 CustomeTextField(
                     textEditingController: newPasswordController,
-                    hintText: "New Password"),
+                    hintText: S.of(context).new_password),
                 CustomeTextField(
                     textEditingController: repeatpasswordController,
-                    hintText: "Repeat New Password"),
+                    hintText: S.of(context).repeat_new_password),
                 const SizedBox(
                   height: 30.0,
                 ),
                 CustomButton(
-                    widget: const Text(
-                      "Save Password",
-                      style: TextStyle(color: Colors.white),
+                    widget:  Text(
+                      S.of(context).save_password,
+                      style: const TextStyle(color: Colors.white),
                     ),
                     onPressed: () {})
               ],
@@ -155,12 +167,12 @@ class LanguageSheet extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    var settingBloc = BlocProvider.of<SettingsBloc>(context);
+    return SizedBox(
       height: 130,
       child: BottomSheet(
         onClosing: () => true,
         enableDrag: false,
-        
         builder: (context) {
           return Padding(
             padding: const EdgeInsets.all(8.0),
@@ -169,10 +181,13 @@ class LanguageSheet extends StatelessWidget {
                 Row(
                   children: [
                     Radio.adaptive(
-                        value: true,
-                        groupValue: [true, false],
-                        onChanged: (i) {}),
-                    const Text("Arabic"),
+                        value: "ar",
+                        groupValue: settingBloc.langages,
+                        onChanged: (i) {
+                          BlocProvider.of<SettingsBloc>(context)
+                              .add(ChangeLanguageEvent(lang: i.toString()));
+                        }),
+                     Text(S.of(context).arabic),
                   ],
                 ),
                 const Divider(
@@ -181,10 +196,13 @@ class LanguageSheet extends StatelessWidget {
                 Row(
                   children: [
                     Radio.adaptive(
-                        value: false,
-                        groupValue: [true, false],
-                        onChanged: (i) {}),
-                    const Text("English"),
+                        value: "en",
+                        groupValue: settingBloc.langages,
+                        onChanged: (i) {
+                          BlocProvider.of<SettingsBloc>(context)
+                              .add(ChangeLanguageEvent(lang: i.toString()));
+                        }),
+                     Text(S.of(context).english),
                   ],
                 ),
               ],

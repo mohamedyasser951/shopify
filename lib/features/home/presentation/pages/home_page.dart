@@ -1,4 +1,5 @@
 import 'package:commerceapp/features/home/presentation/pages/search_page.dart';
+import 'package:commerceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:commerceapp/Config/widgets/loading_widget.dart';
@@ -16,7 +17,7 @@ class HomePage extends StatelessWidget {
     var cubit = BlocProvider.of<HomeBloc>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Home"),
+        title:  Text(S.of(context).home),
         actions: [
           IconButton(
               onPressed: () {

@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:commerceapp/Config/constants/image_paths.dart';
 import 'package:commerceapp/features/home/data/models/home_model.dart';
+import 'package:commerceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:commerceapp/Config/components/loading.dart';
@@ -18,7 +19,7 @@ class CardPage extends StatelessWidget {
     var cardModel = BlocProvider.of<HomeBloc>(context).cardModel;
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Card"),
+        title: Text(S.of(context).card),
       ),
       body: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
         if (state is GetCardSErrorState) {

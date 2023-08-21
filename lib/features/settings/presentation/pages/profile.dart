@@ -1,4 +1,5 @@
 import 'package:commerceapp/Config/constants/colors.dart';
+import 'package:commerceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -8,7 +9,7 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("My profile"),
+        title:  Text(S.of(context).profile),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
@@ -45,11 +46,11 @@ class ProfilePage extends StatelessWidget {
             ),
             ListTile(
               title: Text(
-                'My Orders',
+                S.of(context).orders,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               subtitle: Text(
-                "Already have 12 orders",
+                S.of(context).already_have_orders,
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall!
@@ -66,7 +67,7 @@ class ProfilePage extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               subtitle: Text(
-                "3 adresses",
+                S.of(context).adresses,
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall!
@@ -79,11 +80,11 @@ class ProfilePage extends StatelessWidget {
             ),
             ListTile(
               title: Text(
-                'Payment methods',
+                S.of(context).payment_methods,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               subtitle: Text(
-                "Visea **34",
+                S.of(context).Visea,
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall!
@@ -99,11 +100,11 @@ class ProfilePage extends StatelessWidget {
                 Navigator.pushNamed(context, "/settings");
               },
               title: Text(
-                'Settings',
+                S.of(context).settings,
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               subtitle: Text(
-                "Language, password",
+               S.of(context).Language_password,
                 style: Theme.of(context)
                     .textTheme
                     .bodySmall!

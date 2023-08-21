@@ -1,6 +1,7 @@
 import 'package:commerceapp/Config/widgets/loading_widget.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:commerceapp/features/home/presentation/pages/favorite_page.dart';
+import 'package:commerceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,7 +23,6 @@ class SearchPage extends SearchDelegate {
     return IconButton(
         onPressed: () {
           close(context, null);
-          
         },
         icon: const Icon(Icons.arrow_back));
   }
@@ -56,7 +56,7 @@ class SearchPage extends SearchDelegate {
               child: FavoriteItem(model: state.products[index])),
         );
       } else {
-        return const Center(child: Text("Search Now"));
+        return Center(child: Text(S.of(context).search_now));
       }
     });
   }

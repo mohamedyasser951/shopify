@@ -1,6 +1,7 @@
 import 'package:commerceapp/Config/widgets/loading_widget.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:commerceapp/features/home/presentation/widgets/vertical_category_item.dart';
+import 'package:commerceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,7 +12,7 @@ class CategoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
        appBar: AppBar(
-        title: const Text("Categories"),
+        title:  Text(S.of(context).categories),
       ),
         body: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
       if (state is GetCategoriesLoadingState) {
