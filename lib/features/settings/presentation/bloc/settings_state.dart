@@ -13,12 +13,9 @@ class ChangeAppLangState extends SettingsState {}
 
 class ChangeAppModeState extends SettingsState {}
 
-
 class GetProfileLoadingState extends SettingsState {}
 
-class GetProfileSucessState extends SettingsState {
-}
-
+class GetProfileSucessState extends SettingsState {}
 
 class GetProfileErrorState extends SettingsState {
   final String error;
@@ -54,6 +51,17 @@ class UpdatePasswordSucessState extends SettingsState {
 class UpdatePasswordErrorState extends SettingsState {
   final String error;
   const UpdatePasswordErrorState({
+    required this.error,
+  });
+}
+
+class GetAdresessLoadingState extends SettingsState {}
+
+class GetAdresessSucessState extends SettingsState {}
+
+class GetAdresessErrorState extends SettingsState {
+  final String error;
+  const GetAdresessErrorState({
     required this.error,
   });
 }

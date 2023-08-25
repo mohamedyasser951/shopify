@@ -190,8 +190,6 @@ class S {
     );
   }
 
-  // skipped getter for the 'shipping_addresse\'' key
-
   /// `adresses`
   String get adresses {
     return Intl.message(
@@ -201,6 +199,8 @@ class S {
       args: [],
     );
   }
+
+  // skipped getter for the 'sippingAddresses\'' key
 
   /// `Payment methods`
   String get payment_methods {

@@ -86,6 +86,9 @@ class ProfilePage extends StatelessWidget {
               height: 6,
             ),
             ListTile(
+              onTap: () {
+                Navigator.pushNamed(context, "/adressesPage");
+              },
               title: Text(
                 'Shipping addresse',
                 style: Theme.of(context).textTheme.bodyMedium,

@@ -37,7 +37,8 @@ class App extends StatelessWidget {
                 create: (context) => di.sl<SettingsBloc>()
                   ..add(ChangeAppModeEvent(
                       modeFromCashe: box.get("darkMode", defaultValue: false)))
-                  ..add(GetProfileEvent())),
+                  ..add(GetProfileEvent())
+                  ..add(GetAddresessEvent())),
             BlocProvider(
               create: (context) => di.sl<AuthBloc>(),
             ),

@@ -44,3 +44,5 @@ class ChangePasswordEvent extends SettingsEvent {
     required this.newPassword,
   });
 }
+
+class GetAddresessEvent extends SettingsEvent{}

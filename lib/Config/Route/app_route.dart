@@ -2,8 +2,9 @@ import 'package:commerceapp/Config/constants/strings.dart';
 import 'package:commerceapp/features/Auth/presentation/pages/login_page.dart';
 import 'package:commerceapp/features/Auth/presentation/pages/register_page.dart';
 import 'package:commerceapp/features/home/presentation/pages/app_layout.dart';
-import 'package:commerceapp/features/settings/presentation/pages/settings_page.dart';
-import 'package:commerceapp/features/settings/presentation/pages/update_profile_page.dart';
+import 'package:commerceapp/features/settings/presentation/pages/Profile/addresses_page.dart';
+import 'package:commerceapp/features/settings/presentation/pages/Settings/settings_page.dart';
+import 'package:commerceapp/features/settings/presentation/pages/Settings/update_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -33,9 +34,13 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (context) => const SettingsPage(),
         );
-         case "/updateProfile":
+      case "/updateProfile":
         return MaterialPageRoute(
           builder: (context) => const UpdateProfilePage(),
+        );
+      case "/adressesPage":
+        return MaterialPageRoute(
+          builder: (context) => const AdressesPage(),
         );
     }
 

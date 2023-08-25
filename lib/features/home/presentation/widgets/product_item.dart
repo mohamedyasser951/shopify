@@ -3,11 +3,9 @@ import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:commerceapp/features/home/presentation/pages/product_details_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:commerceapp/Config/components/loading.dart';
 import 'package:commerceapp/Config/components/skelton.dart';
 import 'package:commerceapp/Config/constants/colors.dart';
-import 'package:commerceapp/Config/constants/image_paths.dart';
 import 'package:commerceapp/features/home/data/models/home_model.dart';
 
 class productItem extends StatelessWidget {
@@ -20,7 +18,6 @@ class productItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      
       child: InkWell(
         onTap: () {
           Navigator.of(context).push(MaterialPageRoute(
@@ -44,8 +41,7 @@ class productItem extends StatelessWidget {
                   width: 180,
                   height: 180,
                 )),
-                errorWidget: (context, url, error) =>
-                    const Icon(Icons.error),
+                errorWidget: (context, url, error) => const Icon(Icons.error),
               ),
               const SizedBox(
                 width: 8,
@@ -68,32 +64,27 @@ class productItem extends StatelessWidget {
                     ),
                   if (product.discount != 0) const SizedBox(width: 15.0),
                   Text("${product.price}\$",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium!
-                          .copyWith(
-                              fontSize: 16, color: AppColors.primaryColor)),
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                          fontSize: 16, color: AppColors.primaryColor)),
                   const Spacer(),
-                  CircleAvatar(
-                    radius: 15.0,
-                    backgroundColor: BlocProvider.of<HomeBloc>(context)
-                                .inFavorites[product.id] ==
-                            true
-                        ? AppColors.primaryColor
-                        : Colors.white,
-                    child: IconButton(
-                      onPressed: () {
-                        BlocProvider.of<HomeBloc>(context)
-                            .add(SetOrDeleteFavoriteEvent(id: product.id!));
-                      },
-                      icon: SvgPicture.asset(
-                        BlocProvider.of<HomeBloc>(context)
+                  InkWell(
+                    onTap: () {
+                      BlocProvider.of<HomeBloc>(context)
+                          .add(SetOrDeleteFavoriteEvent(id: product.id!));
+                    },
+                    child: CircleAvatar(
+                        radius: 15,
+                        backgroundColor: BlocProvider.of<HomeBloc>(context)
                                     .inFavorites[product.id] ==
                                 true
-                            ? ImagesPath.love
-                            : ImagesPath.notLove,
-                      ),
-                    ),
+                            ? AppColors.primaryColor
+                            : Colors.grey,
+                        child: const Center(
+                          child: Icon(
+                            Icons.favorite,
+                            size: 12,
+                          ),
+                        )),
                   ),
                 ],
               )

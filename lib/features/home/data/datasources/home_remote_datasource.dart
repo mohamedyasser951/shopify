@@ -9,17 +9,19 @@ import 'package:commerceapp/features/home/data/models/favorite_model.dart';
 import 'package:commerceapp/features/home/data/models/home_model.dart';
 import 'package:dio/dio.dart';
 
+Map<String, String> header = {
+    "lang": "en",
+    "Content-Type": "application/json",
+    "Authorization": TOKEN!
+  };
+
 class HomeRemoteDataSource {
   Dio dio;
   HomeRemoteDataSource({
     required this.dio,
   });
 
-  Map<String, String> header = {
-    "lang": "en",
-    "Content-Type": "application/json",
-    "Authorization": TOKEN!
-  };
+  
 
   Future<HomeModel> getHomeData() async {
     var response =

@@ -16,7 +16,6 @@ class FavoritePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var favoriteModel = BlocProvider.of<HomeBloc>(context).favoriteModel;
-    // BlocProvider.of<HomeBloc>(context).add(GetFavoritesEvent());
     return BlocConsumer<HomeBloc, HomeState>(
       listener: (context, state) {
         if (state is SetOrDeleteErrorState) {
@@ -133,10 +132,11 @@ class FavoriteItem extends StatelessWidget {
                   const Spacer(),
                   CircleAvatar(
                     radius: 15.0,
-                    // backgroundColor:
-                    //     CubitHomeLayout.get(context).favoriets[model.id]!
-                    //         ? defeaultColor
-                    //         : Colors.grey,
+                    backgroundColor: BlocProvider.of<HomeBloc>(context)
+                                .inFavorites[model.id] ==
+                            true
+                        ? AppColors.primaryColor
+                        : Colors.grey,
                     child: IconButton(
                       padding: const EdgeInsets.all(0.0),
                       onPressed: () {
@@ -144,9 +144,9 @@ class FavoriteItem extends StatelessWidget {
                             .add(SetOrDeleteFavoriteEvent(id: model.id!));
                       },
                       icon: const Icon(
-                        Icons.favorite_border_outlined,
-                        size: 15.0,
-                        color: Colors.white,
+                        Icons.favorite,
+                        size: 12,
+                        // color: Colors.white,
                       ),
                     ),
                   )
