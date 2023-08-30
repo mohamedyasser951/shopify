@@ -19,4 +19,27 @@ class SettingsRemoteDataSource {
       throw ServerException();
     }
   }
+
+  Future<AddressesModel> addAdresses({
+    required AddressData addressData,
+  }) async {
+    Response response = await dio.post(EndPoints.adresses,
+        data: {
+          "name": addressData.name,
+          "city": addressData.city,
+          "region": addressData.region,
+          "details": addressData.details,
+          "notes": addressData.notes,
+          "latitude": 30.0616863,
+          "longitude": 31.3260088
+        },
+        options: Options(
+          headers: header,
+        ));
+    if (response.statusCode == 200) {
+      return AddressesModel.fromJson(response.data);
+    } else {
+      throw ServerException();
+    }
+  }
 }

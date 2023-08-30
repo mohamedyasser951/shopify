@@ -51,7 +51,9 @@ class _AdressesPageState extends State<AdressesPage> {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(context, '/addOrUpdateAddressesPage');
+        },
         child: const Icon(Icons.add),
       ),
     );

@@ -1,7 +1,11 @@
 class AddressesModel {
+  bool? status;
   List<AddressData>? data;
+  String? message;
 
   AddressesModel.fromJson(Map<String, dynamic> json) {
+    status = json["status"];
+    message = json["message"];
     if (json["data"] != null) {
       json["data"].forEach((element) {
         data = [];

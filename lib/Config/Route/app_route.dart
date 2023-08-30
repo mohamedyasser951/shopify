@@ -2,6 +2,7 @@ import 'package:commerceapp/Config/constants/strings.dart';
 import 'package:commerceapp/features/Auth/presentation/pages/login_page.dart';
 import 'package:commerceapp/features/Auth/presentation/pages/register_page.dart';
 import 'package:commerceapp/features/home/presentation/pages/app_layout.dart';
+import 'package:commerceapp/features/settings/presentation/pages/Profile/add_or_update_address_page.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Profile/addresses_page.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Settings/settings_page.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Settings/update_profile_page.dart';
@@ -19,8 +20,9 @@ class AppRoute {
     switch (routeSettings.name) {
       case "/":
         return MaterialPageRoute(builder: (context) => startWidget);
+        
       case "/home":
-        return MaterialPageRoute(builder: (_) => const AppLayout());
+        return MaterialPageRoute(builder: (_) =>  AppLayout());
 
       case "/login":
         return MaterialPageRoute(
@@ -41,6 +43,10 @@ class AppRoute {
       case "/adressesPage":
         return MaterialPageRoute(
           builder: (context) => const AdressesPage(),
+        );
+      case "/addOrUpdateAddressesPage":
+        return MaterialPageRoute(
+          builder: (context) => AddOrUpdateAddressesPage(),
         );
     }
 

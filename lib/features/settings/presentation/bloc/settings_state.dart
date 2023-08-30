@@ -65,3 +65,20 @@ class GetAdresessErrorState extends SettingsState {
     required this.error,
   });
 }
+
+class AddAdresessLoadingState extends SettingsState {}
+
+class AddAdresessSucessState extends SettingsState {
+    final AddressesModel addressesModel;
+const  AddAdresessSucessState({
+    required this.addressesModel,
+  });
+
+}
+
+class AddAdresessErrorState extends SettingsState {
+  final String error;
+  const AddAdresessErrorState({
+    required this.error,
+  });
+}

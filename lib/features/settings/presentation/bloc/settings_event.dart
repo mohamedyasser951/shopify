@@ -45,4 +45,11 @@ class ChangePasswordEvent extends SettingsEvent {
   });
 }
 
-class GetAddresessEvent extends SettingsEvent{}
+class GetAddresessEvent extends SettingsEvent {}
+
+class AddAddresessEvent extends SettingsEvent {
+  final AddressData addressData;
+  const AddAddresessEvent({
+    required this.addressData,
+  });
+}
