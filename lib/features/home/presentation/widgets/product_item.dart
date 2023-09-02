@@ -83,6 +83,7 @@ class productItem extends StatelessWidget {
                           child: Icon(
                             Icons.favorite,
                             size: 12,
+                            color: Colors.white,
                           ),
                         )),
                   ),

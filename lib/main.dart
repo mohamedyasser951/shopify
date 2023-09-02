@@ -38,7 +38,9 @@ class App extends StatelessWidget {
                   ..add(ChangeAppModeEvent(
                       modeFromCashe: box.get("darkMode", defaultValue: false)))
                   ..add(GetProfileEvent())
-                  ..add(GetAddresessEvent())),
+                  ..add(GetAddresessEvent())
+                  ..add(ChangeLanguageEvent(
+                      lang: box.get("lang", defaultValue: "en")))),
             BlocProvider(
               create: (context) => di.sl<AuthBloc>(),
             ),

@@ -146,7 +146,7 @@ class FavoriteItem extends StatelessWidget {
                       icon: const Icon(
                         Icons.favorite,
                         size: 12,
-                        // color: Colors.white,
+                        color: Colors.white,
                       ),
                     ),
                   )

@@ -8,6 +8,9 @@ import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:commerceapp/features/settings/data/datasources/settings_remote_data_source.dart';
 import 'package:commerceapp/features/settings/data/repositories/settings_repo.dart';
 import 'package:commerceapp/features/settings/presentation/bloc/settings_bloc.dart';
+import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/data/dataSource/orders_reomte_data_source.dart';
+import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/data/repositories/order_repo.dart';
+import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/presentation/bloc/orders_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -23,6 +26,7 @@ Future<void> init() async {
   sl.registerFactory<HomeBloc>(() => HomeBloc(homeRepo: sl()));
   sl.registerFactory<SettingsBloc>(
       () => SettingsBloc(homeRepo: sl(), settingsRepo: sl()));
+  sl.registerFactory<OrdersBloc>(() => OrdersBloc(orderRepo: sl()));
 
   //Repositories
   sl.registerLazySingleton<AuthRepo>(
@@ -34,6 +38,9 @@ Future<void> init() async {
 
   sl.registerLazySingleton<SettingsRepo>(
     () => SettingsRepoImplem(remoteDataSource: sl(), internetChecker: sl()),
+  );
+  sl.registerLazySingleton<OrderRepo>(
+    () => OrderRepoImplement(remoteDataSource: sl(), internetChecker: sl()),
   );
 
   //DataSource
@@ -47,6 +54,9 @@ Future<void> init() async {
   );
   sl.registerLazySingleton(
     () => SettingsRemoteDataSource(dio: sl()),
+  );
+  sl.registerLazySingleton(
+    () => OrdersRemoteDataSource(dio: sl()),
   );
 
 // Core

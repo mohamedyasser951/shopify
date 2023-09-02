@@ -70,6 +70,16 @@ class S {
     );
   }
 
+  /// `Shop`
+  String get shop {
+    return Intl.message(
+      'Shop',
+      name: 'shop',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Card`
   String get card {
     return Intl.message(
@@ -200,7 +210,7 @@ class S {
     );
   }
 
-  // skipped getter for the 'sippingAddresses\'' key
+  // skipped getter for the 'shippingAddresses\'' key
 
   /// `Payment methods`
   String get payment_methods {

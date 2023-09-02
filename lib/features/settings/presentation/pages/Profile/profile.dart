@@ -21,7 +21,8 @@ class ProfilePage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Column(
           children: [
-            BlocBuilder<SettingsBloc, SettingsState>(builder: (context, state) {
+            BlocBuilder<SettingsBloc, SettingsState>(
+              builder: (context, state) {
               return Row(
                 children: [
                   CircleAvatar(
@@ -69,6 +70,7 @@ class ProfilePage extends StatelessWidget {
               height: 10,
             ),
             ListTile(
+              onTap: () => Navigator.pushNamed(context, "/ordersPage"),
               title: Text(
                 S.of(context).orders,
                 style: Theme.of(context).textTheme.bodyMedium,
@@ -90,7 +92,7 @@ class ProfilePage extends StatelessWidget {
                 Navigator.pushNamed(context, "/adressesPage");
               },
               title: Text(
-                'Shipping addresse',
+              "shipping addresse",
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               subtitle: Text(

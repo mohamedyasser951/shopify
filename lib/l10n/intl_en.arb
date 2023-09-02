@@ -1,6 +1,7 @@
 {
     "home": "Home",
     "categories": "Categories",
+    "shop":"Shop",
     "card": "Card",
     "profile": "My profile",
     "products": "Products",
@@ -14,7 +15,7 @@
     "orders": "My Orders",
     "already_have_orders": "Already have 12 orders",
     "adresses": "adresses",
-    "sippingAddresses'": "Shipping addresse",
+    "shippingAddresses'": "Shipping addresse",
     "payment_methods": "Payment methods",
     "Visea": "Visea **34",
     "settings": "Settings",

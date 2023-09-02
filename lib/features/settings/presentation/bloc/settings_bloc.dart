@@ -19,14 +19,18 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   List langages = ["ar", "en"];
   UserData? userProfileData;
   AddressesModel? userAddresess;
+  var box = Hive.box(AppStrings.settingsBox);
+
   SettingsBloc({
     required this.homeRepo,
     required this.settingsRepo,
   }) : super(SettingsInitial()) {
     on<SettingsEvent>((event, emit) async {
       if (event is ChangeLanguageEvent) {
-        appLang = event.lang;
-        emit(ChangeAppLangState());
+        await box.put("lang", event.lang).then((value) {
+          appLang = event.lang;
+          emit(ChangeAppLangState());
+        });
       }
 
       if (event is ChangeAppModeEvent) {
@@ -35,7 +39,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
           emit(ChangeAppModeState());
         } else {
           isDarkMode = !isDarkMode;
-          var box = Hive.box(AppStrings.settingsBox);
           box.put("darkMode", isDarkMode);
           emit(ChangeAppModeState());
         }
@@ -95,8 +98,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
             (failure) => emit(
                 AddAdresessErrorState(error: mapFailureToMessage(failure))),
             (addresses) {
-         
-
           emit(AddAdresessSucessState(addressesModel: addresses));
         });
       }

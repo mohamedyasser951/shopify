@@ -63,6 +63,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Repeat New Password"),
         "save_password": MessageLookupByLibrary.simpleMessage("Save Password"),
         "search_now": MessageLookupByLibrary.simpleMessage("Search Now"),
-        "settings": MessageLookupByLibrary.simpleMessage("Settings")
+        "settings": MessageLookupByLibrary.simpleMessage("Settings"),
+        "shop": MessageLookupByLibrary.simpleMessage("Shop")
       };
 }

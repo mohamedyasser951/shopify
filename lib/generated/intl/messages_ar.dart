@@ -26,7 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("اللغة، كلمة المرور"),
         "Name_phone_Email": MessageLookupByLibrary.simpleMessage(
             "الاسم، الهاتف، البريد الإلكتروني"),
-        "Visea": MessageLookupByLibrary.simpleMessage("فيزا **34"),
+        "Visea": MessageLookupByLibrary.simpleMessage("فيزا **55"),
         "adresses": MessageLookupByLibrary.simpleMessage("العناوين"),
         "already_have_orders":
             MessageLookupByLibrary.simpleMessage("لديك بالفعل 12 طلب"),
@@ -40,7 +40,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "discount": MessageLookupByLibrary.simpleMessage("خصم"),
         "english": MessageLookupByLibrary.simpleMessage("الإنجليزية"),
         "favorites": MessageLookupByLibrary.simpleMessage("المفضلة"),
-        "home": MessageLookupByLibrary.simpleMessage("الصفحة الرئيسية"),
+        "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
         "name": MessageLookupByLibrary.simpleMessage("الاسم"),
         "new_password":
@@ -64,6 +64,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "save_password":
             MessageLookupByLibrary.simpleMessage("حفظ كلمة المرور"),
         "search_now": MessageLookupByLibrary.simpleMessage("البحث الآن"),
-        "settings": MessageLookupByLibrary.simpleMessage("الإعدادات")
+        "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
+        "shop": MessageLookupByLibrary.simpleMessage("تسوق")
       };
 }
