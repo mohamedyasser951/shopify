@@ -1,3 +1,4 @@
+import 'package:commerceapp/Config/Network/exception.dart';
 import 'package:dartz/dartz.dart';
 
 import 'package:commerceapp/Config/Network/failure.dart';
@@ -23,7 +24,7 @@ class SettingsRepoImplem implements SettingsRepo {
     try {
       var addresses = await remoteDataSource.getAdresses();
       return Right(addresses);
-    } on ServerFailure {
+    } on ServerException {
       return Left(ServerFailure());
     }
   }
@@ -39,7 +40,7 @@ class SettingsRepoImplem implements SettingsRepo {
       print(addresses.message);
       print(addresses.data.toString());
       return Right(addresses);
-    } on ServerFailure {
+    } on ServerException {
       return Left(ServerFailure());
     }
   }

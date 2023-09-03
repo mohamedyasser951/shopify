@@ -21,3 +21,20 @@ class GetAllOrdersErrorState extends OrdersState {
 }
 
 class GetAllOrdersSuccessState extends OrdersState {}
+
+// Get Orders Details
+class GetOrderDetailLoadingState extends OrdersState {}
+
+class GetOrderDetailSuccessState extends OrdersState {
+  final OrdersDetailsModel ordersDetailsModel;
+  const GetOrderDetailSuccessState({
+    required this.ordersDetailsModel,
+  });
+}
+
+class GetOrderDetailErrorState extends OrdersState {
+  final String message;
+  const GetOrderDetailErrorState({
+    required this.message,
+  });
+}

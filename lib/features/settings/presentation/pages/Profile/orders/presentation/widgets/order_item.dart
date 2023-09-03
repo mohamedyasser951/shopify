@@ -1,7 +1,9 @@
+import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/presentation/bloc/orders_bloc.dart';
 import 'package:flutter/material.dart';
 
 import 'package:commerceapp/Config/constants/colors.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/data/models/orders_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OrderItem extends StatelessWidget {
   final OrderData orderData;
@@ -40,9 +42,22 @@ class OrderItem extends StatelessWidget {
               children: [
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(),
-                    onPressed: () {},
+                    onPressed: () {
+                      BlocProvider.of<OrdersBloc>(context)
+                          .add(GetOrdersDetailsEvent(id: orderData.id!));
+                      Navigator.pushNamed(context, "/orderDetailsPage",
+                          arguments: orderData.id);
+                    },
                     child: const Text("Details")),
-                Text(orderData.status!),
+                Text(
+                  orderData.status!,
+                  style: TextStyle(
+                    fontSize: 16,
+                      color: orderData.status! == "New" ||
+                              orderData.status! == "جديد"
+                          ? Colors.green
+                          : Colors.red),
+                ),
               ],
             ),
           ],

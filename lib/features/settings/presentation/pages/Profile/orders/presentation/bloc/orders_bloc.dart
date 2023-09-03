@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:commerceapp/Config/Network/error_strings.dart';
+import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/data/models/orders_details_model.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/data/models/orders_model.dart';
 import 'package:equatable/equatable.dart';
 
@@ -23,8 +24,17 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
                 GetAllOrdersErrorState(message: mapFailureToMessage(failure))),
             (orders) {
           ordersModel = orders;
-          print(orders);
           emit(GetAllOrdersSuccessState());
+        });
+      }
+       if (event is GetOrdersDetailsEvent) {
+        emit(GetOrderDetailLoadingState());
+        var ordersOrFailure = await orderRepo.getOrdersDetails(id: event.id);
+        ordersOrFailure.fold(
+            (failure) => emit(
+                GetOrderDetailErrorState(message: mapFailureToMessage(failure))),
+            (orderdetails) {
+          emit(GetOrderDetailSuccessState(ordersDetailsModel: orderdetails));
         });
       }
     });

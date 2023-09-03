@@ -5,6 +5,7 @@ import 'package:commerceapp/features/home/presentation/pages/app_layout.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Profile/add_or_update_address_page.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Profile/addresses_page.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/presentation/bloc/orders_bloc.dart';
+import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/presentation/pages/order_details_page.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/presentation/pages/orders_page.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Settings/settings_page.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Settings/update_profile_page.dart';
@@ -46,6 +47,14 @@ class AppRoute {
             child: const OrdersPage(),
           ),
         );
+      case "/orderDetailsPage":
+        return MaterialPageRoute(
+          builder: (context) => BlocProvider.value(
+            value: sl<OrdersBloc>(),
+            child: OrderDetailsPage(orderId: routeSettings.arguments as int),
+          ),
+        );
+
       case "/updateProfile":
         return MaterialPageRoute(
           builder: (context) => const UpdateProfilePage(),

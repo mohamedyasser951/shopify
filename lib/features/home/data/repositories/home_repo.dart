@@ -1,3 +1,4 @@
+import 'package:commerceapp/Config/Network/exception.dart';
 import 'package:commerceapp/features/Auth/data/models/user_model/data.dart';
 import 'package:commerceapp/features/Auth/data/models/user_model/user_model.dart';
 import 'package:commerceapp/features/home/data/models/card_model.dart';
@@ -46,7 +47,7 @@ class HomeRepoImplem implements HomeRepo {
     try {
       var homeModel = await dataSource.getHomeData();
       return Right(homeModel);
-    } on ServerFailure {
+    } on ServerException {
       return Left(ServerFailure());
     }
   }
@@ -56,7 +57,7 @@ class HomeRepoImplem implements HomeRepo {
     try {
       var categoryModel = await dataSource.getCategories();
       return Right(categoryModel);
-    } on ServerFailure {
+    } on ServerException {
       return Left(ServerFailure());
     }
   }
@@ -66,7 +67,7 @@ class HomeRepoImplem implements HomeRepo {
     try {
       var favorites = await dataSource.getFavorites();
       return Right(favorites);
-    } on ServerFailure {
+    } on ServerException {
       return Left(ServerFailure());
     }
   }
@@ -78,11 +79,11 @@ class HomeRepoImplem implements HomeRepo {
       try {
         var favorite = await dataSource.setOrDeleteFromFavorites(id: id);
         return Right(favorite);
-      } on ServerFailure {
+      } on ServerException {
         return Left(ServerFailure());
       }
     } else {
-      throw OfflineFailure();
+      return Left(OfflineFailure());
     }
   }
 
@@ -91,7 +92,7 @@ class HomeRepoImplem implements HomeRepo {
     try {
       var cardModel = await dataSource.getCard();
       return Right(cardModel);
-    } on ServerFailure {
+    } on ServerException {
       return Left(ServerFailure());
     }
   }
@@ -101,21 +102,20 @@ class HomeRepoImplem implements HomeRepo {
     try {
       var searchResult = await dataSource.search(text: text);
       return Right(searchResult);
-    } on ServerFailure {
+    } on ServerException {
       return Left(ServerFailure());
     }
   }
 
-    @override
-  Future<Either<Failure, UserData>> getUserProfile() async{
-     try {
-        var data = await dataSource.getUserProfile();
-        return Right(data);
-      } on ServerFailure {
-        return Left(ServerFailure());
-      }
+  @override
+  Future<Either<Failure, UserData>> getUserProfile() async {
+    try {
+      var data = await dataSource.getUserProfile();
+      return Right(data);
+    } on ServerException {
+      return Left(ServerFailure());
+    }
   }
-
 
   @override
   Future<Either<Failure, UserModel>> changePassword(
@@ -125,11 +125,11 @@ class HomeRepoImplem implements HomeRepo {
         var data = await dataSource.changePassword(
             currentPassword: currentPassword, newPassword: newPassword);
         return Right(data);
-      } on ServerFailure {
+      } on ServerException {
         return Left(ServerFailure());
       }
     } else {
-      throw OfflineFailure();
+      return Left(OfflineFailure());
     }
   }
 
@@ -148,7 +148,7 @@ class HomeRepoImplem implements HomeRepo {
         return Left(ServerFailure());
       }
     } else {
-      throw OfflineFailure();
+      return Left(OfflineFailure());
     }
   }
 }
