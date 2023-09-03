@@ -53,19 +53,20 @@ class productItem extends StatelessWidget {
                 overflow: TextOverflow.ellipsis,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  if (product.discount != 0)
-                    Text(
-                      "${product.discount}\$",
-                      style: TextStyle(
-                          decoration: TextDecoration.lineThrough,
-                          color: AppColors.grayColor,
-                          fontSize: 16),
-                    ),
-                  if (product.discount != 0) const SizedBox(width: 15.0),
+                  // if (product.discount != 0)
+                  //   Text(
+                  //     "${product.discount}\$",
+                  //     style: TextStyle(
+                  //         decoration: TextDecoration.lineThrough,
+                  //         color: AppColors.grayColor,
+                  //         fontSize: 14),
+                  //   ),
+                  // if (product.discount != 0) const SizedBox(width: 15.0),
                   Text("${product.price}\$",
                       style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-                          fontSize: 16, color: AppColors.primaryColor)),
+                          fontSize: 15, color: AppColors.primaryColor)),
                   const Spacer(),
                   InkWell(
                     onTap: () {
@@ -82,6 +83,24 @@ class productItem extends StatelessWidget {
                         child: const Center(
                           child: Icon(
                             Icons.favorite,
+                            size: 12,
+                            color: Colors.white,
+                          ),
+                        )),
+                  ),
+                    const SizedBox(
+                      width: 4,
+                    ),
+                   InkWell(
+                    onTap: () {
+                      
+                    },
+                    child: const CircleAvatar(
+                        radius: 15,
+                        backgroundColor:Colors.green,
+                        child: Center(
+                          child: Icon(
+                            Icons.shop,
                             size: 12,
                             color: Colors.white,
                           ),

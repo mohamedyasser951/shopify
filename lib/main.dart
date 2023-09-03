@@ -71,6 +71,7 @@ class App extends StatelessWidget {
                   : ThemeMode.light,
               onGenerateRoute: AppRoute.onGenerateRoute,
               initialRoute: "/",
+              // home: OnBoardingPage(),
             );
           }),
         );
