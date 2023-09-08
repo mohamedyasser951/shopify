@@ -1,6 +1,6 @@
 import 'package:commerceapp/Config/widgets/loading_widget.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
-import 'package:commerceapp/features/home/presentation/pages/favorite_page.dart';
+import 'package:commerceapp/features/home/presentation/widgets/FavoritesWidgets/favorite_item.dart';
 import 'package:commerceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

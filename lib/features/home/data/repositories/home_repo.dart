@@ -13,8 +13,12 @@ import 'package:commerceapp/features/home/data/models/home_model.dart';
 abstract class HomeRepo {
   Future<Either<Failure, HomeModel>> getHomeData();
   Future<Either<Failure, CategoryModel>> getCategories();
+  Future<Either<Failure, List<Products>>> getCategoriesDetails(
+      {required int id});
+
   Future<Either<Failure, CardModel>> getCard();
   Future<Either<Failure, FavoriteModel>> getFavorites();
+
   Future<Either<Failure, FavoriteModel>> setOrDeleteFromFavorites(
       {required int id});
   Future<Either<Failure, List<Products>>> search({required String text});
@@ -144,7 +148,22 @@ class HomeRepoImplem implements HomeRepo {
         var data = await dataSource.updateProfile(
             name: name, email: email, phone: phone, image: image);
         return Right(data);
-      } on ServerFailure {
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Products>>> getCategoriesDetails(
+      {required int id}) async {
+    if (await internetChecker.isConnected) {
+      try {
+        var products = await dataSource.getCategoriesDetails(id: id);
+        return Right(products);
+      } on ServerException {
         return Left(ServerFailure());
       }
     } else {

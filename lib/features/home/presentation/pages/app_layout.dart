@@ -1,7 +1,7 @@
 import 'package:commerceapp/Config/constants/colors.dart';
 import 'package:commerceapp/Config/constants/image_paths.dart';
 import 'package:commerceapp/features/home/presentation/pages/card_page.dart';
-import 'package:commerceapp/features/home/presentation/pages/category_page.dart';
+import 'package:commerceapp/features/home/presentation/pages/Categories/category_page.dart';
 import 'package:commerceapp/features/home/presentation/pages/favorite_page.dart';
 import 'package:commerceapp/features/home/presentation/pages/home_page.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Profile/profile.dart';

@@ -9,7 +9,6 @@ abstract class HomeState extends Equatable {
 
 class HomeInitial extends HomeState {}
 
-
 class GetHomeDataLoadingState extends HomeState {}
 
 class GetHomeDataSuccessState extends HomeState {
@@ -27,6 +26,20 @@ class GetHomeDataErrorState extends HomeState {
     required this.error,
   });
 
+  @override
+  List<Object> get props => [error];
+}
+
+//Get Categories Details
+class CategoriesDetailsLoadingState extends HomeState {}
+
+class CategoriesDetailsSuccessState extends HomeState {}
+
+class CategoriesDetailsErrorState extends HomeState {
+  final String error;
+  const CategoriesDetailsErrorState({
+    required this.error,
+  });
   @override
   List<Object> get props => [error];
 }
@@ -74,8 +87,8 @@ class GetFavoriteSuccessSate extends HomeState {
   const GetFavoriteSuccessSate({
     required this.favorites,
   });
-  @override
-  List<Object> get props => [favorites];
+  // @override
+  // List<Object> get props => [favorites];
 }
 
 class GetFavoriteErrorState extends HomeState {
@@ -86,6 +99,8 @@ class GetFavoriteErrorState extends HomeState {
   @override
   List<Object> get props => [error];
 }
+
+class ChangeStateOfFavorite extends HomeState {}
 
 class SetOrDeleteSuccessState extends HomeState {
   final String successMessage;

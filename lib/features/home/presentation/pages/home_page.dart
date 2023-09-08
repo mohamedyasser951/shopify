@@ -90,16 +90,19 @@ class HomeBody extends StatelessWidget {
           S.of(context).products,
           style: Theme.of(context).textTheme.bodyMedium,
         ),
-        GridView.builder(
-          physics: const NeverScrollableScrollPhysics(),
-          shrinkWrap: true,
-          itemCount: homeModel.data!.products!.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              childAspectRatio: .6, crossAxisCount: 2),
-          itemBuilder: (context, index) =>
-              productItem(product: homeModel.data!.products![index]),
-        )
+        gridViewBuilder(products: homeModel.data!.products!)
       ],
     );
   }
+}
+
+GridView gridViewBuilder({required List<Products> products}) {
+  return GridView.builder(
+    physics: const NeverScrollableScrollPhysics(),
+    shrinkWrap: true,
+    itemCount: products.length,
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        childAspectRatio: .6, crossAxisCount: 2),
+    itemBuilder: (context, index) => productItem(product: products[index]),
+  );
 }

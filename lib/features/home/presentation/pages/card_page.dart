@@ -134,7 +134,7 @@ class CardWidget extends StatelessWidget {
           padding: const EdgeInsets.only(right: 8, top: 5),
           child: CircleAvatar(
             radius: 15.0,
-            backgroundColor: AppColors.primaryColor,
+            backgroundColor:Colors.green,
             child: IconButton(
               onPressed: () {},
               icon: SvgPicture.asset(
@@ -149,3 +149,4 @@ class CardWidget extends StatelessWidget {
     );
   }
 }
+ 

@@ -1,10 +1,9 @@
-
 import 'package:commerceapp/features/home/data/models/home_model.dart';
 
 class FavoriteModel {
   bool? status;
   String? message;
-  Data? data;
+  Data? data ;
 
   FavoriteModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -14,12 +13,13 @@ class FavoriteModel {
 }
 
 class Data {
-  List<ProductData> data = [];
+  List<ProductData>? data = [];
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
+      data = [];
       json['data'].forEach((v) {
-        data.add(ProductData.fromJson(v));
+        data!.add(ProductData.fromJson(v));
       });
     }
   }

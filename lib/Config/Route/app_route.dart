@@ -1,6 +1,7 @@
 import 'package:commerceapp/Config/constants/strings.dart';
 import 'package:commerceapp/features/Auth/presentation/pages/login_page.dart';
 import 'package:commerceapp/features/Auth/presentation/pages/register_page.dart';
+import 'package:commerceapp/features/home/presentation/pages/Categories/category_details_page.dart';
 import 'package:commerceapp/features/home/presentation/pages/app_layout.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Profile/add_or_update_address_page.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Profile/addresses_page.dart';
@@ -54,7 +55,11 @@ class AppRoute {
             child: OrderDetailsPage(orderId: routeSettings.arguments as int),
           ),
         );
-
+      case "/getCategoryDetails":
+        return MaterialPageRoute(
+          builder: (context) => CategoryDetailsPage(
+              categoryName: routeSettings.arguments as String),
+        );
       case "/updateProfile":
         return MaterialPageRoute(
           builder: (context) => const UpdateProfilePage(),

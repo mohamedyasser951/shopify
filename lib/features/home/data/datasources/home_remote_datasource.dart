@@ -10,18 +10,16 @@ import 'package:commerceapp/features/home/data/models/home_model.dart';
 import 'package:dio/dio.dart';
 
 Map<String, String> header = {
-    "lang": "en",
-    "Content-Type": "application/json",
-    "Authorization": TOKEN!
-  };
+  "lang": "en",
+  "Content-Type": "application/json",
+  "Authorization": TOKEN!
+};
 
 class HomeRemoteDataSource {
   Dio dio;
   HomeRemoteDataSource({
     required this.dio,
   });
-
-  
 
   Future<HomeModel> getHomeData() async {
     var response =
@@ -38,6 +36,20 @@ class HomeRemoteDataSource {
         await dio.get(EndPoints.category, options: Options(headers: header));
     if (response.statusCode == 200) {
       return CategoryModel.fromJson(response.data);
+    } else {
+      throw ServerException();
+    }
+  }
+
+  Future<List<Products>> getCategoriesDetails({required int id}) async {
+    List<Products> products = [];
+    var response = await dio.get("${EndPoints.category}/$id",
+        options: Options(headers: header));
+    if (response.statusCode == 200) {
+      response.data["data"]["data"].forEach((element) {
+        products.add(Products.fromJson(element));
+      });
+      return products;
     } else {
       throw ServerException();
     }

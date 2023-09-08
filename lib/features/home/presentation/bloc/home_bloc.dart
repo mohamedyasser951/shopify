@@ -11,6 +11,7 @@ part 'home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeRepo homeRepo;
+  List<Products>? productsByCategory;
   CategoryModel? categoryModel;
   CardModel? cardModel;
   FavoriteModel? favoriteModel;
@@ -46,6 +47,17 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           emit(GetCategoriesSuccessState(categoryModel: model));
         });
       }
+      if (event is GetCategoriesDetailsEvent) {
+        emit(CategoriesDetailsLoadingState());
+        var failureOrData =
+            await homeRepo.getCategoriesDetails(id: event.categoryId);
+        failureOrData.fold(
+            (failure) => emit(CategoriesDetailsErrorState(
+                error: mapFailureToMessage(failure))), (products) {
+          productsByCategory = products;
+          emit(CategoriesDetailsSuccessState());
+        });
+      }
       if (event is GetFavoritesEvent) {
         emit(GetFavoritesLoadingState());
         var failureOrData = await homeRepo.getFavorites();
@@ -59,7 +71,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       }
       if (event is SetOrDeleteFavoriteEvent) {
         inFavorites[event.id] = !inFavorites[event.id]!;
-
+        emit(ChangeStateOfFavorite());
         var failureOrData =
             await homeRepo.setOrDeleteFromFavorites(id: event.id);
         failureOrData.fold((failure) {
