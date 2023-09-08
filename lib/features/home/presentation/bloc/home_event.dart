@@ -29,6 +29,13 @@ class SetOrDeleteFavoriteEvent extends HomeEvent {
   });
 }
 
+class SetOrDeleteFromCartEvent extends HomeEvent {
+  final int productId;
+  const SetOrDeleteFromCartEvent({
+    required this.productId,
+  });
+}
+
 class SearchEvent extends HomeEvent {
   final String text;
   const SearchEvent({

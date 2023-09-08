@@ -17,6 +17,7 @@ class productItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var homeBloc = BlocProvider.of<HomeBloc>(context);
     return Card(
       child: InkWell(
         onTap: () {
@@ -70,16 +71,14 @@ class productItem extends StatelessWidget {
                   const Spacer(),
                   InkWell(
                     onTap: () {
-                      BlocProvider.of<HomeBloc>(context)
-                          .add(SetOrDeleteFavoriteEvent(id: product.id!));
+                      homeBloc.add(SetOrDeleteFavoriteEvent(id: product.id!));
                     },
                     child: CircleAvatar(
                         radius: 15,
-                        backgroundColor: BlocProvider.of<HomeBloc>(context)
-                                    .inFavorites[product.id] ==
-                                true
-                            ? AppColors.primaryColor
-                            : Colors.grey,
+                        backgroundColor:
+                            homeBloc.inFavorites[product.id] == true
+                                ? AppColors.primaryColor
+                                : Colors.grey,
                         child: const Center(
                           child: Icon(
                             Icons.favorite,
@@ -88,17 +87,20 @@ class productItem extends StatelessWidget {
                           ),
                         )),
                   ),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                   InkWell(
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  InkWell(
                     onTap: () {
-                      
+                      homeBloc.add(
+                          SetOrDeleteFromCartEvent(productId: product.id!));
                     },
-                    child: const CircleAvatar(
+                    child: CircleAvatar(
                         radius: 15,
-                        backgroundColor:Colors.green,
-                        child: Center(
+                        backgroundColor: homeBloc.inCards[product.id] == true
+                            ? Colors.green
+                            : Colors.grey,
+                        child: const Center(
                           child: Icon(
                             Icons.shop,
                             size: 12,

@@ -4,6 +4,7 @@ import 'package:commerceapp/features/Auth/data/repositories/auth_repo.dart';
 import 'package:commerceapp/features/Auth/presentation/bloc/auth_bloc.dart';
 import 'package:commerceapp/features/home/data/datasources/home_remote_datasource.dart';
 import 'package:commerceapp/features/home/data/repositories/home_repo.dart';
+import 'package:commerceapp/features/home/data/repositories/home_repo_implem.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:commerceapp/features/settings/data/datasources/settings_remote_data_source.dart';
 import 'package:commerceapp/features/settings/data/repositories/settings_repo.dart';

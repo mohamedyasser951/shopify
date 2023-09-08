@@ -101,6 +101,8 @@ class GetFavoriteErrorState extends HomeState {
 }
 
 class ChangeStateOfFavorite extends HomeState {}
+class ChangeStateOfCarts extends HomeState {}
+
 
 class SetOrDeleteSuccessState extends HomeState {
   final String successMessage;

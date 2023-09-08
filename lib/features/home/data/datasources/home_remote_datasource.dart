@@ -65,6 +65,16 @@ class HomeRemoteDataSource {
     }
   }
 
+  Future<FavoriteModel> setOrDeleteFromFavorites({required int id}) async {
+    var response = await dio.post(EndPoints.favorites,
+        data: {"product_id": id}, options: Options(headers: header));
+    if (response.statusCode == 200) {
+      return FavoriteModel.fromJson(response.data);
+    } else {
+      throw ServerException();
+    }
+  }
+
   Future<CardModel> getCard() async {
     Response response =
         await dio.get(EndPoints.carts, options: Options(headers: header));
@@ -75,11 +85,16 @@ class HomeRemoteDataSource {
     }
   }
 
-  Future<FavoriteModel> setOrDeleteFromFavorites({required int id}) async {
-    var response = await dio.post(EndPoints.favorites,
-        data: {"product_id": id}, options: Options(headers: header));
+  Future<Map<String, dynamic>> setOrDeleteFromCart(
+      {required int productId}) async {
+    Response response = await dio.post(EndPoints.carts,
+        data: {"product_id": productId}, options: Options(headers: header));
     if (response.statusCode == 200) {
-      return FavoriteModel.fromJson(response.data);
+      Map<String, dynamic> data = {
+        "status": response.data["status"],
+        "message": response.data["message"],
+      };
+      return Future.value(data);
     } else {
       throw ServerException();
     }

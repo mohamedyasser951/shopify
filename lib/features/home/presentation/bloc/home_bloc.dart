@@ -3,9 +3,9 @@ import 'package:commerceapp/Config/Network/error_strings.dart';
 import 'package:commerceapp/features/home/data/models/card_model.dart';
 import 'package:commerceapp/features/home/data/models/category_model.dart';
 import 'package:commerceapp/features/home/data/models/favorite_model.dart';
+import 'package:commerceapp/features/home/data/repositories/home_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:commerceapp/features/home/data/models/home_model.dart';
-import 'package:commerceapp/features/home/data/repositories/home_repo.dart';
 part 'home_event.dart';
 part 'home_state.dart';
 
@@ -98,6 +98,24 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
             (model) {
           cardModel = model;
           emit(GetCardSuceessState());
+        });
+      }
+      if (event is SetOrDeleteFromCartEvent) {
+        inCards[event.productId] = !inCards[event.productId]!;
+        emit(ChangeStateOfCarts());
+        var failureOrData =
+            await homeRepo.setOrDeleteFromCart(productId: event.productId);
+        failureOrData.fold((failure) {
+          inCards[event.productId] = !inCards[event.productId]!;
+
+          emit(SetOrDeleteErrorState(error: mapFailureToMessage(failure)));
+        }, (data) {
+          if (data["status"] != true) {
+            inCards[event.productId] = !inCards[event.productId]!;
+          } else {
+            add(GetCardEvent());
+          }
+          emit(SetOrDeleteSuccessState(successMessage: data["message"]));
         });
       }
       if (event is SearchEvent) {

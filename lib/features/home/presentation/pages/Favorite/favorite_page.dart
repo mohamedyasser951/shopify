@@ -1,4 +1,5 @@
 import 'package:commerceapp/Config/components/custom_toast.dart';
+import 'package:commerceapp/Config/widgets/error_widget.dart';
 import 'package:commerceapp/Config/widgets/loading_widget.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:commerceapp/features/home/presentation/widgets/FavoritesWidgets/favorite_item.dart';
@@ -22,11 +23,8 @@ class FavoritePage extends StatelessWidget {
       },
       builder: (context, state) {
         var favoriteModel = BlocProvider.of<HomeBloc>(context).favoriteModel;
-
         if (state is GetFavoriteErrorState) {
-          return Center(
-            child: Text(state.error.toString()),
-          );
+          return ErrorItem(errorMessage: state.error.toString());
         }
         return Scaffold(
           appBar: AppBar(
@@ -35,6 +33,7 @@ class FavoritePage extends StatelessWidget {
           body: state is GetFavoritesLoadingState
               ? const LoadingWidget()
               : ListView.separated(
+                  padding: const EdgeInsets.all(8.0),
                   itemCount: favoriteModel!.data!.data!.length,
                   itemBuilder: (context, index) => FavoriteItem(
                       model: favoriteModel.data!.data![index].product!),
