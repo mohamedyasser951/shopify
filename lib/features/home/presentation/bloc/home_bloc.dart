@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:commerceapp/Config/Network/error_strings.dart';
-import 'package:commerceapp/features/home/data/models/card_model.dart';
 import 'package:commerceapp/features/home/data/models/category_model.dart';
 import 'package:commerceapp/features/home/data/models/favorite_model.dart';
 import 'package:commerceapp/features/home/data/repositories/home_repo.dart';
@@ -13,7 +12,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeRepo homeRepo;
   List<Products>? productsByCategory;
   CategoryModel? categoryModel;
-  CardModel? cardModel;
+  // CardModel? cardModel;
   FavoriteModel? favoriteModel;
   HomeModel? homeModel;
   Map<int, bool> inFavorites = {};
@@ -89,35 +88,35 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         });
       }
 
-      if (event is GetCardEvent) {
-        emit(GetCardLoadingState());
-        var failureOrData = await homeRepo.getCard();
-        failureOrData.fold(
-            (failure) =>
-                emit(GetCardSErrorState(error: mapFailureToMessage(failure))),
-            (model) {
-          cardModel = model;
-          emit(GetCardSuceessState());
-        });
-      }
-      if (event is SetOrDeleteFromCartEvent) {
-        inCards[event.productId] = !inCards[event.productId]!;
-        emit(ChangeStateOfCarts());
-        var failureOrData =
-            await homeRepo.setOrDeleteFromCart(productId: event.productId);
-        failureOrData.fold((failure) {
-          inCards[event.productId] = !inCards[event.productId]!;
+      // if (event is GetCardEvent) {
+      //   emit(GetCardLoadingState());
+      //   var failureOrData = await homeRepo.getCard();
+      //   failureOrData.fold(
+      //       (failure) =>
+      //           emit(GetCardSErrorState(error: mapFailureToMessage(failure))),
+      //       (model) {
+      //     cardModel = model;
+      //     emit(GetCardSuceessState());
+      //   });
+      // }
+      // if (event is SetOrDeleteFromCartEvent) {
+      //   inCards[event.productId] = !inCards[event.productId]!;
+      //   emit(ChangeStateOfCarts());
+      //   var failureOrData =
+      //       await homeRepo.setOrDeleteFromCart(productId: event.productId);
+      //   failureOrData.fold((failure) {
+      //     inCards[event.productId] = !inCards[event.productId]!;
 
-          emit(SetOrDeleteErrorState(error: mapFailureToMessage(failure)));
-        }, (data) {
-          if (data["status"] != true) {
-            inCards[event.productId] = !inCards[event.productId]!;
-          } else {
-            add(GetCardEvent());
-          }
-          emit(SetOrDeleteSuccessState(successMessage: data["message"]));
-        });
-      }
+      //     emit(SetOrDeleteErrorState(error: mapFailureToMessage(failure)));
+      //   }, (data) {
+      //     if (data["status"] != true) {
+      //       inCards[event.productId] = !inCards[event.productId]!;
+      //     } else {
+      //       add(GetCardEvent());
+      //     }
+      //     emit(SetOrDeleteSuccessState(successMessage: data["message"]));
+      //   });
+      // }
       if (event is SearchEvent) {
         emit(SearchLoadingState());
         var failureOrData = await homeRepo.search(text: event.text);

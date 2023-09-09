@@ -3,6 +3,7 @@ import 'package:commerceapp/Config/Theme/theme.dart';
 import 'package:commerceapp/Config/constants/strings.dart';
 import 'package:commerceapp/bloc_observer.dart';
 import 'package:commerceapp/features/Auth/presentation/bloc/auth_bloc.dart';
+import 'package:commerceapp/features/home/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:commerceapp/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:commerceapp/generated/l10n.dart';
@@ -49,8 +50,8 @@ class App extends StatelessWidget {
                 ..add(GetHomeDataEvent())
                 ..add(GetCategoriesEvent())
                 ..add(GetFavoritesEvent())
-                ..add(GetCardEvent()),
-            )
+            ),
+            BlocProvider(create: (context) => di.sl<CartBloc>()..add(GetCardEvent()),),
           ],
           child: BlocBuilder<SettingsBloc, SettingsState>(
               builder: (context, state) {

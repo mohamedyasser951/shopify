@@ -5,6 +5,10 @@ import 'package:commerceapp/features/Auth/presentation/bloc/auth_bloc.dart';
 import 'package:commerceapp/features/home/data/datasources/home_remote_datasource.dart';
 import 'package:commerceapp/features/home/data/repositories/home_repo.dart';
 import 'package:commerceapp/features/home/data/repositories/home_repo_implem.dart';
+import 'package:commerceapp/features/home/features/cart/data/datasources/cartDataSourceImplem.dart';
+import 'package:commerceapp/features/home/features/cart/data/datasources/cartRemoteDataSource.dart';
+import 'package:commerceapp/features/home/features/cart/data/repositories/cartRepo.dart';
+import 'package:commerceapp/features/home/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:commerceapp/features/settings/data/datasources/settings_remote_data_source.dart';
 import 'package:commerceapp/features/settings/data/repositories/settings_repo.dart';
@@ -20,14 +24,16 @@ BaseOptions options = BaseOptions(
     connectTimeout: const Duration(seconds: 5),
     receiveTimeout: const Duration(seconds: 5),
     receiveDataWhenStatusError: true);
+
 GetIt sl = GetIt.instance;
 Future<void> init() async {
   //BLOCS
   sl.registerFactory<AuthBloc>(() => AuthBloc(authRepo: sl()));
   sl.registerFactory<HomeBloc>(() => HomeBloc(homeRepo: sl()));
-  sl.registerFactory<SettingsBloc>(
-      () => SettingsBloc(homeRepo: sl(), settingsRepo: sl()));
+  sl.registerFactory<SettingsBloc>(() => SettingsBloc(settingsRepo: sl()));
   sl.registerFactory<OrdersBloc>(() => OrdersBloc(orderRepo: sl()));
+  sl.registerFactory<CartBloc>(
+      () => CartBloc(cartRepo: sl(), inCards: sl<HomeBloc>().inCards));
 
   //Repositories
   sl.registerLazySingleton<AuthRepo>(
@@ -43,6 +49,8 @@ Future<void> init() async {
   sl.registerLazySingleton<OrderRepo>(
     () => OrderRepoImplement(remoteDataSource: sl(), internetChecker: sl()),
   );
+  sl.registerLazySingleton<CartRepo>(
+      () => CartRepoImplem(remoteDataSource: sl(), internetChecker: sl()));
 
   //DataSource
   sl.registerLazySingleton(
@@ -59,6 +67,8 @@ Future<void> init() async {
   sl.registerLazySingleton(
     () => OrdersRemoteDataSource(dio: sl()),
   );
+  sl.registerLazySingleton<CartRemoteDataSource>(
+      () => CartRemoteDataSourceImplem(dio: sl()));
 
 // Core
   sl.registerLazySingleton<InternetChecker>(

@@ -36,7 +36,7 @@ class CardData {
 
 class CartItems {
   int? id;
-  int? quantity;
+  num? quantity;
   Products? product;
 
   CartItems({this.id, this.quantity, this.product});

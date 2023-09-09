@@ -1,9 +1,9 @@
 import 'package:commerceapp/Config/Network/end_points.dart';
 import 'package:commerceapp/Config/Network/exception.dart';
 import 'package:commerceapp/Config/constants/strings.dart';
-import 'package:commerceapp/features/Auth/data/models/user_model/data.dart';
-import 'package:commerceapp/features/Auth/data/models/user_model/user_model.dart';
-import 'package:commerceapp/features/home/data/models/card_model.dart';
+// import 'package:commerceapp/features/Auth/data/models/user_model/data.dart';
+// import 'package:commerceapp/features/Auth/data/models/user_model/user_model.dart';
+import 'package:commerceapp/features/home/features/cart/data/models/card_model.dart';
 import 'package:commerceapp/features/home/data/models/category_model.dart';
 import 'package:commerceapp/features/home/data/models/favorite_model.dart';
 import 'package:commerceapp/features/home/data/models/home_model.dart';
@@ -114,52 +114,54 @@ class HomeRemoteDataSource {
     }
   }
 
-  Future<UserData> getUserProfile() async {
-    Response response =
-        await dio.get(EndPoints.profile, options: Options(headers: header));
-    if (response.statusCode == 200) {
-      return UserData.fromJson(response.data["data"]);
-    } else {
-      throw ServerException();
-    }
-  }
+  // Future<UserData> getUserProfile() async {
+  //   Response response =
+  //       await dio.get(EndPoints.profile, options: Options(headers: header));
+  //   if (response.statusCode == 200) {
+  //     return UserData.fromJson(response.data["data"]);
+  //   } else {
+  //     throw ServerException();
+  //   }
+  // }
 
-  Future<UserModel> updateProfile({
-    required String name,
-    required String email,
-    required String phone,
-    required String image,
-  }) async {
-    Map body = {"name": name, "email": email, "phone": phone, "image": ""};
-    Response response = await dio.put(EndPoints.updateProfile,
-        data: body,
-        options: Options(
-          headers: header,
-        ));
-    if (response.statusCode == 200) {
-      return UserModel.fromJson(response.data);
-    } else {
-      throw ServerException();
-    }
-  }
+  // Future<UserModel> updateProfile({
+  //   required String name,
+  //   required String email,
+  //   required String phone,
+  //   required String image,
+  // }) async {
+  //   Map body = {"name": name, "email": email, "phone": phone, "image": ""};
+  //   Response response = await dio.put(EndPoints.updateProfile,
+  //       data: body,
+  //       options: Options(
+  //         headers: header,
+  //       ));
+  //   if (response.statusCode == 200) {
+  //     return UserModel.fromJson(response.data);
+  //   } else {
+  //     throw ServerException();
+  //   }
+  // }
 
-  Future<UserModel> changePassword({
-    required String currentPassword,
-    required String newPassword,
-  }) async {
-    Map body = {
-      "current_password": currentPassword,
-      "new_password": newPassword,
-    };
-    Response response = await dio.post(EndPoints.changePassword,
-        data: body,
-        options: Options(
-          headers: header,
-        ));
-    if (response.statusCode == 200) {
-      return UserModel.fromJson(response.data);
-    } else {
-      throw ServerException();
-    }
-  }
+  // Future<UserModel> changePassword({
+  //   required String currentPassword,
+  //   required String newPassword,
+  // }) async {
+  //   Map body = {
+  //     "current_password": currentPassword,
+  //     "new_password": newPassword,
+  //   };
+  //   Response response = await dio.post(EndPoints.changePassword,
+  //       data: body,
+  //       options: Options(
+  //         headers: header,
+  //       ));
+  //   if (response.statusCode == 200) {
+  //     return UserModel.fromJson(response.data);
+  //   } else {
+  //     throw ServerException();
+  //   }
+  // }
+
+
 }

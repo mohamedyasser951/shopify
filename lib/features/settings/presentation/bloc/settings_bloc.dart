@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:commerceapp/features/home/data/repositories/home_repo.dart';
 import 'package:commerceapp/features/settings/data/models/addresses_data.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -12,7 +11,7 @@ part 'settings_event.dart';
 part 'settings_state.dart';
 
 class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
-  HomeRepo homeRepo;
+  // HomeRepo homeRepo;
   SettingsRepo settingsRepo;
   String appLang = "en";
   bool isDarkMode = false;
@@ -22,7 +21,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   var box = Hive.box(AppStrings.settingsBox);
 
   SettingsBloc({
-    required this.homeRepo,
     required this.settingsRepo,
   }) : super(SettingsInitial()) {
     on<SettingsEvent>((event, emit) async {
@@ -46,7 +44,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
 
       if (event is GetProfileEvent) {
         emit(GetProfileLoadingState());
-        var data = await homeRepo.getUserProfile();
+        var data = await settingsRepo.getUserProfile();
         data.fold((failure) {
           emit(GetProfileErrorState(error: mapFailureToMessage(failure)));
         }, (model) {
@@ -56,7 +54,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       }
       if (event is ChangePasswordEvent) {
         emit(ChangePasswordLoadingState());
-        var data = await homeRepo.changePassword(
+        var data = await settingsRepo.changePassword(
             currentPassword: event.currentPassword,
             newPassword: event.newPassword);
         data.fold((failure) {
@@ -67,7 +65,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       }
       if (event is UpdateProfileEvent) {
         emit(UpdatePasswordLoadingState());
-        var data = await homeRepo.updateProfile(
+        var data = await settingsRepo.updateProfile(
             name: event.name,
             email: event.email,
             phone: event.phone,

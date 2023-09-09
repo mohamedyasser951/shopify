@@ -1,6 +1,3 @@
-import 'package:commerceapp/features/Auth/data/models/user_model/data.dart';
-import 'package:commerceapp/features/Auth/data/models/user_model/user_model.dart';
-import 'package:commerceapp/features/home/data/models/card_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:commerceapp/Config/Network/failure.dart';
 import 'package:commerceapp/features/home/data/models/category_model.dart';
@@ -15,8 +12,8 @@ abstract class HomeRepo {
   Future<Either<Failure, List<Products>>> getCategoriesDetails(
       {required int id});
 
-  Future<Either<Failure, CardModel>> getCard();
-  Future<Either<Failure, Map<String, dynamic>>> setOrDeleteFromCart({required int productId});
+  // Future<Either<Failure, CardModel>> getCard();
+  // Future<Either<Failure, Map<String, dynamic>>> setOrDeleteFromCart({required int productId});
 
   Future<Either<Failure, FavoriteModel>> getFavorites();
 
@@ -24,16 +21,17 @@ abstract class HomeRepo {
       {required int id});
   Future<Either<Failure, List<Products>>> search({required String text});
 
-  Future<Either<Failure, UserData>> getUserProfile();
-  Future<Either<Failure, UserModel>> updateProfile({
-    required String name,
-    required String email,
-    required String phone,
-    required String image,
-  });
+  // Future<Either<Failure, UserData>> getUserProfile();
 
-  Future<Either<Failure, UserModel>> changePassword({
-    required String currentPassword,
-    required String newPassword,
-  });
+  // Future<Either<Failure, UserModel>> updateProfile({
+  //   required String name,
+  //   required String email,
+  //   required String phone,
+  //   required String image,
+  // });
+
+  // Future<Either<Failure, UserModel>> changePassword({
+  //   required String currentPassword,
+  //   required String newPassword,
+  // });
 }
