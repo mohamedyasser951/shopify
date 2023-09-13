@@ -1,8 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:commerceapp/Config/Extensions/validator_extenstion.dart';
+import 'package:commerceapp/Config/components/cachedNetworkImage.dart';
 import 'package:commerceapp/Config/components/custom_toast.dart';
-import 'package:commerceapp/Config/components/loading.dart';
-import 'package:commerceapp/Config/components/skelton.dart';
 import 'package:commerceapp/Config/constants/colors.dart';
 import 'package:commerceapp/Config/widgets/customized_button.dart';
 import 'package:commerceapp/Config/widgets/customized_text_field.dart';
@@ -21,14 +19,11 @@ class UpdateProfilePage extends StatefulWidget {
 
 class _UpdateProfilePageState extends State<UpdateProfilePage> {
   final TextEditingController emailController = TextEditingController();
-
   final TextEditingController nameController = TextEditingController();
-
   final TextEditingController phoneController = TextEditingController();
-
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+
   @override
   void initState() {
     UserData userData = BlocProvider.of<SettingsBloc>(context).userProfileData!;
@@ -40,7 +35,16 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
   }
 
   @override
+  void dispose() {
+    emailController.dispose();
+    nameController.dispose();
+    phoneController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    SettingsBloc blocSettings = BlocProvider.of<SettingsBloc>(context);
     return BlocListener<SettingsBloc, SettingsState>(
       listener: (context, state) {
         if (state is UpdatePasswordSucessState) {
@@ -68,30 +72,20 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                       height: 15,
                     ),
                     InkWell(
-                      onTap: (){
-                        
+                      onTap: () {
+                        blocSettings.pickProfileImage();
                       },
                       child: Stack(
                         alignment: Alignment.bottomRight,
                         children: [
                           CircleAvatar(
                             radius: 50,
-                            child: CachedNetworkImage(
-                              width: 50,
-                              height: 50,
-                              imageUrl: BlocProvider.of<SettingsBloc>(context)
-                                  .userProfileData!
-                                  .image!,
-                              placeholder: (context, url) => const Loadingitem(
-                                  widget: Skeleton(
+                            child: CashedNetworkImage(
                                 width: 50,
                                 height: 50,
-                              )),
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
-                            ),
+                                imgUrl: blocSettings.userProfileData!.image!),
                           ),
-                           Icon(
+                          Icon(
                             Icons.add_a_photo_outlined,
                             color: AppColors.grayColor,
                           ),
@@ -168,7 +162,10 @@ class _UpdateProfilePageState extends State<UpdateProfilePage> {
                                 name: nameController.text.trim(),
                                 phone: phoneController.text.trim(),
                                 email: emailController.text.trim(),
-                                image: "",
+                                image: BlocProvider.of<SettingsBloc>(context)
+                                        .profileImage
+                                        ?.path ??
+                                    "",
                               ));
                             } else {
                               setState(() {

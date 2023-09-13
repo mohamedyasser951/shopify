@@ -1,13 +1,14 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:commerceapp/features/home/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:commerceapp/Config/components/loading.dart';
 import 'package:commerceapp/Config/components/skelton.dart';
 import 'package:commerceapp/Config/constants/colors.dart';
 import 'package:commerceapp/Config/widgets/customized_button.dart';
 import 'package:commerceapp/Config/widgets/loading_widget.dart';
 import 'package:commerceapp/features/home/features/cart/data/models/card_model.dart';
+import 'package:commerceapp/features/home/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:commerceapp/generated/l10n.dart';
 
 class CardPage extends StatelessWidget {
@@ -15,6 +16,7 @@ class CardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<CartBloc>(context).add(GetCardEvent());
     var cardModel = BlocProvider.of<CartBloc>(context).cartModel;
 
     return BlocBuilder<CartBloc, CartState>(builder: (context, state) {
@@ -32,8 +34,7 @@ class CardPage extends StatelessWidget {
           }
           if (state is GetCardLoadingState) {
             return const LoadingWidget();
-          } 
-          else if (state is GetCardSuceessState && cardModel != null) {
+          } else  {
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -47,7 +48,7 @@ class CardPage extends StatelessWidget {
                       height: 8,
                     ),
                   ),
-                  CardBottom(total: cardModel.data!.total!),
+                  CardBottom(total: BlocProvider.of<CartBloc>(context).total!),
                 ],
               ),
             );
@@ -114,7 +115,7 @@ class CardWidget extends StatelessWidget {
                               style: TextStyle(
                                   color: AppColors.primaryColor, fontSize: 16),
                             ),
-                            QuantityComponents(quantity: cartItems.quantity!)
+                            QuantityComponents(quantity: cartItems.quantity!, productId: cartItems.id!,)
                           ],
                         ),
                       ],
@@ -124,13 +125,19 @@ class CardWidget extends StatelessWidget {
               ),
             ),
           ),
-          const CircleAvatar(
-              radius: 12.0,
-              backgroundColor: Colors.red,
-              child: Icon(
-                Icons.delete,
-                size: 12,
-              )),
+          GestureDetector(
+            onTap: () {
+              BlocProvider.of<CartBloc>(context)
+                  .add(DeleteCartEvent(productId: cartItems.id!));
+            },
+            child: const CircleAvatar(
+                radius: 12.0,
+                backgroundColor: Colors.red,
+                child: Icon(
+                  Icons.delete,
+                  size: 12,
+                )),
+          ),
         ],
       ),
     );
@@ -140,9 +147,11 @@ class CardWidget extends StatelessWidget {
 // ignore: must_be_immutable
 class QuantityComponents extends StatefulWidget {
   num quantity;
+  int productId;
   QuantityComponents({
     Key? key,
     required this.quantity,
+    required this.productId,
   }) : super(key: key);
 
   @override
@@ -155,12 +164,18 @@ class _QuantityComponentsState extends State<QuantityComponents> {
     void increment() {
       setState(() {
         widget.quantity++;
+         BlocProvider.of<CartBloc>(context).add(UpdateCartEvent(
+              productId: widget.productId, quantity: widget.quantity.toInt()));
       });
     }
 
     void decrement() {
       setState(() {
-        widget.quantity -= 1;
+        if (widget.quantity >= 0) {
+          widget.quantity -= 1;
+          BlocProvider.of<CartBloc>(context).add(UpdateCartEvent(
+              productId: widget.productId, quantity: widget.quantity.toInt()));
+        }
       });
     }
 

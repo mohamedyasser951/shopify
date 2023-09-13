@@ -13,7 +13,12 @@ class CartInitial extends CartState {}
 
 class GetCardLoadingState extends CartState {}
 
-class GetCardSuceessState extends CartState {}
+class GetCardSuceessState extends CartState {
+  final CardData cardData;
+  const GetCardSuceessState({
+    required this.cardData,
+  });
+}
 
 class GetCardSErrorState extends CartState {
   final String error;
@@ -21,20 +26,42 @@ class GetCardSErrorState extends CartState {
     required this.error,
   });
 }
+
 class ChangeStateOfCarts extends CartState {}
 
-// add or delete
+// // add or delete
 
-class AddOrDeleteSuccessState extends CartState {
-  final String successMessage;
-  const AddOrDeleteSuccessState({
-    required this.successMessage,
-  });
-}
+// class AddOrDeleteSuccessState extends CartState {
+//   final String successMessage;
+//   const AddOrDeleteSuccessState({
+//     required this.successMessage,
+//   });
+// }
 
-class AddOrDeleteErrorState extends CartState {
-  final String error;
-  const AddOrDeleteErrorState({
-    required this.error,
-  });
-}
+// class AddOrDeleteErrorState extends CartState {
+//   final String error;
+//   const AddOrDeleteErrorState({
+//     required this.error,
+//   });
+// }
+
+// delete cart
+
+// class DeleteCartSuccessState extends CartState {}
+
+// class DeleteCartErrorState extends CartState {
+//   final String error;
+//   const DeleteCartErrorState({
+//     required this.error,
+//   });
+// }
+// // updatae cart
+
+// class UpdateCartSuccessState extends CartState {}
+
+// class UpdateCartErrorState extends CartState {
+//   final String error;
+//   const UpdateCartErrorState({
+//     required this.error,
+//   });
+// }

@@ -1,12 +1,13 @@
-import 'package:bloc/bloc.dart';
 import 'package:commerceapp/features/settings/data/models/addresses_data.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:commerceapp/Config/Network/error_strings.dart';
 import 'package:commerceapp/Config/constants/strings.dart';
 import 'package:commerceapp/features/Auth/data/models/user_model/data.dart';
 import 'package:commerceapp/features/Auth/data/models/user_model/user_model.dart';
 import 'package:commerceapp/features/settings/data/repositories/settings_repo.dart';
+import 'package:image_picker/image_picker.dart';
 part 'settings_event.dart';
 part 'settings_state.dart';
 
@@ -19,7 +20,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   UserData? userProfileData;
   AddressesModel? userAddresess;
   var box = Hive.box(AppStrings.settingsBox);
-
+  XFile? profileImage;
   SettingsBloc({
     required this.settingsRepo,
   }) : super(SettingsInitial()) {
@@ -100,5 +101,14 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         });
       }
     });
+  }
+  void pickProfileImage() async {
+    var picker = ImagePicker();
+    var pickedImage = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedImage != null) {
+      profileImage = XFile(pickedImage.path);
+    } else {
+      print("ERROR When Picked Image");
+    }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:commerceapp/Config/Network/error_strings.dart';
 import 'package:commerceapp/features/home/features/cart/data/models/card_model.dart';
@@ -10,7 +11,8 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   CartRepo cartRepo;
   CardModel? cartModel;
   late Map<int, bool> inCards;
-
+  int? quantiy;
+  int? total;
   CartBloc({
     required this.cartRepo,
     required this.inCards,
@@ -23,27 +25,57 @@ class CartBloc extends Bloc<CartEvent, CartState> {
             (failure) =>
                 emit(GetCardSErrorState(error: mapFailureToMessage(failure))),
             (model) {
-          cartModel = model;
-          emit(GetCardSuceessState());
+          emit(GetCardSuceessState(cardData: model.data!));
         });
       }
-      if (event is AddOrDeleteFromCartEvent) {
-        inCards[event.productId] = !inCards[event.productId]!;
-        emit(ChangeStateOfCarts());
-        var failureOrData =
-            await cartRepo.addOrDeleteFromCats(productId: event.productId);
-        failureOrData.fold((failure) {
-          inCards[event.productId] = !inCards[event.productId]!;
+      // if (event is AddOrDeleteFromCartEvent) {
+      //   inCards[event.productId] = !inCards[event.productId]!;
+      //   emit(ChangeStateOfCarts());
+      //   var failureOrData =
+      //       await cartRepo.addOrDeleteFromCats(productId: event.productId);
+      //   failureOrData.fold((failure) {
+      //     inCards[event.productId] = !inCards[event.productId]!;
 
-          emit(AddOrDeleteErrorState(error: mapFailureToMessage(failure)));
-        }, (data) {
-          if (data["status"] != true) {
-            inCards[event.productId] = !inCards[event.productId]!;
-          } else {
+      //     emit(AddOrDeleteErrorState(error: mapFailureToMessage(failure)));
+      //   }, (data) {
+      //     if (data["status"] != true) {
+      //       inCards[event.productId] = !inCards[event.productId]!;
+      //     } else {
+      //       add(GetCardEvent());
+      //     }
+      //     emit(AddOrDeleteSuccessState(successMessage: data["message"]));
+      //   });
+      // }
+      if (event is DeleteCartEvent) {
+        var failureOrData =
+            await cartRepo.deleteCart(productId: event.productId);
+
+        failureOrData.fold(
+            (failure) =>
+                emit(GetCardSErrorState(error: mapFailureToMessage(failure))),
+            (data) {
+          if (data["status"] == true) {
+            quantiy = data["quantity"];
             add(GetCardEvent());
           }
-          emit(AddOrDeleteSuccessState(successMessage: data["message"]));
+          // emit(DeleteCartSuccessState());
         });
+      }
+      if (event is UpdateCartEvent) {
+        var failureOrData = await cartRepo.updateCart(
+            productId: event.productId, quantity: event.quantity);
+
+        // failureOrData.fold(
+        //     (failure) =>
+        //         emit(UpdateCartErrorState(error: mapFailureToMessage(failure))),
+        //     (data) {
+        //   if (data["status"] == true) {
+        //     quantiy = data["quantity"];
+        //     total = data["total"];
+        //     add(GetCardEvent());
+        //   }
+        //   // emit(UpdateCartSuccessState());
+        // });
       }
     });
   }

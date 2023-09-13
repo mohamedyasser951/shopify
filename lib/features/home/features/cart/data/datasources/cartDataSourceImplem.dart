@@ -39,14 +39,33 @@ class CartRemoteDataSourceImplem implements CartRemoteDataSource {
   }
 
   @override
-  Future updateCart({required int productId}) {
-    // TODO: implement updateCart
-    throw UnimplementedError();
+  Future<Map<String, dynamic>> deleteCart({required int productId}) async {
+    Response response = await dio.delete("${EndPoints.carts}/$productId");
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = {
+        "status": response.data["status"],
+        "total": response.data["total"],
+      };
+      return data;
+    } else {
+      throw ServerException();
+    }
   }
 
   @override
-  Future deleteCart({required int productId}) {
-    // TODO: implement deleteCart
-    throw UnimplementedError();
+  Future<Map<String, dynamic>> updateCart(
+      {required int productId, required int quantity}) async {
+    Response response = await dio
+        .put("${EndPoints.carts}/$productId", data: {"quantity": quantity});
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = {
+        "status": response.data["status"],
+        "quantity": response.data["quantity"],
+        "total": response.data["total"],
+      };
+      return data;
+    } else {
+      throw ServerException();
+    }
   }
 }

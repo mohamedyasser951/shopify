@@ -10,8 +10,8 @@ abstract class CartRepo {
   Future<Either<Failure, CardModel>> getCarts();
   Future<Either<Failure, Map<String, dynamic>>> addOrDeleteFromCats(
       {required int productId});
-  Future<Either<Failure, Unit>> updateCart({required int productId});
-  Future<Either<Failure, Unit>> deleteCart({required int productId});
+  Future<Either<Failure, Map<String,dynamic>>> updateCart({required int productId,required int quantity});
+    Future<Either<Failure, Map<String,dynamic>>> deleteCart({required int productId});
 }
 
 class CartRepoImplem implements CartRepo {
@@ -49,14 +49,32 @@ class CartRepoImplem implements CartRepo {
   }
 
   @override
-  Future<Either<Failure, Unit>> deleteCart({required int productId}) {
-    // TODO: implement deleteCart
-    throw UnimplementedError();
+   Future<Either<Failure, Map<String,dynamic>>> deleteCart({required int productId}) async{
+   if (await internetChecker.isConnected) {
+      try {
+        var data =
+            await remoteDataSource.deleteCart(productId: productId);
+        return Right(data);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
   }
 
   @override
-  Future<Either<Failure, Unit>> updateCart({required int productId}) {
-    // TODO: implement updateCart
-    throw UnimplementedError();
+    Future<Either<Failure, Map<String,dynamic>>> updateCart({required int productId,required int quantity}) async{
+   if (await internetChecker.isConnected) {
+      try {
+        var data =
+            await remoteDataSource.updateCart(productId: productId,quantity: quantity);
+        return Right(data);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(OfflineFailure());
+    }
   }
 }
