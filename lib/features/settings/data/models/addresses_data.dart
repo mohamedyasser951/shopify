@@ -13,6 +13,13 @@ class AddressesModel {
       });
     }
   }
+  AddressesModel.fromJsonAsModel(Map<String, dynamic> json) {
+    status = json["status"];
+    message = json["message"];
+    if (json["data"] != null) {
+      AddressData.fromJson(json["data"]);
+    }
+  }
 }
 
 class AddressData {

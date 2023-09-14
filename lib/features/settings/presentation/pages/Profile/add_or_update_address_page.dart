@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:commerceapp/Config/Extensions/validator_extenstion.dart';
 import 'package:commerceapp/Config/components/dialogs.dart';
 import 'package:commerceapp/Config/widgets/customized_button.dart';
@@ -5,11 +8,9 @@ import 'package:commerceapp/Config/widgets/customized_text_field.dart';
 import 'package:commerceapp/Config/widgets/loading_widget.dart';
 import 'package:commerceapp/features/settings/data/models/addresses_data.dart';
 import 'package:commerceapp/features/settings/presentation/bloc/settings_bloc.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AddOrUpdateAddressesPage extends StatelessWidget {
-  AddOrUpdateAddressesPage({super.key});
+  const AddOrUpdateAddressesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -42,16 +43,23 @@ class AddOrUpdateAddressesPage extends StatelessWidget {
                 isError: true);
           }
         },
-        child: const SingleChildScrollView(child: AddOrUpdateAdresssForm()),
+        child: SingleChildScrollView(
+            child: AddOrUpdateAdresssForm(
+          isUpdateAddresses: false,
+        )),
       ),
     );
   }
 }
 
 class AddOrUpdateAdresssForm extends StatefulWidget {
-  const AddOrUpdateAdresssForm({
-    super.key,
-  });
+  bool isUpdateAddresses;
+  AddressData? addressData;
+  AddOrUpdateAdresssForm({
+    Key? key,
+    required this.isUpdateAddresses,
+    this.addressData,
+  }) : super(key: key);
 
   @override
   State<AddOrUpdateAdresssForm> createState() => _AddOrUpdateAdresssFormState();
@@ -73,6 +81,30 @@ class _AddOrUpdateAdresssFormState extends State<AddOrUpdateAdresssForm> {
   final GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+
+  @override
+  void initState() {
+    if (widget.isUpdateAddresses) {
+      nameController.text = widget.addressData!.name!;
+      addressController.text = widget.addressData!.city!;
+      detailsController.text = widget.addressData!.details!;
+      regionController.text = widget.addressData!.region!;
+      cityController.text = widget.addressData!.city!;
+      notesController.text = widget.addressData!.notes!;
+    }
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    addressController.dispose();
+    cityController.dispose();
+    regionController.dispose();
+    detailsController.dispose();
+    notesController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,6 +147,16 @@ class _AddOrUpdateAdresssFormState extends State<AddOrUpdateAdresssForm> {
               validator: (val) {
                 if (val!.isEmpty) {
                   return "Please enter valid City Name";
+                }
+                return null;
+              },
+            ),
+            CustomeTextField(
+              textEditingController: detailsController,
+              hintText: "Details Addresse",
+              validator: (val) {
+                if (val!.isEmpty) {
+                  return "Please enter Details Addresse";
                 }
                 return null;
               },

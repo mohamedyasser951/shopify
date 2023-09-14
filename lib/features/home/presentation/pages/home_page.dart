@@ -1,14 +1,12 @@
 import 'package:commerceapp/Config/components/custom_toast.dart';
+import 'package:commerceapp/Config/widgets/error_widget.dart';
 import 'package:commerceapp/features/home/presentation/pages/search_page.dart';
+import 'package:commerceapp/features/home/presentation/widgets/home_body.dart';
 import 'package:commerceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:commerceapp/Config/widgets/loading_widget.dart';
-import 'package:commerceapp/features/home/data/models/home_model.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
-import 'package:commerceapp/features/home/presentation/widgets/build_horizontal_categories.dart';
-import 'package:commerceapp/features/home/presentation/widgets/carousel_header.dart';
-import 'package:commerceapp/features/home/presentation/widgets/product_item.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -36,12 +34,7 @@ class HomePage extends StatelessWidget {
         }
       }, builder: (context, state) {
         if (state is GetCategoriesErrorState) {
-          return Center(
-            child: Text(
-              state.error,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
-          );
+          return ErrorItem(errorMessage: state.error);
         }
         return cubit.homeModel != null
             ? SingleChildScrollView(
@@ -54,55 +47,4 @@ class HomePage extends StatelessWidget {
       }),
     );
   }
-}
-
-class HomeBody extends StatelessWidget {
-  final HomeModel homeModel;
-  const HomeBody({
-    Key? key,
-    required this.homeModel,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CrasoulHeader(banners: homeModel.data!.banners!),
-        const SizedBox(
-          height: 10,
-        ),
-        Text(
-          S.of(context).categories,
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
-        SizedBox(
-          height: 150,
-          child: BuildHorizontalCategories(
-            categories:
-                BlocProvider.of<HomeBloc>(context).categoryModel!.data!.data!,
-          ),
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Text(
-          S.of(context).products,
-          style: Theme.of(context).textTheme.bodyMedium,
-        ),
-        gridViewBuilder(products: homeModel.data!.products!)
-      ],
-    );
-  }
-}
-
-GridView gridViewBuilder({required List<Products> products}) {
-  return GridView.builder(
-    physics: const NeverScrollableScrollPhysics(),
-    shrinkWrap: true,
-    itemCount: products.length,
-    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        childAspectRatio: .6, crossAxisCount: 2),
-    itemBuilder: (context, index) => productItem(product: products[index]),
-  );
 }

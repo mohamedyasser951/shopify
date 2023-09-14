@@ -97,6 +97,9 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
             (failure) => emit(
                 AddAdresessErrorState(error: mapFailureToMessage(failure))),
             (addresses) {
+          if (addresses.status == true) {
+            add(GetAddresessEvent());
+          }
           emit(AddAdresessSucessState(addressesModel: addresses));
         });
       }

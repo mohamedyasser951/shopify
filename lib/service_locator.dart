@@ -21,8 +21,9 @@ import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 BaseOptions options = BaseOptions(
-    connectTimeout: const Duration(seconds: 5),
-    receiveTimeout: const Duration(seconds: 5),
+    connectTimeout: const Duration(seconds: 5*6000),
+    receiveTimeout: const Duration(seconds: 5*6000),
+    
     receiveDataWhenStatusError: true);
 
 GetIt sl = GetIt.instance;

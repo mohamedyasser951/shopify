@@ -51,10 +51,7 @@ class SettingsRepoImplem implements SettingsRepo {
     try {
       var addresses =
           await remoteDataSource.addAdresses(addressData: addressData);
-      print(addresses.toString());
-      print(addresses.status);
-      print(addresses.message);
-      print(addresses.data.toString());
+   
       return Right(addresses);
     } on ServerException {
       return Left(ServerFailure());

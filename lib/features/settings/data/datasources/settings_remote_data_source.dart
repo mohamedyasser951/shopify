@@ -25,6 +25,7 @@ class SettingsRemoteDataSource {
   Future<AddressesModel> addAdresses({
     required AddressData addressData,
   }) async {
+    print("address Details ${addressData.details}");
     Response response = await dio.post(EndPoints.adresses,
         data: {
           "name": addressData.name,
@@ -39,7 +40,9 @@ class SettingsRemoteDataSource {
           headers: header,
         ));
     if (response.statusCode == 200) {
-      return AddressesModel.fromJson(response.data);
+      print("success 2000");
+      print(response.data);
+      return AddressesModel.fromJsonAsModel(response.data);
     } else {
       throw ServerException();
     }

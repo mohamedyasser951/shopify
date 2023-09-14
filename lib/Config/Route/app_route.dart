@@ -39,7 +39,7 @@ class AppRoute {
         );
       case "/settings":
         return MaterialPageRoute(
-          builder: (context) => const SettingsPage(),
+          builder: (context) =>  SettingsPage(),
         );
       case "/ordersPage":
         return MaterialPageRoute(

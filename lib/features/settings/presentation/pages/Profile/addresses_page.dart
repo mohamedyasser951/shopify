@@ -1,5 +1,6 @@
 import 'package:commerceapp/Config/widgets/loading_widget.dart';
 import 'package:commerceapp/features/settings/presentation/bloc/settings_bloc.dart';
+import 'package:commerceapp/features/settings/presentation/pages/Profile/add_or_update_address_page.dart';
 import 'package:flutter/material.dart';
 import 'package:commerceapp/features/settings/data/models/addresses_data.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,6 +30,8 @@ class _AdressesPageState extends State<AdressesPage> {
       ),
       body: BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, state) {
+          SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
+
           if (state is GetAdresessErrorState) {
             return Text(state.error);
           }
@@ -38,7 +41,7 @@ class _AdressesPageState extends State<AdressesPage> {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 8.0, vertical: 4.0),
                   child: ListView.separated(
-                    itemCount: 1,
+                    itemCount: settingsBloc.userAddresess!.data!.length,
                     itemBuilder: (context, index) => AddressItem(
                         addressData: BlocProvider.of<SettingsBloc>(context)
                             .userAddresess!
@@ -62,6 +65,7 @@ class _AdressesPageState extends State<AdressesPage> {
 
 class AddressItem extends StatefulWidget {
   final AddressData addressData;
+
   const AddressItem({
     Key? key,
     required this.addressData,
@@ -72,6 +76,7 @@ class AddressItem extends StatefulWidget {
 }
 
 class _AddressItemState extends State<AddressItem> {
+  bool selected = false;
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -84,7 +89,19 @@ class _AddressItemState extends State<AddressItem> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(widget.addressData.name!),
-                TextButton(onPressed: () {}, child: const Text("Edit"))
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Scaffold(
+                          appBar: AppBar(),
+                          body: AddOrUpdateAdresssForm(
+                            isUpdateAddresses: true,
+                            addressData: widget.addressData,
+                          ),
+                        ),
+                      ));
+                    },
+                    child: const Text("Edit"))
               ],
             ),
             const SizedBox(
@@ -95,8 +112,12 @@ class _AddressItemState extends State<AddressItem> {
             Row(
               children: [
                 Checkbox.adaptive(
-                  value: true,
-                  onChanged: (value) {},
+                  value: selected,
+                  onChanged: (value) {
+                    setState(() {
+                      selected = value!;
+                    });
+                  },
                 ),
                 const Text("Use as the shipping address")
               ],

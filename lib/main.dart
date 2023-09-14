@@ -35,6 +35,12 @@ class App extends StatelessWidget {
         return MultiBlocProvider(
           providers: [
             BlocProvider(
+                lazy: false,
+                create: (context) => di.sl<HomeBloc>()
+                  ..add(GetHomeDataEvent())
+                  ..add(GetCategoriesEvent())
+                  ..add(GetFavoritesEvent())),
+            BlocProvider(
                 create: (context) => di.sl<SettingsBloc>()
                   ..add(ChangeAppModeEvent(
                       modeFromCashe: box.get("darkMode", defaultValue: false)))
@@ -46,12 +52,8 @@ class App extends StatelessWidget {
               create: (context) => di.sl<AuthBloc>(),
             ),
             BlocProvider(
-              create: (context) => di.sl<HomeBloc>()
-                ..add(GetHomeDataEvent())
-                ..add(GetCategoriesEvent())
-                ..add(GetFavoritesEvent())
+              create: (context) => di.sl<CartBloc>()..add(GetCardEvent()),
             ),
-            BlocProvider(create: (context) => di.sl<CartBloc>()..add(GetCardEvent()),),
           ],
           child: BlocBuilder<SettingsBloc, SettingsState>(
               builder: (context, state) {

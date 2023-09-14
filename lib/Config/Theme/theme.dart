@@ -35,7 +35,7 @@ class AppTheme {
   static ThemeData darkTheme = ThemeData(
       visualDensity: VisualDensity.adaptivePlatformDensity,
       cardTheme: CardTheme(
-        color: AppColors.grayColor,
+        color: const Color(0xff23272C),
       ),
       colorScheme: ColorScheme.dark(
           background: AppColors.darkColor, primary: AppColors.primaryColor),
