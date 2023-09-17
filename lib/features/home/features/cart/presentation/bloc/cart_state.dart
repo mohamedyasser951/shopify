@@ -9,25 +9,24 @@ abstract class CartState extends Equatable {
 
 class CartInitial extends CartState {}
 
-// Get Carts
+// // Get Carts
 
-class GetCardLoadingState extends CartState {}
+// class GetCardLoadingState extends CartState {}
 
-class GetCardSuceessState extends CartState {
-  final CardData cardData;
-  const GetCardSuceessState({
-    required this.cardData,
-  });
-}
+// class GetCardSuceessState extends CartState {
+//   final CardData cardData;
+//   const GetCardSuceessState({
+//     required this.cardData,
+//   });
+// }
 
-class GetCardSErrorState extends CartState {
-  final String error;
-  const GetCardSErrorState({
-    required this.error,
-  });
-}
+// class GetCardSErrorState extends CartState {
+//   final String error;
+//   const GetCardSErrorState({
+//     required this.error,
+//   });
+// }
 
-class ChangeStateOfCarts extends CartState {}
 
 // // add or delete
 

@@ -103,6 +103,23 @@ class GetFavoriteErrorState extends HomeState {
 class ChangeStateOfFavorite extends HomeState {}
 // class ChangeStateOfCarts extends HomeState {}
 
+// Get Carts
+
+class GetCardLoadingState extends HomeState {}
+
+class GetCardSuceessState extends HomeState {
+  final CardData cardData;
+  const GetCardSuceessState({
+    required this.cardData,
+  });
+}
+
+class GetCardSErrorState extends HomeState {
+  final String error;
+  const GetCardSErrorState({
+    required this.error,
+  });
+}
 
 class SetOrDeleteSuccessState extends HomeState {
   final String successMessage;
@@ -117,6 +134,8 @@ class SetOrDeleteErrorState extends HomeState {
     required this.error,
   });
 }
+class ChangeStateOfCarts extends HomeState {}
+
 
 class SearchLoadingState extends HomeState {}
 

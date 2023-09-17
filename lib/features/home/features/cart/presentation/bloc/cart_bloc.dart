@@ -1,32 +1,29 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:commerceapp/Config/Network/error_strings.dart';
-import 'package:commerceapp/features/home/features/cart/data/models/card_model.dart';
 import 'package:commerceapp/features/home/features/cart/data/repositories/cartRepo.dart';
 part 'cart_event.dart';
 part 'cart_state.dart';
 
 class CartBloc extends Bloc<CartEvent, CartState> {
   CartRepo cartRepo;
-  CardModel? cartModel;
-  late Map<int, bool> inCards;
-  int? quantiy;
-  int? total;
+  // CardModel? cartModel;
+ 
   CartBloc({
     required this.cartRepo,
-    required this.inCards,
+   
   }) : super(CartInitial()) {
+
     on<CartEvent>((event, emit) async {
-      if (event is GetCardEvent) {
-        emit(GetCardLoadingState());
-        var failureOrData = await cartRepo.getCarts();
-        failureOrData.fold(
-            (failure) =>
-                emit(GetCardSErrorState(error: mapFailureToMessage(failure))),
-            (model) {
-          emit(GetCardSuceessState(cardData: model.data!));
-        });
-      }
+      // if (event is GetCardEvent) {
+      //   emit(GetCardLoadingState());
+      //   var failureOrData = await cartRepo.getCarts();
+      //   failureOrData.fold(
+      //       (failure) =>
+      //           emit(GetCardSErrorState(error: mapFailureToMessage(failure))),
+      //       (model) {
+      //     emit(GetCardSuceessState(cardData: model.data!));
+      //   });
+      // }
       // if (event is AddOrDeleteFromCartEvent) {
       //   inCards[event.productId] = !inCards[event.productId]!;
       //   emit(ChangeStateOfCarts());
@@ -45,24 +42,23 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       //     emit(AddOrDeleteSuccessState(successMessage: data["message"]));
       //   });
       // }
-      if (event is DeleteCartEvent) {
-        var failureOrData =
-            await cartRepo.deleteCart(productId: event.productId);
+      // if (event is DeleteCartEvent) {
+      //   var failureOrData =
+      //       await cartRepo.deleteCart(productId: event.productId);
 
-        failureOrData.fold(
-            (failure) =>
-                emit(GetCardSErrorState(error: mapFailureToMessage(failure))),
-            (data) {
-          if (data["status"] == true) {
-            quantiy = data["quantity"];
-            add(GetCardEvent());
-          }
-          // emit(DeleteCartSuccessState());
-        });
-      }
+      //   failureOrData.fold(
+      //       (failure) =>
+      //           emit(GetCardSErrorState(error: mapFailureToMessage(failure))),
+      //       (data) {
+      //     if (data["status"] == true) {
+      //       add(GetCardEvent());
+      //     }
+      //     // emit(DeleteCartSuccessState());
+      //   });
+      // }
       if (event is UpdateCartEvent) {
-        var failureOrData = await cartRepo.updateCart(
-            productId: event.productId, quantity: event.quantity);
+        // var failureOrData = await cartRepo.updateCart(
+        //     productId: event.productId, quantity: event.quantity);
 
         // failureOrData.fold(
         //     (failure) =>

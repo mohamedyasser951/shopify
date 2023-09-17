@@ -3,6 +3,7 @@ import 'package:commerceapp/Config/Theme/theme.dart';
 import 'package:commerceapp/Config/constants/strings.dart';
 import 'package:commerceapp/bloc_observer.dart';
 import 'package:commerceapp/features/Auth/presentation/bloc/auth_bloc.dart';
+import 'package:commerceapp/features/home/PaymentService/strip_api_keys.dart';
 import 'package:commerceapp/features/home/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:commerceapp/features/settings/presentation/bloc/settings_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:commerceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'service_locator.dart' as di;
 
@@ -17,6 +19,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
   await Hive.initFlutter();
+  Stripe.publishableKey = StripApiKeys.publishableKey;
   var box = await Hive.openBox(AppStrings.settingsBox);
   TOKEN = box.get("Token");
   print(box.get("Token"));
@@ -38,6 +41,7 @@ class App extends StatelessWidget {
                 lazy: false,
                 create: (context) => di.sl<HomeBloc>()
                   ..add(GetHomeDataEvent())
+                  ..add(GetCardEvent())
                   ..add(GetCategoriesEvent())
                   ..add(GetFavoritesEvent())),
             BlocProvider(
@@ -52,7 +56,7 @@ class App extends StatelessWidget {
               create: (context) => di.sl<AuthBloc>(),
             ),
             BlocProvider(
-              create: (context) => di.sl<CartBloc>()..add(GetCardEvent()),
+              create: (context) => di.sl<CartBloc>(),
             ),
           ],
           child: BlocBuilder<SettingsBloc, SettingsState>(

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:commerceapp/Config/Extensions/validator_extenstion.dart';
 import 'package:commerceapp/Config/components/dialogs.dart';
 import 'package:commerceapp/Config/widgets/customized_button.dart';

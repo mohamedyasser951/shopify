@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:commerceapp/features/home/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:commerceapp/features/home/presentation/pages/product_details_page.dart';
 import 'package:flutter/material.dart';
@@ -95,7 +94,7 @@ class productItem extends StatelessWidget {
                     onTap: () {
                       // homeBloc.add(
                       //     SetOrDeleteFromCartEvent(productId: product.id!));
-                      BlocProvider.of<CartBloc>(context).add(
+                      BlocProvider.of<HomeBloc>(context).add(
                           AddOrDeleteFromCartEvent(productId: product.id!));
                     },
                     child: CircleAvatar(

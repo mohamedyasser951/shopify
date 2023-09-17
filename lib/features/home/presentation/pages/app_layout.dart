@@ -26,58 +26,57 @@ class _AppLayoutState extends State<AppLayout> {
     FavoritePage(),
     ProfilePage(),
   ];
+            // data: Theme.of(context).copyWith(canvasColor: const Color(0xff23272C)),
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: screens[currentIndex],
-        bottomNavigationBar: Theme(
-            data: Theme.of(context).copyWith(canvasColor: const Color(0xff23272C)),
-            child: Container(
-              margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-              height: 65,
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(50),
-                  topLeft: Radius.circular(50),
-                  bottomLeft: Radius.circular(50),
-                  bottomRight: Radius.circular(50),
-                ),
-                child: BottomNavigationBar(
-                    selectedItemColor: AppColors.primaryColor,
-                    type: BottomNavigationBarType.fixed,
-                    currentIndex: currentIndex,
-                    // showSelectedLabels: false,
-                    // // showUnselectedLabels: false,
-                    onTap: (index) {
-                      setState(() {
-                        currentIndex = index;
-                      });
-                    },
-                    items: [
-                      bottomNavBarItem(
-                          icon: ImagesPath.home,
-                          activeIcon: ImagesPath.activeHome,
-                          label: S.of(context).home),
-                      bottomNavBarItem(
-                          icon: ImagesPath.shop,
-                          activeIcon: ImagesPath.activeShop,
-                          label: S.of(context).shop),
-                      bottomNavBarItem(
-                          icon: ImagesPath.card,
-                          activeIcon: ImagesPath.activeCard,
-                          label: S.of(context).card),
-                      bottomNavBarItem(
-                          icon: ImagesPath.favorite,
-                          activeIcon: ImagesPath.activeFavorite,
-                          label: S.of(context).favorites),
-                      bottomNavBarItem(
-                          icon: ImagesPath.profile,
-                          activeIcon: ImagesPath.activeProfile,
-                          label: S.of(context).profile),
-                    ]),
-              ),
-            )));
+        bottomNavigationBar: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          height: 65,
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topRight: Radius.circular(50),
+              topLeft: Radius.circular(50),
+              bottomLeft: Radius.circular(50),
+              bottomRight: Radius.circular(50),
+            ),
+            child: BottomNavigationBar(
+                selectedItemColor: AppColors.primaryColor,
+                type: BottomNavigationBarType.fixed,
+                currentIndex: currentIndex,
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                onTap: (index) {
+                  setState(() {
+                    currentIndex = index;
+                  });
+                },
+                items: [
+                  bottomNavBarItem(
+                      icon: ImagesPath.home,
+                      activeIcon: ImagesPath.activeHome,
+                      label: S.of(context).home),
+                  bottomNavBarItem(
+                      icon: ImagesPath.shop,
+                      activeIcon: ImagesPath.activeShop,
+                      label: S.of(context).shop),
+                  bottomNavBarItem(
+                      icon: ImagesPath.card,
+                      activeIcon: ImagesPath.activeCard,
+                      label: S.of(context).card),
+                  bottomNavBarItem(
+                      icon: ImagesPath.favorite,
+                      activeIcon: ImagesPath.activeFavorite,
+                      label: S.of(context).favorites),
+                  bottomNavBarItem(
+                      icon: ImagesPath.profile,
+                      activeIcon: ImagesPath.activeProfile,
+                      label: S.of(context).profile),
+                ]),
+          ),
+        ));
   }
 }
 

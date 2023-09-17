@@ -30,11 +30,11 @@ GetIt sl = GetIt.instance;
 Future<void> init() async {
   //BLOCS
   sl.registerFactory<AuthBloc>(() => AuthBloc(authRepo: sl()));
-  sl.registerFactory<HomeBloc>(() => HomeBloc(homeRepo: sl()));
+  sl.registerFactory<HomeBloc>(() => HomeBloc(homeRepo: sl(),cartRepo: sl()));
   sl.registerFactory<SettingsBloc>(() => SettingsBloc(settingsRepo: sl()));
   sl.registerFactory<OrdersBloc>(() => OrdersBloc(orderRepo: sl()));
   sl.registerFactory<CartBloc>(
-      () => CartBloc(cartRepo: sl(), inCards: sl<HomeBloc>().inCards));
+      () => CartBloc(cartRepo: sl()));
 
   //Repositories
   sl.registerLazySingleton<AuthRepo>(

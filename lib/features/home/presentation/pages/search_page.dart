@@ -1,10 +1,7 @@
 import 'package:commerceapp/Config/widgets/error_widget.dart';
-import 'package:commerceapp/Config/widgets/loading_widget.dart';
 import 'package:commerceapp/features/home/data/models/home_model.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
-import 'package:commerceapp/features/home/presentation/pages/product_details_page.dart';
 import 'package:commerceapp/features/home/presentation/widgets/FavoritesWidgets/favorite_item.dart';
-import 'package:commerceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,7 +11,6 @@ class SearchPage extends SearchDelegate {
     return [
       IconButton(
           onPressed: () {
-            // BlocProvider.of<HomeBloc>(context).add(SearchEvent(text: query));
             query = "";
           },
           icon: const Icon(Icons.close)),

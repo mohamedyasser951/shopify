@@ -1,16 +1,12 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:commerceapp/Config/components/loading.dart';
-import 'package:commerceapp/Config/components/skelton.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'package:commerceapp/Config/components/cachedNetworkImage.dart';
 import 'package:commerceapp/Config/constants/colors.dart';
-import 'package:commerceapp/Config/constants/image_paths.dart';
+import 'package:commerceapp/features/home/data/models/home_model.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:commerceapp/generated/l10n.dart';
-import 'package:flutter/material.dart';
-
-import 'package:commerceapp/features/home/data/models/home_model.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 class ProductDetails extends StatelessWidget {
   final Products product;
@@ -43,19 +39,10 @@ class ProductDetails extends StatelessWidget {
                             viewportFraction: 1,
                           ),
                           itemBuilder: (context, index, realIndex) {
-                            return CachedNetworkImage(
-                              width: double.infinity,
-                              height: 200,
-                              fit: BoxFit.contain,
-                              imageUrl: product.images![index],
-                              placeholder: (context, url) => const Loadingitem(
-                                  widget: Skeleton(
-                                width: 180,
-                                height: 140,
-                              )),
-                              errorWidget: (context, url, error) =>
-                                  const Icon(Icons.error),
-                            );
+                            return CashedNetworkImage(
+                                width: double.infinity,
+                                height: 200,
+                                imgUrl: product.images![index]);
                           },
                         ),
                       ),
@@ -117,15 +104,18 @@ class ProductDetails extends StatelessWidget {
           );
         },
       ),
-      bottomSheet: const BottomSheetButtons(),
+      bottomSheet: BottomSheetButtons(product: product),
     );
   }
 }
 
 class BottomSheetButtons extends StatelessWidget {
+  final Products product;
+
   const BottomSheetButtons({
-    super.key,
-  });
+    Key? key,
+    required this.product,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -134,25 +124,22 @@ class BottomSheetButtons extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-            ),
-            child: SvgPicture.asset(ImagesPath.activeCard),
-          ),
+          Text("${product.price}\$"),
           const SizedBox(
             width: 10,
           ),
           Expanded(
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                BlocProvider.of<HomeBloc>(context)
+                    .add(AddOrDeleteFromCartEvent(productId: product.id!));
+              },
               style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 14),
                   backgroundColor: AppColors.primaryColor),
-              child: Text(
-                S.of(context).buy_now,
-                style: const TextStyle(color: Colors.white),
+              child: const Text(
+                "add to cart",
+                style: TextStyle(color: Colors.white),
               ),
             ),
           )

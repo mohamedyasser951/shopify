@@ -70,7 +70,7 @@ class AppRoute {
         );
       case "/addOrUpdateAddressesPage":
         return MaterialPageRoute(
-          builder: (context) => AddOrUpdateAddressesPage(),
+          builder: (context) => const AddOrUpdateAddressesPage(),
         );
     }
 

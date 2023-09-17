@@ -1,4 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:commerceapp/Config/widgets/error_widget.dart';
+import 'package:commerceapp/features/home/PaymentService/payment_service.dart';
+import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -16,10 +19,10 @@ class CardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    BlocProvider.of<CartBloc>(context).add(GetCardEvent());
-    var cardModel = BlocProvider.of<CartBloc>(context).cartModel;
+    // BlocProvider.of<CartBloc>(context).add(GetCardEvent());
 
-    return BlocBuilder<CartBloc, CartState>(builder: (context, state) {
+    return BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
+      var cardModel = BlocProvider.of<HomeBloc>(context).cartModel;
       return Scaffold(
         appBar: AppBar(
           title: Text(S.of(context).card),
@@ -28,32 +31,27 @@ class CardPage extends StatelessWidget {
           context,
         ) {
           if (state is GetCardSErrorState) {
-            return Center(
-              child: Text(state.error.toString()),
-            );
+            return ErrorItem(errorMessage: state.error);
           }
-          if (state is GetCardLoadingState) {
-            return const LoadingWidget();
-          } else  {
-            return SingleChildScrollView(
-              child: Column(
-                children: [
-                  ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: cardModel!.data!.cartItems!.length,
-                    itemBuilder: (context, index) => CardWidget(
-                        cartItems: cardModel.data!.cartItems![index]),
-                    separatorBuilder: (context, index) => const SizedBox(
-                      height: 8,
-                    ),
+          return cardModel != null
+              ? SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: cardModel.data!.cartItems!.length,
+                        itemBuilder: (context, index) => CardWidget(
+                            cartItems: cardModel.data!.cartItems![index]),
+                        separatorBuilder: (context, index) => const SizedBox(
+                          height: 8,
+                        ),
+                      ),
+                      CardBottom(total: 5600),
+                    ],
                   ),
-                  CardBottom(total: BlocProvider.of<CartBloc>(context).total!),
-                ],
-              ),
-            );
-          }
-          return const SizedBox.shrink();
+                )
+              : const LoadingWidget();
         }),
       );
     });
@@ -115,7 +113,10 @@ class CardWidget extends StatelessWidget {
                               style: TextStyle(
                                   color: AppColors.primaryColor, fontSize: 16),
                             ),
-                            QuantityComponents(quantity: cartItems.quantity!, productId: cartItems.id!,)
+                            QuantityComponents(
+                              quantity: cartItems.quantity!,
+                              productId: cartItems.id!,
+                            )
                           ],
                         ),
                       ],
@@ -136,6 +137,7 @@ class CardWidget extends StatelessWidget {
                 child: Icon(
                   Icons.delete,
                   size: 12,
+                  color: Colors.white,
                 )),
           ),
         ],
@@ -164,8 +166,8 @@ class _QuantityComponentsState extends State<QuantityComponents> {
     void increment() {
       setState(() {
         widget.quantity++;
-         BlocProvider.of<CartBloc>(context).add(UpdateCartEvent(
-              productId: widget.productId, quantity: widget.quantity.toInt()));
+        BlocProvider.of<CartBloc>(context).add(UpdateCartEvent(
+            productId: widget.productId, quantity: widget.quantity.toInt()));
       });
     }
 
@@ -188,6 +190,7 @@ class _QuantityComponentsState extends State<QuantityComponents> {
                 increment();
               },
               style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(20, 20),
                   shape: const CircleBorder(),
                   backgroundColor: AppColors.primaryColor),
               child: const Icon(
@@ -201,6 +204,7 @@ class _QuantityComponentsState extends State<QuantityComponents> {
                 decrement();
               },
               style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(20, 20),
                   shape: const CircleBorder(),
                   backgroundColor: AppColors.grayColor),
               child: const Icon(
@@ -248,7 +252,12 @@ class CardBottom extends StatelessWidget {
                 "check out",
                 style: TextStyle(color: Colors.white),
               ),
-              onPressed: () {})
+              onPressed: () {
+                PaymentService.makePayment(
+                    amount: total,
+                    currency: "EGP",
+                    customerId: "110");
+              })
         ],
       ),
     );

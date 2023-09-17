@@ -30,12 +30,16 @@ class AppTheme {
     bottomAppBarTheme: BottomAppBarTheme(
       color: AppColors.grayColor,
     ),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: Colors.white,
+        elevation: 1,
+      ),
   );
 
   static ThemeData darkTheme = ThemeData(
       visualDensity: VisualDensity.adaptivePlatformDensity,
-      cardTheme: CardTheme(
-        color: const Color(0xff23272C),
+      cardTheme: const CardTheme(
+        color: Color(0xff23272C),
       ),
       colorScheme: ColorScheme.dark(
           background: AppColors.darkColor, primary: AppColors.primaryColor),
@@ -58,6 +62,10 @@ class AppTheme {
               color: Colors.white, fontWeight: FontWeight.w500, fontSize: 22)),
       bottomAppBarTheme: BottomAppBarTheme(
         color: AppColors.darkColor,
+      ),
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: Color(0xff23272C),
+        elevation: 1,
       ),
       inputDecorationTheme: InputDecorationTheme(
         hintStyle: const TextStyle(color: Colors.black),

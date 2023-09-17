@@ -20,7 +20,7 @@ class GetCategoriesDetailsEvent extends HomeEvent {
 
 class GetFavoritesEvent extends HomeEvent {}
 
-// class GetCardEvent extends HomeEvent {}
+class GetCardEvent extends HomeEvent {}
 
 class SetOrDeleteFavoriteEvent extends HomeEvent {
   final int id;
@@ -29,12 +29,12 @@ class SetOrDeleteFavoriteEvent extends HomeEvent {
   });
 }
 
-// class SetOrDeleteFromCartEvent extends HomeEvent {
-//   final int productId;
-//   const SetOrDeleteFromCartEvent({
-//     required this.productId,
-//   });
-// }
+class AddOrDeleteFromCartEvent extends HomeEvent {
+  final int productId;
+  const AddOrDeleteFromCartEvent({
+    required this.productId,
+  });
+}
 
 class SearchEvent extends HomeEvent {
   final String text;
