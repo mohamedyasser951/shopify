@@ -39,13 +39,14 @@ class SettingsRemoteDataSource {
         options: Options(
           headers: header,
         ));
-    if (response.statusCode == 200) {
-      print("success 2000");
-      print(response.data);
+    // if (response.statusCode == 200) {
+    //   print("success 2000");
+    //   print(response.data);
       return AddressesModel.fromJsonAsModel(response.data);
-    } else {
-      throw ServerException();
-    }
+    // }
+    //  else {
+    //   throw ServerException();
+    // }
   }
 
   Future<UserModel> changePassword({

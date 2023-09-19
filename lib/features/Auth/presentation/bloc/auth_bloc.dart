@@ -1,10 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:commerceapp/Config/Network/error_strings.dart';
 import 'package:commerceapp/features/Auth/data/models/user_model/user_model.dart';
 import 'package:equatable/equatable.dart';
-
 import 'package:commerceapp/features/Auth/data/repositories/auth_repo.dart';
-
 part 'auth_event.dart';
 part 'auth_state.dart';
 
@@ -21,7 +18,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             email: event.email, password: event.password);
 
         failureOrSuccess.fold((failure) {
-          emit(AuthErrorState(error: mapFailureToMessage(failure)));
+          emit(AuthErrorState(error: failure.message));
         }, (user) {
           emit(AuthSuccessState(userModel: user));
         });
@@ -35,7 +32,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             phone: event.phone,
             password: event.password);
         failureOrSuccess.fold((failure) {
-          emit(AuthErrorState(error: mapFailureToMessage(failure)));
+          emit(AuthErrorState(error: failure.message(failure)));
         }, (user) {
           emit(AuthSuccessState(userModel: user));
         });

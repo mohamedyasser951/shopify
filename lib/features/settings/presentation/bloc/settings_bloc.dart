@@ -2,7 +2,6 @@ import 'package:commerceapp/features/settings/data/models/addresses_data.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:commerceapp/Config/Network/error_strings.dart';
 import 'package:commerceapp/Config/constants/strings.dart';
 import 'package:commerceapp/features/Auth/data/models/user_model/data.dart';
 import 'package:commerceapp/features/Auth/data/models/user_model/user_model.dart';
@@ -47,7 +46,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         emit(GetProfileLoadingState());
         var data = await settingsRepo.getUserProfile();
         data.fold((failure) {
-          emit(GetProfileErrorState(error: mapFailureToMessage(failure)));
+          emit(GetProfileErrorState(error: failure.message));
         }, (model) {
           userProfileData = model;
           emit(GetProfileSucessState());
@@ -59,7 +58,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
             currentPassword: event.currentPassword,
             newPassword: event.newPassword);
         data.fold((failure) {
-          emit(ChangePasswordErrorState(error: mapFailureToMessage(failure)));
+          emit(ChangePasswordErrorState(error: failure.message));
         }, (model) {
           emit(ChangePasswordSucessState(model: model));
         });
@@ -72,7 +71,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
             phone: event.phone,
             image: event.image);
         data.fold((failure) {
-          emit(UpdatePasswordErrorState(error: mapFailureToMessage(failure)));
+          emit(UpdatePasswordErrorState(error: failure.message));
         }, (model) {
           print(model);
           emit(UpdatePasswordSucessState(model: model));
@@ -83,7 +82,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         var failureOrAddresses = await settingsRepo.getAdresses();
         failureOrAddresses.fold(
             (failure) => emit(
-                GetAdresessErrorState(error: mapFailureToMessage(failure))),
+                GetAdresessErrorState(error: failure.message)),
             (addresses) {
           userAddresess = addresses;
           emit(GetAdresessSucessState());
@@ -95,7 +94,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
             await settingsRepo.addAdresses(addressData: event.addressData);
         failureOrAddresses.fold(
             (failure) => emit(
-                AddAdresessErrorState(error: mapFailureToMessage(failure))),
+                AddAdresessErrorState(error: failure.message)),
             (addresses) {
           if (addresses.status == true) {
             add(GetAddresessEvent());

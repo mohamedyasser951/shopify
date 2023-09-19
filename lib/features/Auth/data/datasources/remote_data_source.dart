@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:commerceapp/Config/Network/end_points.dart';
-import 'package:commerceapp/Config/Network/exception.dart';
 import 'package:commerceapp/features/Auth/data/models/user_model/user_model.dart';
 
 class AuthRemoteDataSource {
@@ -17,12 +16,8 @@ class AuthRemoteDataSource {
           "lang": "en",
         }),
         data: {"email": email, "password": password});
-    if (response.statusCode == 200) {
-      UserModel userModel = UserModel.fromJson(response.data);
-      return userModel;
-    } else {
-      throw ServerException();
-    }
+    UserModel userModel = UserModel.fromJson(response.data);
+    return userModel;
   }
 
   Future<UserModel> userRegister({
@@ -42,11 +37,7 @@ class AuthRemoteDataSource {
           "password": password,
           "phone": phone
         });
-    if (response.statusCode == 200) {
-      UserModel userModel = UserModel.fromJson(response.data);
-      return userModel;
-    } else {
-      throw ServerException();
-    }
+    UserModel userModel = UserModel.fromJson(response.data);
+    return userModel;
   }
 }

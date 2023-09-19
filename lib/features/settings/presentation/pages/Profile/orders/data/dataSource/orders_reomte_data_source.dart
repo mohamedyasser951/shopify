@@ -1,5 +1,4 @@
 import 'package:commerceapp/Config/Network/end_points.dart';
-import 'package:commerceapp/Config/Network/exception.dart';
 import 'package:commerceapp/features/home/data/datasources/home_remote_datasource.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/data/models/orders_details_model.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/data/models/orders_model.dart';
@@ -13,31 +12,19 @@ class OrdersRemoteDataSource {
   Future<OrdersModel> getAllOrders() async {
     Response response =
         await dio.get(EndPoints.orders, options: Options(headers: header));
-    if (response.statusCode == 200) {
-      return OrdersModel.fromJson(response.data);
-    } else {
-      throw ServerException();
-    }
+    return OrdersModel.fromJson(response.data);
   }
 
   Future<OrdersDetailsModel> getOrdersDetails({required int id}) async {
     Response response = await dio.get("${EndPoints.orders}/$id",
         options: Options(headers: header));
-    if (response.statusCode == 200) {
-      return OrdersDetailsModel.fromJson(response.data);
-    } else {
-      throw ServerException();
-    }
+    return OrdersDetailsModel.fromJson(response.data);
   }
 
   Future<OrdersDetailsModel> cancelOrder({required int id}) async {
     Response response = await dio.get("${EndPoints.orders}/$id/cancel",
         options: Options(headers: header));
-    if (response.statusCode == 200) {
-      return OrdersDetailsModel.fromJson(response.data);
-    } else {
-      throw ServerException();
-    }
+    return OrdersDetailsModel.fromJson(response.data);
   }
 
   Future<OrdersDetailsModel> addOrder({required int id}) async {
@@ -48,10 +35,6 @@ class OrdersRemoteDataSource {
           "use_points": "",
         },
         options: Options(headers: header));
-    if (response.statusCode == 200) {
-      return OrdersDetailsModel.fromJson(response.data);
-    } else {
-      throw ServerException();
-    }
+    return OrdersDetailsModel.fromJson(response.data);
   }
 }

@@ -1,8 +1,5 @@
 import 'package:commerceapp/Config/Network/end_points.dart';
-import 'package:commerceapp/Config/Network/exception.dart';
 import 'package:commerceapp/Config/constants/strings.dart';
-// import 'package:commerceapp/features/Auth/data/models/user_model/data.dart';
-// import 'package:commerceapp/features/Auth/data/models/user_model/user_model.dart';
 import 'package:commerceapp/features/home/features/cart/data/models/card_model.dart';
 import 'package:commerceapp/features/home/data/models/category_model.dart';
 import 'package:commerceapp/features/home/data/models/favorite_model.dart';
@@ -24,94 +21,62 @@ class HomeRemoteDataSource {
   Future<HomeModel> getHomeData() async {
     var response =
         await dio.get(EndPoints.home, options: Options(headers: header));
-    if (response.statusCode == 200) {
-      return HomeModel.fromJson(response.data);
-    } else {
-      throw ServerException();
-    }
+    return HomeModel.fromJson(response.data);
   }
 
   Future<CategoryModel> getCategories() async {
     var response =
         await dio.get(EndPoints.category, options: Options(headers: header));
-    if (response.statusCode == 200) {
-      return CategoryModel.fromJson(response.data);
-    } else {
-      throw ServerException();
-    }
+    return CategoryModel.fromJson(response.data);
   }
 
   Future<List<Products>> getCategoriesDetails({required int id}) async {
     List<Products> products = [];
     var response = await dio.get("${EndPoints.category}/$id",
         options: Options(headers: header));
-    if (response.statusCode == 200) {
-      response.data["data"]["data"].forEach((element) {
-        products.add(Products.fromJson(element));
-      });
-      return products;
-    } else {
-      throw ServerException();
-    }
+    response.data["data"]["data"].forEach((element) {
+      products.add(Products.fromJson(element));
+    });
+    return products;
   }
 
   Future<FavoriteModel> getFavorites() async {
     var response =
         await dio.get(EndPoints.favorites, options: Options(headers: header));
-    if (response.statusCode == 200) {
-      return FavoriteModel.fromJson(response.data);
-    } else {
-      throw ServerException();
-    }
+    return FavoriteModel.fromJson(response.data);
   }
 
   Future<FavoriteModel> setOrDeleteFromFavorites({required int id}) async {
     var response = await dio.post(EndPoints.favorites,
         data: {"product_id": id}, options: Options(headers: header));
-    if (response.statusCode == 200) {
-      return FavoriteModel.fromJson(response.data);
-    } else {
-      throw ServerException();
-    }
+    return FavoriteModel.fromJson(response.data);
   }
 
   Future<CardModel> getCard() async {
     Response response =
         await dio.get(EndPoints.carts, options: Options(headers: header));
-    if (response.statusCode == 200) {
-      return CardModel.fromJson(response.data);
-    } else {
-      throw ServerException();
-    }
+    return CardModel.fromJson(response.data);
   }
 
   Future<Map<String, dynamic>> setOrDeleteFromCart(
       {required int productId}) async {
     Response response = await dio.post(EndPoints.carts,
         data: {"product_id": productId}, options: Options(headers: header));
-    if (response.statusCode == 200) {
-      Map<String, dynamic> data = {
-        "status": response.data["status"],
-        "message": response.data["message"],
-      };
-      return Future.value(data);
-    } else {
-      throw ServerException();
-    }
+    Map<String, dynamic> data = {
+      "status": response.data["status"],
+      "message": response.data["message"],
+    };
+    return Future.value(data);
   }
 
   Future<List<Products>> search({required String text}) async {
     Response response = await dio.post(EndPoints.search,
         data: {"text": text}, options: Options(headers: header));
-    if (response.statusCode == 200) {
-      List<Products> searchResult = [];
-      response.data["data"]["data"].forEach((product) {
-        searchResult.add(Products.fromJson(product));
-      });
-      return searchResult;
-    } else {
-      throw ServerException();
-    }
+    List<Products> searchResult = [];
+    response.data["data"]["data"].forEach((product) {
+      searchResult.add(Products.fromJson(product));
+    });
+    return searchResult;
   }
 
   // Future<UserData> getUserProfile() async {
@@ -162,6 +127,4 @@ class HomeRemoteDataSource {
   //     throw ServerException();
   //   }
   // }
-
-
 }

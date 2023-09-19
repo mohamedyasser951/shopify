@@ -10,6 +10,7 @@ class ErrorItem extends StatelessWidget {
       child: Text(
         errorMessage,
         style: Theme.of(context).textTheme.bodyLarge,
+        textAlign: TextAlign.center,
       ),
     );
   }

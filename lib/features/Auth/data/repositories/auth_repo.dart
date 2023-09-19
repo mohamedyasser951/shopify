@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import 'package:commerceapp/Config/Network/failure.dart';
@@ -36,11 +37,14 @@ class AuthRepoImplem implements AuthRepo {
         final userModel =
             await remoteDataSource.userLogin(email: email, password: password);
         return Right(userModel);
-      } on ServerFailure {
-        return Left(ServerFailure());
+      } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDiorError(e));
       }
+      return Left(ServerFailure(e.toString()));
+    }
     } else {
-      return Left(OfflineFailure());
+       return Left(OfflineFailure("Please Check your Internet Connection"));
     }
   }
 
@@ -56,11 +60,14 @@ class AuthRepoImplem implements AuthRepo {
         UserModel userModel = await remoteDataSource.userRegister(
             name: name, email: email, phone: phone, password: password);
         return Right(userModel);
-      } on ServerFailure {
-        return left(ServerFailure());
+      } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDiorError(e));
       }
+      return Left(ServerFailure(e.toString()));
+    }
     } else {
-       return Left(OfflineFailure());
+       return Left(OfflineFailure("Please Check your Internet Connection"));
     }
   }
 }

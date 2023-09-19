@@ -1,7 +1,3 @@
-import 'package:commerceapp/Config/Network/exception.dart';
-// import 'package:commerceapp/features/Auth/data/models/user_model/data.dart';
-// import 'package:commerceapp/features/Auth/data/models/user_model/user_model.dart';
-// import 'package:commerceapp/features/home/data/models/card_model.dart';
 import 'package:commerceapp/features/home/data/repositories/home_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:commerceapp/Config/Network/failure.dart';
@@ -10,6 +6,7 @@ import 'package:commerceapp/features/home/data/datasources/home_remote_datasourc
 import 'package:commerceapp/features/home/data/models/category_model.dart';
 import 'package:commerceapp/features/home/data/models/favorite_model.dart';
 import 'package:commerceapp/features/home/data/models/home_model.dart';
+import 'package:dio/dio.dart';
 
 class HomeRepoImplem implements HomeRepo {
   HomeRemoteDataSource dataSource;
@@ -25,8 +22,11 @@ class HomeRepoImplem implements HomeRepo {
     try {
       var homeModel = await dataSource.getHomeData();
       return Right(homeModel);
-    } on ServerException {
-      return Left(ServerFailure());
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDiorError(e));
+      }
+      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -35,8 +35,11 @@ class HomeRepoImplem implements HomeRepo {
     try {
       var categoryModel = await dataSource.getCategories();
       return Right(categoryModel);
-    } on ServerException {
-      return Left(ServerFailure());
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDiorError(e));
+      }
+      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -45,8 +48,11 @@ class HomeRepoImplem implements HomeRepo {
     try {
       var favorites = await dataSource.getFavorites();
       return Right(favorites);
-    } on ServerException {
-      return Left(ServerFailure());
+    } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDiorError(e));
+      }
+      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -57,11 +63,14 @@ class HomeRepoImplem implements HomeRepo {
       try {
         var favorite = await dataSource.setOrDeleteFromFavorites(id: id);
         return Right(favorite);
-      } on ServerException {
-        return Left(ServerFailure());
+      } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDiorError(e));
       }
+      return Left(ServerFailure(e.toString()));
+    }
     } else {
-      return Left(OfflineFailure());
+       return Left(OfflineFailure("Please Check your Internet Connection"));
     }
   }
 
@@ -80,8 +89,11 @@ class HomeRepoImplem implements HomeRepo {
     try {
       var searchResult = await dataSource.search(text: text);
       return Right(searchResult);
-    } on ServerException {
-      return Left(ServerFailure());
+    }catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDiorError(e));
+      }
+      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -137,11 +149,14 @@ class HomeRepoImplem implements HomeRepo {
       try {
         var products = await dataSource.getCategoriesDetails(id: id);
         return Right(products);
-      } on ServerException {
-        return Left(ServerFailure());
+      } catch (e) {
+      if (e is DioException) {
+        return Left(ServerFailure.fromDiorError(e));
       }
+      return Left(ServerFailure(e.toString()));
+    }
     } else {
-      return Left(OfflineFailure());
+       return Left(OfflineFailure("Please Check your Internet Connection"));
     }
   }
 

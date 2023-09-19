@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:commerceapp/Config/Network/error_strings.dart';
 import 'package:commerceapp/features/home/data/models/category_model.dart';
 import 'package:commerceapp/features/home/data/models/favorite_model.dart';
 import 'package:commerceapp/features/home/data/repositories/home_repo.dart';
@@ -44,7 +43,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         emit(GetCategoriesLoadingState());
         var failureOrData = await homeRepo.getCategories();
         failureOrData.fold(
-            (error) => emit(GetCategoriesErrorState(error: error.toString())),
+            (error) => emit(GetCategoriesErrorState(error: error.message)),
             (model) {
           categoryModel = model;
           emit(GetCategoriesSuccessState(categoryModel: model));
@@ -55,8 +54,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         var failureOrData =
             await homeRepo.getCategoriesDetails(id: event.categoryId);
         failureOrData.fold(
-            (failure) => emit(CategoriesDetailsErrorState(
-                error: mapFailureToMessage(failure))), (products) {
+            (failure) =>
+                emit(CategoriesDetailsErrorState(error: failure.message)),
+            (products) {
           productsByCategory = products;
           emit(CategoriesDetailsSuccessState());
         });
@@ -65,8 +65,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         emit(GetFavoritesLoadingState());
         var failureOrData = await homeRepo.getFavorites();
         failureOrData.fold(
-            (error) => emit(
-                GetCategoriesErrorState(error: mapFailureToMessage(error))),
+            (failure) => emit(GetCategoriesErrorState(error: failure.message)),
             (favorites) {
           favoriteModel = favorites;
           emit(GetFavoriteSuccessSate(favorites: favorites));
@@ -80,7 +79,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         failureOrData.fold((failure) {
           inFavorites[event.id] = !inFavorites[event.id]!;
 
-          emit(SetOrDeleteErrorState(error: mapFailureToMessage(failure)));
+          emit(SetOrDeleteErrorState(error: failure.message));
         }, (model) {
           if (!model.status!) {
             inFavorites[event.id] = !inFavorites[event.id]!;
@@ -95,10 +94,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       if (event is GetCardEvent) {
         emit(GetCardLoadingState());
         var failureOrData = await cartRepo.getCarts();
-        failureOrData.fold(
-            (failure) =>
-                emit(GetCardSErrorState(error: mapFailureToMessage(failure))),
-            (model) {
+        failureOrData
+            .fold((failure) => emit(GetCardSErrorState(error: failure.message)),
+                (model) {
           cartModel = model;
           emit(GetCardSuceessState(cardData: cartModel!.data!));
         });
@@ -111,7 +109,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         failureOrData.fold((failure) {
           inCards[event.productId] = !inCards[event.productId]!;
 
-          emit(SetOrDeleteErrorState(error: mapFailureToMessage(failure)));
+          emit(SetOrDeleteErrorState(error: failure.message));
         }, (data) {
           if (data["status"] != true) {
             inCards[event.productId] = !inCards[event.productId]!;
@@ -124,10 +122,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       if (event is SearchEvent) {
         emit(SearchLoadingState());
         var failureOrData = await homeRepo.search(text: event.text);
-        failureOrData.fold(
-            (failure) =>
-                emit(SearchErrorState(error: mapFailureToMessage(failure))),
-            (products) {
+        failureOrData
+            .fold((failure) => emit(SearchErrorState(error: failure.message)),
+                (products) {
           emit(SearchSuccessState(products: products));
         });
       }

@@ -24,7 +24,13 @@ class CategoryDetailsPage extends StatelessWidget {
         child: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
           HomeBloc homeBloc = BlocProvider.of<HomeBloc>(context);
           if (state is CategoriesDetailsErrorState) {
-            return ErrorItem( errorMessage: state.error,);
+            return ErrorItem(errorMessage: state.error);
+          }
+          if (state is CategoriesDetailsErrorState) {
+            return Center(
+                child: ErrorItem(
+              errorMessage: state.error,
+            ));
           }
           return state is CategoriesDetailsLoadingState
               ? const LoadingWidget()
