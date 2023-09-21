@@ -7,6 +7,13 @@ abstract class HomeEvent extends Equatable {
   List<Object> get props => [];
 }
 
+class ChangeBottomNavEvent extends HomeEvent {
+  final int index;
+   const ChangeBottomNavEvent({
+    required this.index,
+  });
+}
+
 class GetHomeDataEvent extends HomeEvent {}
 
 class GetCategoriesEvent extends HomeEvent {}

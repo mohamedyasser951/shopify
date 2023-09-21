@@ -41,15 +41,13 @@ class App extends StatelessWidget {
                 lazy: false,
                 create: (context) => di.sl<HomeBloc>()
                   ..add(GetHomeDataEvent())
-                  ..add(GetCardEvent())
                   ..add(GetCategoriesEvent())
-                  ..add(GetFavoritesEvent())),
+                  ),
             BlocProvider(
                 create: (context) => di.sl<SettingsBloc>()
                   ..add(ChangeAppModeEvent(
                       modeFromCashe: box.get("darkMode", defaultValue: false)))
                   ..add(GetProfileEvent())
-                  ..add(GetAddresessEvent())
                   ..add(ChangeLanguageEvent(
                       lang: box.get("lang", defaultValue: "en")))),
             BlocProvider(

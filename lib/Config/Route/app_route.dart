@@ -20,7 +20,7 @@ class AppRoute {
     Widget startWidget = const LoginPage();
 
     if (Hive.box(AppStrings.settingsBox).get("Token") != null) {
-      startWidget = const AppLayout();
+      startWidget =  AppLayout();
     }
 
     switch (routeSettings.name) {
@@ -28,7 +28,7 @@ class AppRoute {
         return MaterialPageRoute(builder: (context) => startWidget);
 
       case "/home":
-        return MaterialPageRoute(builder: (_) => const AppLayout());
+        return MaterialPageRoute(builder: (_) =>  AppLayout());
       case "/login":
         return MaterialPageRoute(
           builder: (context) => const LoginPage(),

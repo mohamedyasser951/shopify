@@ -16,8 +16,8 @@ class CardModel {
 
 class CardData {
   List<CartItems>? cartItems;
-  int? subTotal;
-  int? total;
+  num? subTotal;
+  num? total;
 
 
   CardData.fromJson(Map<String, dynamic> json) {

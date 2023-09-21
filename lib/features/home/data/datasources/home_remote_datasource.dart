@@ -55,6 +55,7 @@ class HomeRemoteDataSource {
   Future<CardModel> getCard() async {
     Response response =
         await dio.get(EndPoints.carts, options: Options(headers: header));
+    print(response.data);
     return CardModel.fromJson(response.data);
   }
 

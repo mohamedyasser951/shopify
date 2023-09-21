@@ -9,6 +9,16 @@ abstract class HomeState extends Equatable {
 
 class HomeInitial extends HomeState {}
 
+class ChangeBottomNavState extends HomeState {
+ final int index;
+  const ChangeBottomNavState({
+    required this.index,
+  });
+  @override
+  List<Object> get props => [index];
+}
+
+
 class GetHomeDataLoadingState extends HomeState {}
 
 class GetHomeDataSuccessState extends HomeState {
@@ -134,8 +144,8 @@ class SetOrDeleteErrorState extends HomeState {
     required this.error,
   });
 }
-class ChangeStateOfCarts extends HomeState {}
 
+class ChangeStateOfCarts extends HomeState {}
 
 class SearchLoadingState extends HomeState {}
 

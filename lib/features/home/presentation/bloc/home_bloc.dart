@@ -12,6 +12,7 @@ part 'home_state.dart';
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeRepo homeRepo;
   CartRepo cartRepo;
+  int bottomNavIndex = 0;
   List<Products>? productsByCategory;
   CategoryModel? categoryModel;
   FavoriteModel? favoriteModel;
@@ -25,6 +26,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     required this.cartRepo,
   }) : super(HomeInitial()) {
     on<HomeEvent>((event, emit) async {
+      if (event is ChangeBottomNavEvent) {
+        bottomNavIndex = event.index;
+        if (event.index == 2 && cartModel == null) {
+          add(GetCardEvent());
+        }
+        if (event.index == 3 && favoriteModel == null) {
+          add(GetFavoritesEvent());
+        }
+        emit(ChangeBottomNavState(index: bottomNavIndex));
+      }
       if (event is GetHomeDataEvent) {
         emit(GetHomeDataLoadingState());
         var failureOrData = await homeRepo.getHomeData();

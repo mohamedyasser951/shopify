@@ -19,42 +19,44 @@ class CardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // BlocProvider.of<CartBloc>(context).add(GetCardEvent());
+    BlocProvider.of<HomeBloc>(context).add(GetCardEvent());
 
-    return BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
-      var cardModel = BlocProvider.of<HomeBloc>(context).cartModel;
-      return Scaffold(
-        appBar: AppBar(
-          title: Text(S.of(context).card),
-        ),
-        body: Builder(builder: (
-          context,
-        ) {
-          if (state is GetCardSErrorState) {
-            return ErrorItem(errorMessage: state.error);
-          }
-          return cardModel != null
-              ? SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      ListView.separated(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: cardModel.data!.cartItems!.length,
-                        itemBuilder: (context, index) => CardWidget(
-                            cartItems: cardModel.data!.cartItems![index]),
-                        separatorBuilder: (context, index) => const SizedBox(
-                          height: 8,
-                        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(S.of(context).card),
+      ),
+      body: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
+        var cardModel = BlocProvider.of<HomeBloc>(context).cartModel;
+
+        if (state is GetCardSErrorState) {
+          return ErrorItem(errorMessage: state.error);
+        }
+        if (state is GetCategoriesLoadingState) {
+          return const LoadingWidget();
+        }
+
+        return cardModel != null
+            ? SingleChildScrollView(
+                child: Column(
+                  children: [
+                    ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: cardModel.data!.cartItems!.length,
+                      itemBuilder: (context, index) => CardWidget(
+                          cartItems: cardModel.data!.cartItems![index]),
+                      separatorBuilder: (context, index) => const SizedBox(
+                        height: 8,
                       ),
-                      CardBottom(total: 5600),
-                    ],
-                  ),
-                )
-              : const LoadingWidget();
-        }),
-      );
-    });
+                    ),
+                    CardBottom(total: cardModel.data!.total!),
+                  ],
+                ),
+              )
+            : const LoadingWidget();
+        // : const ErrorItem(errorMessage: "Cart Is Empty!");
+      }),
+    );
   }
 }
 
@@ -106,10 +108,10 @@ class CardWidget extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Text(
-                              "${cartItems.product!.price}\$",
+                              "${cartItems.product!.price!.floor()}\$",
                               style: TextStyle(
                                   color: AppColors.primaryColor, fontSize: 16),
                             ),
@@ -220,7 +222,7 @@ class _QuantityComponentsState extends State<QuantityComponents> {
 }
 
 class CardBottom extends StatelessWidget {
-  final int total;
+  final num total;
   const CardBottom({
     Key? key,
     required this.total,
@@ -254,9 +256,7 @@ class CardBottom extends StatelessWidget {
               ),
               onPressed: () {
                 PaymentService.makePayment(
-                    amount: total,
-                    currency: "EGP",
-                    customerId: "110");
+                    amount: total.toInt(), currency: "EGP", customerId: "110");
               })
         ],
       ),

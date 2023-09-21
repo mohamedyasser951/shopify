@@ -1,3 +1,4 @@
+import 'package:commerceapp/Config/widgets/error_widget.dart';
 import 'package:commerceapp/Config/widgets/loading_widget.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:commerceapp/features/home/presentation/widgets/vertical_category_item.dart';
@@ -15,21 +16,21 @@ class CategoryPage extends StatelessWidget {
           title: Text(S.of(context).categories),
         ),
         body: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
-          var categoriesData =
-              BlocProvider.of<HomeBloc>(context).categoryModel!.data!.data!;
-          if (state is GetCategoriesLoadingState) {
-            return const LoadingWidget();
-          } else if (BlocProvider.of<HomeBloc>(context).categoryModel != null) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ListView.builder(
-                itemCount: categoriesData.length,
-                itemBuilder: (context, index) =>
-                    CategortItem(categoryData: categoriesData[index]),
-              ),
-            );
+          var categoryModel = BlocProvider.of<HomeBloc>(context).categoryModel;
+
+          if (state is GetCategoriesErrorState) {
+            return ErrorItem(errorMessage: state.error);
           }
-          return const Center(child: Text("No Data yet"));
+          return categoryModel == null
+              ? const LoadingWidget()
+              : Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView.builder(
+                    itemCount: categoryModel.data!.data!.length,
+                    itemBuilder: (context, index) => CategortItem(
+                        categoryData: categoryModel.data!.data![index]),
+                  ),
+                );
         }));
   }
 }

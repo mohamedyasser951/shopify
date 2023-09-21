@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 
 class Failure {
   final String message;
-
   Failure(this.message);
 }
 
@@ -11,19 +10,19 @@ class ServerFailure extends Failure {
   factory ServerFailure.fromDiorError(DioException e) {
     switch (e.type) {
       case DioExceptionType.connectionTimeout:
-        return ServerFailure('Connection timeout with api server');
+        return ServerFailure('Connection timeout with server');
 
       case DioExceptionType.sendTimeout:
-        return ServerFailure('Send timeout with ApiServer');
+        return ServerFailure('Send Timeout with Server');
       case DioExceptionType.receiveTimeout:
-        return ServerFailure('Receive timeout with ApiServer');
+        return ServerFailure('Receive timeout with Server');
       case DioExceptionType.badCertificate:
-        return ServerFailure('Bad Certificate with api server');
+        return ServerFailure('Bad Certificate with server');
       case DioExceptionType.badResponse:
         return ServerFailure.fromResponse(
             e.response!.statusCode!, e.response!.data);
       case DioExceptionType.cancel:
-        return ServerFailure('Request to ApiServer was canceld');
+        return ServerFailure('Request to Server was canceld');
       case DioExceptionType.connectionError:
         return ServerFailure('No Internet Connection');
       case DioExceptionType.unknown:
@@ -39,7 +38,7 @@ class ServerFailure extends Failure {
     } else if (statusCode == 500) {
       return ServerFailure('There is a problem with server, please try later');
     } else if (statusCode == 400 || statusCode == 401 || statusCode == 403) {
-      return ServerFailure(response['error']['message']);
+      return ServerFailure(response['message']);
     } else {
       return ServerFailure('There was an error , please try again');
     }

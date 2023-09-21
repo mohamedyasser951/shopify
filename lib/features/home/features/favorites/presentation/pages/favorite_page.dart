@@ -30,11 +30,11 @@ class FavoritePage extends StatelessWidget {
           appBar: AppBar(
             title: Text(S.of(context).favorites),
           ),
-          body: state is GetFavoritesLoadingState
+          body: favoriteModel == null
               ? const LoadingWidget()
               : ListView.separated(
                   padding: const EdgeInsets.all(8.0),
-                  itemCount: favoriteModel!.data!.data!.length,
+                  itemCount: favoriteModel.data!.data!.length,
                   itemBuilder: (context, index) => FavoriteItem(
                       model: favoriteModel.data!.data![index].product!),
                   separatorBuilder: (context, index) => const SizedBox(

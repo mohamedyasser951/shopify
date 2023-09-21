@@ -1,3 +1,4 @@
+import 'package:commerceapp/Config/widgets/error_widget.dart';
 import 'package:commerceapp/Config/widgets/loading_widget.dart';
 import 'package:commerceapp/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Profile/add_or_update_address_page.dart';
@@ -33,9 +34,9 @@ class _AdressesPageState extends State<AdressesPage> {
           SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
 
           if (state is GetAdresessErrorState) {
-            return Text(state.error);
+            return ErrorItem(errorMessage: state.error);
           }
-          return state is GetAdresessLoadingState
+          return settingsBloc.userAddresess == null
               ? const LoadingWidget()
               : Padding(
                   padding: const EdgeInsets.symmetric(

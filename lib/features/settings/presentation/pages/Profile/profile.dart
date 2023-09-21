@@ -1,7 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:commerceapp/Config/components/loading.dart';
-import 'package:commerceapp/Config/components/skelton.dart';
+import 'package:commerceapp/Config/components/cachedNetworkImage.dart';
 import 'package:commerceapp/Config/constants/colors.dart';
+import 'package:commerceapp/Config/widgets/error_widget.dart';
+import 'package:commerceapp/Config/widgets/loading_widget.dart';
 import 'package:commerceapp/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:commerceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +11,7 @@ class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
   @override
   Widget build(BuildContext context) {
-    var settingBloc = BlocProvider.of<SettingsBloc>(context);
+    SettingsBloc settingBloc = BlocProvider.of<SettingsBloc>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -21,24 +21,25 @@ class ProfilePage extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: Column(
           children: [
-            BlocBuilder<SettingsBloc, SettingsState>(
-              builder: (context, state) {
+            BlocBuilder<SettingsBloc, SettingsState>(builder: (context, state) {
+              if (state is GetProfileLoadingState) {
+                return const LoadingWidget();
+              }
+              if (state is GetAdresessErrorState) {
+                return ErrorItem(
+                  errorMessage: state.error,
+                );
+              }
               return Row(
                 children: [
                   CircleAvatar(
                     radius: 30,
-                    child: CachedNetworkImage(
-                      width: 30,
-                      height: 30,
-                      imageUrl: settingBloc.userProfileData!.image!,
-                      placeholder: (context, url) => const Loadingitem(
-                          widget: Skeleton(
-                        width: 30,
-                        height: 30,
-                      )),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
-                    ),
+                    child: settingBloc.userProfileData?.image != null
+                        ? CashedNetworkImage(
+                            width: 30,
+                            height: 30,
+                            imgUrl: settingBloc.userProfileData!.image!)
+                        : null,
                   ),
                   const SizedBox(
                     width: 6,
@@ -47,7 +48,7 @@ class ProfilePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        settingBloc.userProfileData!.name!,
+                        settingBloc.userProfileData?.name ?? "",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -55,7 +56,7 @@ class ProfilePage extends StatelessWidget {
                         height: 4,
                       ),
                       Text(
-                        settingBloc.userProfileData!.email!,
+                        settingBloc.userProfileData?.email ?? "",
                         style: Theme.of(context)
                             .textTheme
                             .bodySmall!
@@ -92,7 +93,7 @@ class ProfilePage extends StatelessWidget {
                 Navigator.pushNamed(context, "/adressesPage");
               },
               title: Text(
-              "shipping addresse",
+                "shipping addresse",
                 style: Theme.of(context).textTheme.bodyMedium,
               ),
               subtitle: Text(
