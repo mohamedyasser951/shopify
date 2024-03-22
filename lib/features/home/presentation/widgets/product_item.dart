@@ -95,7 +95,7 @@ class productItem extends StatelessWidget {
             ),
             Positioned(
               top: 12,
-              right: 12,
+              right: 15,
               child: InkWell(
                 onTap: () {
                   homeBloc.add(SetOrDeleteFavoriteEvent(id: product.id!));

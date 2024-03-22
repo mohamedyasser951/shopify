@@ -3,7 +3,7 @@ import 'package:commerceapp/features/home/data/models/category_model.dart';
 import 'package:commerceapp/features/home/data/models/favorite_model.dart';
 import 'package:commerceapp/features/home/data/repositories/home_repo.dart';
 import 'package:commerceapp/features/home/features/cart/data/models/card_model.dart';
-import 'package:commerceapp/features/home/features/cart/data/repositories/cartRepo.dart';
+import 'package:commerceapp/features/home/features/cart/data/repositories/cart_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:commerceapp/features/home/data/models/home_model.dart';
 part 'home_event.dart';
@@ -40,7 +40,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         emit(GetHomeDataLoadingState());
         var failureOrData = await homeRepo.getHomeData();
         failureOrData.fold(
-            (error) => emit(GetHomeDataErrorState(error: error.toString())),
+            (failure) => emit(GetHomeDataErrorState(error: failure.message)),
             (model) {
           homeModel = model;
           for (var item in model.data!.products!) {

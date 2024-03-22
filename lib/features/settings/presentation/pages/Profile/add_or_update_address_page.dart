@@ -52,9 +52,9 @@ class AddOrUpdateAddressesPage extends StatelessWidget {
 }
 
 class AddOrUpdateAdresssForm extends StatefulWidget {
-  bool isUpdateAddresses;
-  AddressData? addressData;
-  AddOrUpdateAdresssForm({
+ final bool isUpdateAddresses;
+  final AddressData? addressData;
+  const AddOrUpdateAdresssForm({
     Key? key,
     required this.isUpdateAddresses,
     this.addressData,

@@ -255,8 +255,8 @@ class CardBottom extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
-                PaymentService.makePayment(
-                    amount: total.toInt(), currency: "EGP", customerId: "110");
+                // PaymentService.makePayment(
+                //     amount: total.toInt(), currency: "EGP", customerId: "110");
               })
         ],
       ),

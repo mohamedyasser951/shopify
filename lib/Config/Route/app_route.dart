@@ -10,25 +10,33 @@ import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/
 import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/presentation/pages/orders_page.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Settings/settings_page.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Settings/update_profile_page.dart';
+import 'package:commerceapp/on_boarding.dart';
 import 'package:commerceapp/service_locator.dart';
+import 'package:commerceapp/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 class AppRoute {
   static Route onGenerateRoute(RouteSettings routeSettings) {
-    Widget startWidget = const LoginPage();
-
-    if (Hive.box(AppStrings.settingsBox).get("Token") != null) {
-      startWidget =  AppLayout();
+    Widget startWidget;
+    var settingBox = Hive.box(AppStrings.settingsBox);
+    
+    if (settingBox.get("onBoarding") == null) {
+      startWidget = const OnBoardingPage();
+    } else if (settingBox.get("Token") != null) {
+      startWidget =const AppLayout();
+    } else {
+      startWidget = const LoginPage();
     }
 
     switch (routeSettings.name) {
       case "/":
-        return MaterialPageRoute(builder: (context) => startWidget);
+        return MaterialPageRoute(
+            builder: (context) => SplashPage(startWidget: startWidget));
 
       case "/home":
-        return MaterialPageRoute(builder: (_) =>  AppLayout());
+        return MaterialPageRoute(builder: (_) =>const AppLayout());
       case "/login":
         return MaterialPageRoute(
           builder: (context) => const LoginPage(),
@@ -39,7 +47,7 @@ class AppRoute {
         );
       case "/settings":
         return MaterialPageRoute(
-          builder: (context) =>  SettingsPage(),
+          builder: (context) => SettingsPage(),
         );
       case "/ordersPage":
         return MaterialPageRoute(

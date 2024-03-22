@@ -12,9 +12,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AppLayout extends StatelessWidget {
-  AppLayout({super.key});
+const  AppLayout({super.key});
 
-  List<Widget> screens = const [
+ final List<Widget> screens = const [
     HomePage(),
     CategoryPage(),
     CardPage(),

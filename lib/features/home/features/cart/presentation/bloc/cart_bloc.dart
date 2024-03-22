@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:commerceapp/features/home/features/cart/data/repositories/cartRepo.dart';
+import 'package:commerceapp/features/home/features/cart/data/repositories/cart_repo.dart';
 part 'cart_event.dart';
 part 'cart_state.dart';
 

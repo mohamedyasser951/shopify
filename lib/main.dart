@@ -11,7 +11,6 @@ import 'package:commerceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'service_locator.dart' as di;
 
@@ -19,10 +18,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
   await Hive.initFlutter();
-  Stripe.publishableKey = StripApiKeys.publishableKey;
+  // Stripe.publishableKey = StripApiKeys.publishableKey;
   var box = await Hive.openBox(AppStrings.settingsBox);
   TOKEN = box.get("Token");
-  print(box.get("Token"));
+  print(TOKEN);
   Bloc.observer = MyBlocObserver();
   runApp(const App());
 }
@@ -38,16 +37,13 @@ class App extends StatelessWidget {
         return MultiBlocProvider(
           providers: [
             BlocProvider(
-                lazy: false,
                 create: (context) => di.sl<HomeBloc>()
                   ..add(GetHomeDataEvent())
-                  ..add(GetCategoriesEvent())
-                  ),
+                  ..add(GetCategoriesEvent())),
             BlocProvider(
                 create: (context) => di.sl<SettingsBloc>()
                   ..add(ChangeAppModeEvent(
                       modeFromCashe: box.get("darkMode", defaultValue: false)))
-                  ..add(GetProfileEvent())
                   ..add(ChangeLanguageEvent(
                       lang: box.get("lang", defaultValue: "en")))),
             BlocProvider(
@@ -76,7 +72,6 @@ class App extends StatelessWidget {
                   : ThemeMode.light,
               onGenerateRoute: AppRoute.onGenerateRoute,
               initialRoute: "/",
-              // home: OnBoardingPage(),
             );
           }),
         );
