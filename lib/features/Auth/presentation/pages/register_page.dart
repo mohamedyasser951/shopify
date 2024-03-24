@@ -79,14 +79,16 @@ class _RegisterFormState extends State<RegisterForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(
-            height: 80,
+            height: 70,
           ),
           Text(
             "Sign up",
-            style: Theme.of(context).textTheme.headlineLarge,
+            style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+              fontSize: 40
+            ),
           ),
           const SizedBox(
-            height: 30.0,
+            height: 20.0,
           ),
           CustomeTextField(
             textEditingController: nameController,
@@ -159,7 +161,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 ),
               )),
           const SizedBox(
-            height: 10.0,
+            height: 4.0,
           ),
           BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
             return CustomButton(
@@ -186,7 +188,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 });
           }),
           const SizedBox(
-            height: 30.0,
+            height: 10.0,
           ),
           Center(
             child: Text(
@@ -198,7 +200,7 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           const SizedBox(
-            height: 30.0,
+            height: 20.0,
           ),
           Row(
             children: [

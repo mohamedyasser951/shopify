@@ -11,10 +11,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 
-class AppLayout extends StatelessWidget {
-const  AppLayout({super.key});
+class AppLayout extends StatefulWidget {
+  const AppLayout({super.key});
 
- final List<Widget> screens = const [
+  @override
+  State<AppLayout> createState() => _AppLayoutState();
+}
+
+class _AppLayoutState extends State<AppLayout> {
+  @override
+  void initState() {
+    BlocProvider.of<HomeBloc>(context)..add(GetHomeDataEvent())
+          ..add(GetCategoriesEvent());
+    super.initState();
+  }
+
+  final List<Widget> screens = const [
     HomePage(),
     CategoryPage(),
     CardPage(),
@@ -48,7 +60,6 @@ const  AppLayout({super.key});
                     showUnselectedLabels: false,
                     onTap: (index) {
                       homeBloc.add(ChangeBottomNavEvent(index: index));
-                      
                     },
                     items: [
                       bottomNavBarItem(

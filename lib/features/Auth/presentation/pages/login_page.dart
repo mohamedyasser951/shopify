@@ -82,7 +82,9 @@ class _LoginFormState extends State<LoginForm> {
           ),
           Text(
             "Login",
-            style: Theme.of(context).textTheme.headlineLarge,
+            style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+              fontSize: 40
+            ),
           ),
           const SizedBox(
             height: 50.0,
@@ -110,7 +112,7 @@ class _LoginFormState extends State<LoginForm> {
             },
           ),
           const SizedBox(
-            height: 10.0,
+            height: 4.0,
           ),
           Align(
               alignment: Alignment.centerRight,
@@ -127,7 +129,7 @@ class _LoginFormState extends State<LoginForm> {
                 ),
               )),
           const SizedBox(
-            height: 10.0,
+            height: 4.0,
           ),
           BlocBuilder<AuthBloc, AuthState>(builder: (context, state) {
             return CustomButton(
@@ -152,7 +154,7 @@ class _LoginFormState extends State<LoginForm> {
                 });
           }),
           const SizedBox(
-            height: 50.0,
+            height: 30.0,
           ),
           Center(
             child: Text(
@@ -164,7 +166,7 @@ class _LoginFormState extends State<LoginForm> {
             ),
           ),
           const SizedBox(
-            height: 40.0,
+            height: 30.0,
           ),
           Row(
             children: [

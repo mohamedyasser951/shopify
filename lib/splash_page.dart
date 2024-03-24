@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:commerceapp/Config/constants/image_paths.dart';
 
 class SplashPage extends StatefulWidget {
   final Widget startWidget;
@@ -15,7 +16,7 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    Future.delayed(const Duration(milliseconds: 7000)).whenComplete(() {
+    Future.delayed(const Duration(milliseconds: 5000)).whenComplete(() {
       Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(
@@ -33,7 +34,12 @@ class _SplashPageState extends State<SplashPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SvgPicture.asset("assets/images/splash.svg"),
+            TweenAnimationBuilder<double>(
+                tween: Tween(begin: 0.0, end: 1.0),
+                duration: Duration(seconds: 4),
+                child: SvgPicture.asset(ImagesPath.splashImg),
+                builder: (context, value, child) =>
+                    Opacity(opacity: value, child: child)),
             const SizedBox(
               height: 15.0,
             ),

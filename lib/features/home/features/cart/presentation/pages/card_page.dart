@@ -4,7 +4,6 @@ import 'package:commerceapp/features/home/PaymentService/payment_service.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:commerceapp/Config/components/loading.dart';
 import 'package:commerceapp/Config/components/skelton.dart';
 import 'package:commerceapp/Config/constants/colors.dart';
@@ -255,8 +254,8 @@ class CardBottom extends StatelessWidget {
                 style: TextStyle(color: Colors.white),
               ),
               onPressed: () {
-                // PaymentService.makePayment(
-                //     amount: total.toInt(), currency: "EGP", customerId: "110");
+                PaymentService.makePayment(
+                    amount: total.toInt(), currency: "EGP", customerId: "110");
               })
         ],
       ),

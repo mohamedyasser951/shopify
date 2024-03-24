@@ -30,39 +30,35 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var cubit = BlocProvider.of<HomeBloc>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(S.of(context).home),
-        actions: [
-          IconButton(
-              onPressed: () {
-                showSearch(context: context, delegate: SearchPage());
-              },
-              icon: const Icon(Icons.search)),
-        ],
-      ),
-      body: BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
-        if (state is SetOrDeleteErrorState) {
-          customToast(mesg: state.error, color: Colors.red);
-        }
-        if (state is SetOrDeleteSuccessState) {
-          customToast(mesg: state.successMessage);
-        }
-      }, builder: (context, state) {
-        if (state is GetHomeDataLoadingState) {
-          return const LoadingWidget();
-        }
-        if (state is GetCategoriesErrorState) {
-          return ErrorItem(errorMessage: state.error);
-        }
-        return cubit.homeModel != null
-            ? SingleChildScrollView(
+        appBar: AppBar(
+          title: Text(S.of(context).home),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  showSearch(context: context, delegate: SearchPage());
+                },
+                icon: const Icon(Icons.search)),
+          ],
+        ),
+        body: BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
+          if (state is SetOrDeleteErrorState) {
+            customToast(mesg: state.error, color: Colors.red);
+          }
+          if (state is SetOrDeleteSuccessState) {
+            customToast(mesg: state.successMessage);
+          }
+        }, builder: (context, state) {
+          switch (state) {
+            case GetHomeDataErrorState():
+              return ErrorItem(errorMessage: state.error);
+            default:
+              return cubit.homeModel != null  ? SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
                   child: HomeBody(homeModel: cubit.homeModel!),
                 ),
-              )
-            : const LoadingWidget();
-      }),
-    );
+              ):LoadingWidget();
+          }
+        }));
   }
 }
