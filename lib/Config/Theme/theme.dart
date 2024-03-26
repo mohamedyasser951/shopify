@@ -6,9 +6,11 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     cardTheme: const CardTheme(
       color: Colors.white,
-      
     ),
     visualDensity: VisualDensity.adaptivePlatformDensity,
+    pageTransitionsTheme: PageTransitionsTheme(builders: {
+      TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+    }),
     colorScheme: ColorScheme.light(
       background: AppColors.lightBackgroud,
       primary: AppColors.primaryColor,
@@ -31,13 +33,15 @@ class AppTheme {
       color: AppColors.grayColor,
     ),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: Colors.white,
-        elevation: 1,
-      ),
+      backgroundColor: Colors.white,
+      elevation: 1,
+    ),
   );
 
   static ThemeData darkTheme = ThemeData(
       visualDensity: VisualDensity.adaptivePlatformDensity,
+              pageTransitionsTheme: PageTransitionsTheme(builders: {TargetPlatform.android: CupertinoPageTransitionsBuilder(),}),
+
       cardTheme: const CardTheme(
         color: Color(0xff23272C),
       ),

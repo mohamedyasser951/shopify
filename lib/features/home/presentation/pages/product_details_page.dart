@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:commerceapp/Config/components/cachedNetworkImage.dart';
 import 'package:commerceapp/Config/constants/colors.dart';
 import 'package:commerceapp/features/home/data/models/home_model.dart';
@@ -130,6 +129,7 @@ class BottomSheetButtons extends StatelessWidget {
           ),
           Expanded(
             child: ElevatedButton(
+
               onPressed: () {
                 BlocProvider.of<HomeBloc>(context)
                     .add(AddOrDeleteFromCartEvent(productId: product.id!));

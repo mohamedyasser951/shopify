@@ -23,25 +23,29 @@ class FavoritePage extends StatelessWidget {
       },
       builder: (context, state) {
         var favoriteModel = BlocProvider.of<HomeBloc>(context).favoriteModel;
-        if (state is GetFavoriteErrorState) {
-          return ErrorItem(errorMessage: state.error.toString());
+        switch (state) {
+          case GetFavoritesLoadingState():
+            return LoadingWidget();
+          case GetFavoriteErrorState():
+            return ErrorItem(errorMessage: state.error.toString());
+          default:
+            return Scaffold(
+              appBar: AppBar(
+                title: Text(S.of(context).favorites),
+              ),
+              body: favoriteModel == null
+                  ? const Center(child: Text("No Favorites Yet..."),)
+                  : ListView.separated(
+                      padding: const EdgeInsets.all(8.0),
+                      itemCount: favoriteModel.data!.data!.length,
+                      itemBuilder: (context, index) => FavoriteItem(
+                          model: favoriteModel.data!.data![index].product!),
+                      separatorBuilder: (context, index) => const SizedBox(
+                        height: 10,
+                      ),
+                    ),
+            );
         }
-        return Scaffold(
-          appBar: AppBar(
-            title: Text(S.of(context).favorites),
-          ),
-          body: favoriteModel == null
-              ? const LoadingWidget()
-              : ListView.separated(
-                  padding: const EdgeInsets.all(8.0),
-                  itemCount: favoriteModel.data!.data!.length,
-                  itemBuilder: (context, index) => FavoriteItem(
-                      model: favoriteModel.data!.data![index].product!),
-                  separatorBuilder: (context, index) => const SizedBox(
-                    height: 10,
-                  ),
-                ),
-        );
       },
     );
   }

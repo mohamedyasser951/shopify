@@ -26,6 +26,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     required this.cartRepo,
   }) : super(HomeInitial()) {
     on<HomeEvent>((event, emit) async {
+      // if (bottomNavIndex == 0 && homeModel == null) {
+      //   add(GetHomeDataEvent());
+      //   add(GetCategoriesEvent());
+      // }
       if (event is ChangeBottomNavEvent) {
         bottomNavIndex = event.index;
         if (event.index == 2 && cartModel == null) {
@@ -76,7 +80,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         emit(GetFavoritesLoadingState());
         var failureOrData = await homeRepo.getFavorites();
         failureOrData.fold(
-            (failure) => emit(GetCategoriesErrorState(error: failure.message)),
+            (failure) => emit(GetFavoriteErrorState(error: failure.message)),
             (favorites) {
           favoriteModel = favorites;
           emit(GetFavoriteSuccessSate(favorites: favorites));

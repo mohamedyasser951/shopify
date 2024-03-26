@@ -3,7 +3,7 @@ import 'package:commerceapp/Config/constants/image_paths.dart';
 import 'package:commerceapp/features/home/features/cart/presentation/pages/card_page.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:commerceapp/features/home/presentation/pages/Categories/category_page.dart';
-import 'package:commerceapp/features/home/features/favorites/presentation/pages/favorite_page.dart';
+import 'package:commerceapp/features/home/presentation/pages/favorite_page.dart';
 import 'package:commerceapp/features/home/presentation/pages/home_page.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Profile/profile.dart';
 import 'package:commerceapp/generated/l10n.dart';
@@ -56,8 +56,8 @@ class _AppLayoutState extends State<AppLayout> {
                     selectedItemColor: AppColors.primaryColor,
                     type: BottomNavigationBarType.fixed,
                     currentIndex: homeBloc.bottomNavIndex,
-                    showSelectedLabels: false,
-                    showUnselectedLabels: false,
+                    showSelectedLabels: true,
+                    showUnselectedLabels: true,
                     onTap: (index) {
                       homeBloc.add(ChangeBottomNavEvent(index: index));
                     },
