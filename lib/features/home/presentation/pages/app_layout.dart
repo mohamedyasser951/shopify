@@ -1,11 +1,11 @@
 import 'package:commerceapp/Config/constants/colors.dart';
 import 'package:commerceapp/Config/constants/image_paths.dart';
 import 'package:commerceapp/features/home/features/cart/presentation/pages/card_page.dart';
+import 'package:commerceapp/features/home/features/settings/presentation/pages/Profile/profile.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:commerceapp/features/home/presentation/pages/Categories/category_page.dart';
 import 'package:commerceapp/features/home/presentation/pages/favorite_page.dart';
 import 'package:commerceapp/features/home/presentation/pages/home_page.dart';
-import 'package:commerceapp/features/settings/presentation/pages/Profile/profile.dart';
 import 'package:commerceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

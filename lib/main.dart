@@ -5,25 +5,32 @@ import 'package:commerceapp/bloc_observer.dart';
 import 'package:commerceapp/features/Auth/presentation/bloc/auth_bloc.dart';
 import 'package:commerceapp/features/home/PaymentService/strip_api_keys.dart';
 import 'package:commerceapp/features/home/features/cart/presentation/bloc/cart_bloc.dart';
+import 'package:commerceapp/features/home/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
-import 'package:commerceapp/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:commerceapp/generated/l10n.dart';
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'service_locator.dart' as di;
-import 'package:flutter_stripe/flutter_stripe.dart';
+// import 'package:flutter_stripe/flutter_stripe.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
   await Hive.initFlutter();
-  Stripe.publishableKey = StripApiKeys.publishableKey;
+  // Stripe.publishableKey = StripApiKeys.publishableKey;
   var box = await Hive.openBox(AppStrings.settingsBox);
   TOKEN = box.get("Token");
   Bloc.observer = MyBlocObserver();
-  runApp(const App());
+  runApp(
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => App(), // Wrap your app
+    ),
+  );
 }
 
 class App extends StatelessWidget {
@@ -52,6 +59,9 @@ class App extends StatelessWidget {
           child: BlocBuilder<SettingsBloc, SettingsState>(
               builder: (context, state) {
             return MaterialApp(
+              useInheritedMediaQuery: true,
+              locale: DevicePreview.locale(context),
+              builder: DevicePreview.appBuilder,
               debugShowCheckedModeBanner: false,
               supportedLocales: S.delegate.supportedLocales,
               localizationsDelegates: const [
@@ -60,7 +70,7 @@ class App extends StatelessWidget {
                 GlobalWidgetsLocalizations.delegate,
                 GlobalCupertinoLocalizations.delegate,
               ],
-              locale: Locale(BlocProvider.of<SettingsBloc>(context).appLang),
+              // locale: Locale(BlocProvider.of<SettingsBloc>(context).appLang),
               theme: AppTheme.lightTheme,
               darkTheme: AppTheme.darkTheme,
               themeMode: BlocProvider.of<SettingsBloc>(context).isDarkMode

@@ -1,8 +1,8 @@
 import 'package:commerceapp/Config/components/custom_toast.dart';
 import 'package:commerceapp/Config/widgets/error_widget.dart';
+import 'package:commerceapp/features/home/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:commerceapp/features/home/presentation/pages/search_page.dart';
 import 'package:commerceapp/features/home/presentation/widgets/home_body.dart';
-import 'package:commerceapp/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:commerceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

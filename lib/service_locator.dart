@@ -9,16 +9,16 @@ import 'package:commerceapp/features/home/features/cart/data/datasources/cart_da
 import 'package:commerceapp/features/home/features/cart/data/datasources/cart_remote_data_source.dart';
 import 'package:commerceapp/features/home/features/cart/data/repositories/cart_repo.dart';
 import 'package:commerceapp/features/home/features/cart/presentation/bloc/cart_bloc.dart';
+import 'package:commerceapp/features/home/features/settings/data/datasources/settings_remote_data_source.dart';
+import 'package:commerceapp/features/home/features/settings/data/repositories/settings_repo.dart';
+import 'package:commerceapp/features/home/features/settings/presentation/bloc/settings_bloc.dart';
+import 'package:commerceapp/features/home/features/settings/presentation/pages/Profile/orders/data/dataSource/orders_reomte_data_source.dart';
+import 'package:commerceapp/features/home/features/settings/presentation/pages/Profile/orders/data/repositories/order_repo.dart';
+import 'package:commerceapp/features/home/features/settings/presentation/pages/Profile/orders/presentation/bloc/orders_bloc.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
-import 'package:commerceapp/features/settings/data/datasources/settings_remote_data_source.dart';
-import 'package:commerceapp/features/settings/data/repositories/settings_repo.dart';
-import 'package:commerceapp/features/settings/presentation/bloc/settings_bloc.dart';
-import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/data/dataSource/orders_reomte_data_source.dart';
-import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/data/repositories/order_repo.dart';
-import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/presentation/bloc/orders_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
-import 'package:internet_connection_checker/internet_connection_checker.dart';
+// import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 BaseOptions options = BaseOptions(
     connectTimeout: const Duration(seconds: 5*6000),
@@ -78,5 +78,5 @@ Future<void> init() async {
 
   //External
   sl.registerLazySingleton(() => Dio());
-  sl.registerLazySingleton(() => InternetConnectionChecker());
+  // sl.registerLazySingleton(() => InternetConnectionChecker());
 }

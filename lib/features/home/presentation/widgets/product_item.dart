@@ -33,10 +33,12 @@ class productItem extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CashedNetworkImage(
-                    height: 180,
-                    width: 180,
-                    imgUrl: product.image!,
+                  FittedBox(
+                    child: CashedNetworkImage(
+                      height: 180,
+                      width: 180,
+                      imgUrl: product.image!,
+                    ),
                   ),
                   Text(
                     product.name!,
