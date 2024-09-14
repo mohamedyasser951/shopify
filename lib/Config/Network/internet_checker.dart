@@ -7,6 +7,6 @@ abstract class InternetChecker {
 class InternetCheckerimplem implements InternetChecker {
   // @override
   // Future<bool> get isConnected => InternetConnectionChecker().hasConnection;
-    @override
+  @override
   Future<bool> get isConnected => Future.value(true);
 }

@@ -5,36 +5,35 @@ import 'package:commerceapp/features/Auth/presentation/bloc/auth_bloc.dart';
 import 'package:commerceapp/features/home/data/datasources/home_remote_datasource.dart';
 import 'package:commerceapp/features/home/data/repositories/home_repo.dart';
 import 'package:commerceapp/features/home/data/repositories/home_repo_implem.dart';
-import 'package:commerceapp/features/home/features/cart/data/datasources/cart_data_source_implem.dart';
-import 'package:commerceapp/features/home/features/cart/data/datasources/cart_remote_data_source.dart';
-import 'package:commerceapp/features/home/features/cart/data/repositories/cart_repo.dart';
-import 'package:commerceapp/features/home/features/cart/presentation/bloc/cart_bloc.dart';
-import 'package:commerceapp/features/home/features/settings/data/datasources/settings_remote_data_source.dart';
-import 'package:commerceapp/features/home/features/settings/data/repositories/settings_repo.dart';
-import 'package:commerceapp/features/home/features/settings/presentation/bloc/settings_bloc.dart';
-import 'package:commerceapp/features/home/features/settings/presentation/pages/Profile/orders/data/dataSource/orders_reomte_data_source.dart';
-import 'package:commerceapp/features/home/features/settings/presentation/pages/Profile/orders/data/repositories/order_repo.dart';
-import 'package:commerceapp/features/home/features/settings/presentation/pages/Profile/orders/presentation/bloc/orders_bloc.dart';
+import 'package:commerceapp/features/cart/data/datasources/cart_data_source_implem.dart';
+import 'package:commerceapp/features/cart/data/datasources/cart_remote_data_source.dart';
+import 'package:commerceapp/features/cart/data/repositories/cart_repo.dart';
+import 'package:commerceapp/features/cart/presentation/bloc/cart_bloc.dart';
+import 'package:commerceapp/features/settings/data/datasources/settings_remote_data_source.dart';
+import 'package:commerceapp/features/settings/data/repositories/settings_repo.dart';
+import 'package:commerceapp/features/settings/presentation/bloc/settings_bloc.dart';
+import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/data/dataSource/orders_reomte_data_source.dart';
+import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/data/repositories/order_repo.dart';
+import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/presentation/bloc/orders_bloc.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
 // import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 BaseOptions options = BaseOptions(
-    connectTimeout: const Duration(seconds: 5*6000),
-    receiveTimeout: const Duration(seconds: 5*6000),
-    
-    receiveDataWhenStatusError: true);
+    connectTimeout: const Duration(seconds: 5 * 6000),
+    receiveTimeout: const Duration(seconds: 5 * 6000),
+    receiveDataWhenStatusError: true,
+    );
 
 GetIt sl = GetIt.instance;
 Future<void> init() async {
   //BLOCS
   sl.registerFactory<AuthBloc>(() => AuthBloc(authRepo: sl()));
-  sl.registerFactory<HomeBloc>(() => HomeBloc(homeRepo: sl(),cartRepo: sl()));
+  sl.registerFactory<HomeBloc>(() => HomeBloc(homeRepo: sl(), cartRepo: sl()));
   sl.registerFactory<SettingsBloc>(() => SettingsBloc(settingsRepo: sl()));
   sl.registerFactory<OrdersBloc>(() => OrdersBloc(orderRepo: sl()));
-  sl.registerFactory<CartBloc>(
-      () => CartBloc(cartRepo: sl()));
+  sl.registerFactory<CartBloc>(() => CartBloc(cartRepo: sl()));
 
   //Repositories
   sl.registerLazySingleton<AuthRepo>(
@@ -77,6 +76,6 @@ Future<void> init() async {
   );
 
   //External
-  sl.registerLazySingleton(() => Dio());
+  sl.registerLazySingleton(() => Dio(options));
   // sl.registerLazySingleton(() => InternetConnectionChecker());
 }

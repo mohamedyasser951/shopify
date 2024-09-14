@@ -2,8 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:commerceapp/features/home/data/models/category_model.dart';
 import 'package:commerceapp/features/home/data/models/favorite_model.dart';
 import 'package:commerceapp/features/home/data/repositories/home_repo.dart';
-import 'package:commerceapp/features/home/features/cart/data/models/card_model.dart';
-import 'package:commerceapp/features/home/features/cart/data/repositories/cart_repo.dart';
+import 'package:commerceapp/features/cart/data/repositories/cart_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:commerceapp/features/home/data/models/home_model.dart';
 part 'home_event.dart';
@@ -19,21 +18,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeModel? homeModel;
   Map<int, bool> inFavorites = {};
   Map<int, bool> inCards = {};
-  CardModel? cartModel;
 
   HomeBloc({
     required this.homeRepo,
     required this.cartRepo,
   }) : super(HomeInitial()) {
     on<HomeEvent>((event, emit) async {
-      // if (bottomNavIndex == 0 && homeModel == null) {
-      //   add(GetHomeDataEvent());
-      //   add(GetCategoriesEvent());
-      // }
       if (event is ChangeBottomNavEvent) {
         bottomNavIndex = event.index;
-        if (event.index == 2 && cartModel == null) {
-          add(GetCardEvent());
+        if (event.index == 2) {
+          // add(GetCardEvent());
         }
         if (event.index == 3 && favoriteModel == null) {
           add(GetFavoritesEvent());
@@ -86,54 +80,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           emit(GetFavoriteSuccessSate(favorites: favorites));
         });
       }
-      if (event is SetOrDeleteFavoriteEvent) {
-        inFavorites[event.id] = !inFavorites[event.id]!;
-        emit(ChangeStateOfFavorite());
-        var failureOrData =
-            await homeRepo.setOrDeleteFromFavorites(id: event.id);
-        failureOrData.fold((failure) {
-          inFavorites[event.id] = !inFavorites[event.id]!;
 
-          emit(SetOrDeleteErrorState(error: failure.message));
-        }, (model) {
-          if (!model.status!) {
-            inFavorites[event.id] = !inFavorites[event.id]!;
-          } else {
-            add(GetFavoritesEvent());
-          }
-          emit(SetOrDeleteSuccessState(
-              successMessage: model.message.toString()));
-        });
-      }
-
-      if (event is GetCardEvent) {
-        emit(GetCardLoadingState());
-        var failureOrData = await cartRepo.getCarts();
-        failureOrData
-            .fold((failure) => emit(GetCardSErrorState(error: failure.message)),
-                (model) {
-          cartModel = model;
-          emit(GetCardSuceessState(cardData: cartModel!.data!));
-        });
-      }
-      if (event is AddOrDeleteFromCartEvent) {
-        inCards[event.productId] = !inCards[event.productId]!;
-        emit(ChangeStateOfCarts());
-        var failureOrData =
-            await cartRepo.addOrDeleteFromCats(productId: event.productId);
-        failureOrData.fold((failure) {
-          inCards[event.productId] = !inCards[event.productId]!;
-
-          emit(SetOrDeleteErrorState(error: failure.message));
-        }, (data) {
-          if (data["status"] != true) {
-            inCards[event.productId] = !inCards[event.productId]!;
-          } else {
-            add(GetCardEvent());
-          }
-          emit(SetOrDeleteSuccessState(successMessage: data["message"]));
-        });
-      }
       if (event is SearchEvent) {
         emit(SearchLoadingState());
         var failureOrData = await homeRepo.search(text: event.text);

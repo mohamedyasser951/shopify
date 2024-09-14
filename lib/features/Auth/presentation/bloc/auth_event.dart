@@ -30,6 +30,6 @@ class RegisterEvent extends AuthEvent {
     required this.password,
   });
 
-   @override
-  List<Object> get props => [name,email,phone ,password];
+  @override
+  List<Object> get props => [name, email, phone, password];
 }

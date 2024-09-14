@@ -3,9 +3,8 @@ import 'package:commerceapp/Config/Theme/theme.dart';
 import 'package:commerceapp/Config/constants/strings.dart';
 import 'package:commerceapp/bloc_observer.dart';
 import 'package:commerceapp/features/Auth/presentation/bloc/auth_bloc.dart';
-import 'package:commerceapp/features/home/PaymentService/strip_api_keys.dart';
-import 'package:commerceapp/features/home/features/cart/presentation/bloc/cart_bloc.dart';
-import 'package:commerceapp/features/home/features/settings/presentation/bloc/settings_bloc.dart';
+import 'package:commerceapp/features/cart/presentation/bloc/cart_bloc.dart';
+import 'package:commerceapp/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:commerceapp/generated/l10n.dart';
 import 'package:device_preview/device_preview.dart';
@@ -24,6 +23,7 @@ void main() async {
   // Stripe.publishableKey = StripApiKeys.publishableKey;
   var box = await Hive.openBox(AppStrings.settingsBox);
   TOKEN = box.get("Token");
+  print(TOKEN);
   Bloc.observer = MyBlocObserver();
   runApp(
     DevicePreview(
@@ -53,13 +53,12 @@ class App extends StatelessWidget {
               create: (context) => di.sl<AuthBloc>(),
             ),
             BlocProvider(
-              create: (context) => di.sl<CartBloc>(),
+              create: (context) => di.sl<CartBloc>()..add(GetAllCarts()),
             ),
           ],
           child: BlocBuilder<SettingsBloc, SettingsState>(
               builder: (context, state) {
             return MaterialApp(
-              useInheritedMediaQuery: true,
               locale: DevicePreview.locale(context),
               builder: DevicePreview.appBuilder,
               debugShowCheckedModeBanner: false,

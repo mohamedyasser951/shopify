@@ -1,4 +1,3 @@
-
 import 'package:commerceapp/features/home/data/models/home_model.dart';
 import 'package:commerceapp/features/home/presentation/widgets/product_item.dart';
 import 'package:flutter/material.dart';

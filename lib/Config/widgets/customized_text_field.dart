@@ -20,20 +20,21 @@ class CustomeTextField extends StatelessWidget {
       height: 75,
       child: TextFormField(
         autocorrect: true,
-        style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-          color: Colors.black
-        ),
+        style: Theme.of(context)
+            .textTheme
+            .bodyMedium!
+            .copyWith(color: Colors.black),
         controller: textEditingController,
         inputFormatters: inputFormatters,
         validator: validator,
         decoration: InputDecoration(
             filled: true,
             hintText: hintText,
-            hintStyle: TextStyle(color: Colors.black,fontSize: 18),
-            contentPadding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 14),
+            hintStyle: TextStyle(color: Colors.black, fontSize: 18),
+            contentPadding:
+                const EdgeInsets.symmetric(horizontal: 15.0, vertical: 14),
             border: OutlineInputBorder(
                 borderSide: BorderSide.none,
-        
                 borderRadius: BorderRadius.circular(18))),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:commerceapp/Config/components/cachedNetworkImage.dart';
+import 'package:commerceapp/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:commerceapp/features/home/presentation/pages/product_details_page.dart';
 import 'package:flutter/material.dart';
@@ -73,8 +74,9 @@ class productItem extends StatelessWidget {
                       ),
                       InkWell(
                         onTap: () {
-                          BlocProvider.of<HomeBloc>(context).add(
-                              AddOrDeleteFromCartEvent(productId: product.id!));
+                          BlocProvider.of<CartBloc>(context).add(
+                              AddOrRemoveCartEvent(
+                                  productId: product.id!, quantity: 1));
                         },
                         child: CircleAvatar(
                             radius: 15,
@@ -99,9 +101,7 @@ class productItem extends StatelessWidget {
               top: 12,
               right: 15,
               child: InkWell(
-                onTap: () {
-                  homeBloc.add(SetOrDeleteFavoriteEvent(id: product.id!));
-                },
+                onTap: () {},
                 child: CircleAvatar(
                     radius: 15,
                     backgroundColor: homeBloc.inFavorites[product.id] == true

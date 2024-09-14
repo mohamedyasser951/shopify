@@ -1,6 +1,5 @@
 import 'package:commerceapp/Config/Network/end_points.dart';
 import 'package:commerceapp/Config/constants/strings.dart';
-import 'package:commerceapp/features/home/features/cart/data/models/card_model.dart';
 import 'package:commerceapp/features/home/data/models/category_model.dart';
 import 'package:commerceapp/features/home/data/models/favorite_model.dart';
 import 'package:commerceapp/features/home/data/models/home_model.dart';
@@ -52,22 +51,22 @@ class HomeRemoteDataSource {
     return FavoriteModel.fromJson(response.data);
   }
 
-  Future<CardModel> getCard() async {
-    Response response =
-        await dio.get(EndPoints.carts, options: Options(headers: header));
-    return CardModel.fromJson(response.data);
-  }
+  // Future<CartModel> getAllCarts() async {
+  //   Response response =
+  //       await dio.get(EndPoints.carts, options: Options(headers: header));
+  //   return CartModel.fromJson(response.data);
+  // }
 
-  Future<Map<String, dynamic>> setOrDeleteFromCart(
-      {required int productId}) async {
-    Response response = await dio.post(EndPoints.carts,
-        data: {"product_id": productId}, options: Options(headers: header));
-    Map<String, dynamic> data = {
-      "status": response.data["status"],
-      "message": response.data["message"],
-    };
-    return Future.value(data);
-  }
+  // Future<Map<String, dynamic>> setOrDeleteFromCart(
+  //     {required int productId}) async {
+  //   Response response = await dio.post(EndPoints.carts,
+  //       data: {"product_id": productId}, options: Options(headers: header));
+  //   Map<String, dynamic> data = {
+  //     "status": response.data["status"],
+  //     "message": response.data["message"],
+  //   };
+  //   return Future.value(data);
+  // }
 
   Future<List<Products>> search({required String text}) async {
     Response response = await dio.post(EndPoints.search,

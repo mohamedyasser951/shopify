@@ -83,9 +83,10 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
           Text(
             "Sign up",
-            style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-              fontSize: 40
-            ),
+            style: Theme.of(context)
+                .textTheme
+                .headlineLarge!
+                .copyWith(fontSize: 40),
           ),
           const SizedBox(
             height: 20.0,

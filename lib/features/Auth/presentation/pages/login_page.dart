@@ -82,9 +82,10 @@ class _LoginFormState extends State<LoginForm> {
           ),
           Text(
             "Login",
-            style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-              fontSize: 40
-            ),
+            style: Theme.of(context)
+                .textTheme
+                .headlineLarge!
+                .copyWith(fontSize: 40),
           ),
           const SizedBox(
             height: 50.0,

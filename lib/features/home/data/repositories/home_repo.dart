@@ -4,8 +4,6 @@ import 'package:commerceapp/features/home/data/models/category_model.dart';
 import 'package:commerceapp/features/home/data/models/favorite_model.dart';
 import 'package:commerceapp/features/home/data/models/home_model.dart';
 
-
-
 abstract class HomeRepo {
   Future<Either<Failure, HomeModel>> getHomeData();
   Future<Either<Failure, CategoryModel>> getCategories();

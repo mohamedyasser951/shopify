@@ -38,13 +38,13 @@ class AuthRepoImplem implements AuthRepo {
             await remoteDataSource.userLogin(email: email, password: password);
         return Right(userModel);
       } catch (e) {
-      if (e is DioException) {
-        return Left(ServerFailure.fromDiorError(e));
+        if (e is DioException) {
+          return Left(ServerFailure.fromDiorError(e));
+        }
+        return Left(ServerFailure(e.toString()));
       }
-      return Left(ServerFailure(e.toString()));
-    }
     } else {
-       return Left(OfflineFailure("Please Check your Internet Connection"));
+      return Left(OfflineFailure("Please Check your Internet Connection"));
     }
   }
 
@@ -61,13 +61,13 @@ class AuthRepoImplem implements AuthRepo {
             name: name, email: email, phone: phone, password: password);
         return Right(userModel);
       } catch (e) {
-      if (e is DioException) {
-        return Left(ServerFailure.fromDiorError(e));
+        if (e is DioException) {
+          return Left(ServerFailure.fromDiorError(e));
+        }
+        return Left(ServerFailure(e.toString()));
       }
-      return Left(ServerFailure(e.toString()));
-    }
     } else {
-       return Left(OfflineFailure("Please Check your Internet Connection"));
+      return Left(OfflineFailure("Please Check your Internet Connection"));
     }
   }
 }

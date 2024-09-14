@@ -40,8 +40,9 @@ class AppTheme {
 
   static ThemeData darkTheme = ThemeData(
       visualDensity: VisualDensity.adaptivePlatformDensity,
-              pageTransitionsTheme: PageTransitionsTheme(builders: {TargetPlatform.android: CupertinoPageTransitionsBuilder(),}),
-
+      pageTransitionsTheme: PageTransitionsTheme(builders: {
+        TargetPlatform.android: CupertinoPageTransitionsBuilder(),
+      }),
       cardTheme: const CardTheme(
         color: Color(0xff23272C),
       ),

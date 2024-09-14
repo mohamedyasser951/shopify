@@ -97,8 +97,8 @@ class FavoriteItem extends StatelessWidget {
                     child: IconButton(
                       padding: const EdgeInsets.all(0.0),
                       onPressed: () {
-                        BlocProvider.of<HomeBloc>(context)
-                            .add(SetOrDeleteFavoriteEvent(id: model.id!));
+                        // BlocProvider.of<HomeBloc>(context)
+                        //     .add(SetOrDeleteFavoriteEvent(id: model.id!));
                       },
                       icon: const Icon(
                         Icons.favorite,

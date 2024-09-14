@@ -9,7 +9,7 @@ abstract class HomeEvent extends Equatable {
 
 class ChangeBottomNavEvent extends HomeEvent {
   final int index;
-   const ChangeBottomNavEvent({
+  const ChangeBottomNavEvent({
     required this.index,
   });
 }
@@ -26,22 +26,6 @@ class GetCategoriesDetailsEvent extends HomeEvent {
 }
 
 class GetFavoritesEvent extends HomeEvent {}
-
-class GetCardEvent extends HomeEvent {}
-
-class SetOrDeleteFavoriteEvent extends HomeEvent {
-  final int id;
-  const SetOrDeleteFavoriteEvent({
-    required this.id,
-  });
-}
-
-class AddOrDeleteFromCartEvent extends HomeEvent {
-  final int productId;
-  const AddOrDeleteFromCartEvent({
-    required this.productId,
-  });
-}
 
 class SearchEvent extends HomeEvent {
   final String text;

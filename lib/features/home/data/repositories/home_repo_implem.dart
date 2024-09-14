@@ -64,13 +64,13 @@ class HomeRepoImplem implements HomeRepo {
         var favorite = await dataSource.setOrDeleteFromFavorites(id: id);
         return Right(favorite);
       } catch (e) {
-      if (e is DioException) {
-        return Left(ServerFailure.fromDiorError(e));
+        if (e is DioException) {
+          return Left(ServerFailure.fromDiorError(e));
+        }
+        return Left(ServerFailure(e.toString()));
       }
-      return Left(ServerFailure(e.toString()));
-    }
     } else {
-       return Left(OfflineFailure("Please Check your Internet Connection"));
+      return Left(OfflineFailure("Please Check your Internet Connection"));
     }
   }
 
@@ -89,7 +89,7 @@ class HomeRepoImplem implements HomeRepo {
     try {
       var searchResult = await dataSource.search(text: text);
       return Right(searchResult);
-    }catch (e) {
+    } catch (e) {
       if (e is DioException) {
         return Left(ServerFailure.fromDiorError(e));
       }
@@ -150,13 +150,13 @@ class HomeRepoImplem implements HomeRepo {
         var products = await dataSource.getCategoriesDetails(id: id);
         return Right(products);
       } catch (e) {
-      if (e is DioException) {
-        return Left(ServerFailure.fromDiorError(e));
+        if (e is DioException) {
+          return Left(ServerFailure.fromDiorError(e));
+        }
+        return Left(ServerFailure(e.toString()));
       }
-      return Left(ServerFailure(e.toString()));
-    }
     } else {
-       return Left(OfflineFailure("Please Check your Internet Connection"));
+      return Left(OfflineFailure("Please Check your Internet Connection"));
     }
   }
 

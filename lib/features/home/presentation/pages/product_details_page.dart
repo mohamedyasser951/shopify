@@ -55,9 +55,9 @@ class ProductDetails extends StatelessWidget {
                                 : Colors.grey,
                             child: IconButton(
                                 onPressed: () {
-                                  BlocProvider.of<HomeBloc>(context).add(
-                                      SetOrDeleteFavoriteEvent(
-                                          id: product.id!));
+                                  // BlocProvider.of<HomeBloc>(context).add(
+                                  //     SetOrDeleteFavoriteEvent(
+                                  //         id: product.id!));
                                 },
                                 icon: const Icon(
                                   Icons.favorite,
@@ -129,10 +129,9 @@ class BottomSheetButtons extends StatelessWidget {
           ),
           Expanded(
             child: ElevatedButton(
-
               onPressed: () {
-                BlocProvider.of<HomeBloc>(context)
-                    .add(AddOrDeleteFromCartEvent(productId: product.id!));
+                // BlocProvider.of<HomeBloc>(context)
+                //     .add(AddOrDeleteFromCartEvent(productId: product.id!));
               },
               style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(vertical: 14),

@@ -1,15 +1,15 @@
 import 'package:commerceapp/Config/constants/strings.dart';
+import 'package:commerceapp/app_layout.dart';
 import 'package:commerceapp/features/Auth/presentation/pages/login_page.dart';
 import 'package:commerceapp/features/Auth/presentation/pages/register_page.dart';
-import 'package:commerceapp/features/home/features/settings/presentation/pages/Profile/add_or_update_address_page.dart';
-import 'package:commerceapp/features/home/features/settings/presentation/pages/Profile/addresses_page.dart';
-import 'package:commerceapp/features/home/features/settings/presentation/pages/Profile/orders/presentation/bloc/orders_bloc.dart';
-import 'package:commerceapp/features/home/features/settings/presentation/pages/Profile/orders/presentation/pages/order_details_page.dart';
-import 'package:commerceapp/features/home/features/settings/presentation/pages/Profile/orders/presentation/pages/orders_page.dart';
-import 'package:commerceapp/features/home/features/settings/presentation/pages/Settings/settings_page.dart';
-import 'package:commerceapp/features/home/features/settings/presentation/pages/Settings/update_profile_page.dart';
+import 'package:commerceapp/features/settings/presentation/pages/Profile/add_or_update_address_page.dart';
+import 'package:commerceapp/features/settings/presentation/pages/Profile/addresses_page.dart';
+import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/presentation/bloc/orders_bloc.dart';
+import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/presentation/pages/order_details_page.dart';
+import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/presentation/pages/orders_page.dart';
+import 'package:commerceapp/features/settings/presentation/pages/Settings/settings_page.dart';
+import 'package:commerceapp/features/settings/presentation/pages/Settings/update_profile_page.dart';
 import 'package:commerceapp/features/home/presentation/pages/Categories/category_details_page.dart';
-import 'package:commerceapp/features/home/presentation/pages/app_layout.dart';
 import 'package:commerceapp/on_boarding.dart';
 import 'package:commerceapp/service_locator.dart';
 import 'package:commerceapp/splash_page.dart';
@@ -21,11 +21,11 @@ class AppRoute {
   static Route onGenerateRoute(RouteSettings routeSettings) {
     Widget startWidget;
     var settingBox = Hive.box(AppStrings.settingsBox);
-    
+
     if (settingBox.get("onBoarding") == null) {
       startWidget = const OnBoardingPage();
     } else if (settingBox.get("Token") != null) {
-      startWidget =const AppLayout();
+      startWidget = AppLayout();
     } else {
       startWidget = const LoginPage();
     }
@@ -36,7 +36,7 @@ class AppRoute {
             builder: (context) => SplashPage(startWidget: startWidget));
 
       case "/home":
-        return MaterialPageRoute(builder: (_) =>const AppLayout());
+        return MaterialPageRoute(builder: (_) => const AppLayout());
       case "/login":
         return MaterialPageRoute(
           builder: (context) => const LoginPage(),

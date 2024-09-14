@@ -1,6 +1,6 @@
 import 'package:commerceapp/Config/components/custom_toast.dart';
 import 'package:commerceapp/Config/widgets/error_widget.dart';
-import 'package:commerceapp/features/home/features/settings/presentation/bloc/settings_bloc.dart';
+import 'package:commerceapp/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:commerceapp/features/home/presentation/pages/search_page.dart';
 import 'package:commerceapp/features/home/presentation/widgets/home_body.dart';
 import 'package:commerceapp/generated/l10n.dart';
@@ -52,12 +52,14 @@ class _HomePageState extends State<HomePage> {
             case GetHomeDataErrorState():
               return ErrorItem(errorMessage: state.error);
             default:
-              return cubit.homeModel != null  ? SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: HomeBody(homeModel: cubit.homeModel!),
-                ),
-              ):LoadingWidget();
+              return cubit.homeModel != null
+                  ? SingleChildScrollView(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        child: HomeBody(homeModel: cubit.homeModel!),
+                      ),
+                    )
+                  : LoadingWidget();
           }
         }));
   }

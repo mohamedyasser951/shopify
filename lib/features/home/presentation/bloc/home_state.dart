@@ -10,14 +10,13 @@ abstract class HomeState extends Equatable {
 class HomeInitial extends HomeState {}
 
 class ChangeBottomNavState extends HomeState {
- final int index;
+  final int index;
   const ChangeBottomNavState({
     required this.index,
   });
   @override
   List<Object> get props => [index];
 }
-
 
 class GetHomeDataLoadingState extends HomeState {}
 
@@ -97,8 +96,6 @@ class GetFavoriteSuccessSate extends HomeState {
   const GetFavoriteSuccessSate({
     required this.favorites,
   });
-  // @override
-  // List<Object> get props => [favorites];
 }
 
 class GetFavoriteErrorState extends HomeState {
@@ -111,25 +108,6 @@ class GetFavoriteErrorState extends HomeState {
 }
 
 class ChangeStateOfFavorite extends HomeState {}
-// class ChangeStateOfCarts extends HomeState {}
-
-// Get Carts
-
-class GetCardLoadingState extends HomeState {}
-
-class GetCardSuceessState extends HomeState {
-  final CardData cardData;
-  const GetCardSuceessState({
-    required this.cardData,
-  });
-}
-
-class GetCardSErrorState extends HomeState {
-  final String error;
-  const GetCardSErrorState({
-    required this.error,
-  });
-}
 
 class SetOrDeleteSuccessState extends HomeState {
   final String successMessage;

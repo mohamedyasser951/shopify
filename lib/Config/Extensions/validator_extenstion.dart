@@ -10,8 +10,7 @@ extension ExString on String {
   }
 
   bool get isValidPassword {
-    final regex = RegExp(
-        r'^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%&*]{6,20}$');
+    final regex = RegExp(r'^(?=.*\d)(?=.*[a-zA-Z])[a-zA-Z0-9!@#$%&*]{6,20}$');
     return regex.hasMatch(this);
   }
 

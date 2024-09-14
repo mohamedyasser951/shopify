@@ -16,7 +16,6 @@ class CrasoulHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider.builder(
       itemCount: banners.length,
-      
       options: CarouselOptions(
         autoPlay: true,
         height: 150,

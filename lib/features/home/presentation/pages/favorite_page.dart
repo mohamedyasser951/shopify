@@ -34,7 +34,9 @@ class FavoritePage extends StatelessWidget {
                 title: Text(S.of(context).favorites),
               ),
               body: favoriteModel == null
-                  ? const Center(child: Text("No Favorites Yet..."),)
+                  ? const Center(
+                      child: Text("No Favorites Yet..."),
+                    )
                   : ListView.separated(
                       padding: const EdgeInsets.all(8.0),
                       itemCount: favoriteModel.data!.data!.length,
