@@ -73,17 +73,6 @@ class HomeRepoImplem implements HomeRepo {
       return Left(OfflineFailure("Please Check your Internet Connection"));
     }
   }
-
-  // @override
-  // Future<Either<Failure, CardModel>> getCard() async {
-  //   try {
-  //     var cardModel = await dataSource.getCard();
-  //     return Right(cardModel);
-  //   } on ServerException {
-  //     return Left(ServerFailure());
-  //   }
-  // }
-
   @override
   Future<Either<Failure, List<Products>>> search({required String text}) async {
     try {
@@ -96,51 +85,6 @@ class HomeRepoImplem implements HomeRepo {
       return Left(ServerFailure(e.toString()));
     }
   }
-
-  // @override
-  // Future<Either<Failure, UserData>> getUserProfile() async {
-  //   try {
-  //     var data = await dataSource.getUserProfile();
-  //     return Right(data);
-  //   } on ServerException {
-  //     return Left(ServerFailure());
-  //   }
-  // }
-
-  // @override
-  // Future<Either<Failure, UserModel>> changePassword(
-  //     {required String currentPassword, required String newPassword}) async {
-  //   if (await internetChecker.isConnected) {
-  //     try {
-  //       var data = await dataSource.changePassword(
-  //           currentPassword: currentPassword, newPassword: newPassword);
-  //       return Right(data);
-  //     } on ServerException {
-  //       return Left(ServerFailure());
-  //     }
-  //   } else {
-  //     return Left(OfflineFailure());
-  //   }
-  // }
-
-  // @override
-  // Future<Either<Failure, UserModel>> updateProfile(
-  //     {required String name,
-  //     required String email,
-  //     required String phone,
-  //     required String image}) async {
-  //   if (await internetChecker.isConnected) {
-  //     try {
-  //       var data = await dataSource.updateProfile(
-  //           name: name, email: email, phone: phone, image: image);
-  //       return Right(data);
-  //     } on ServerException {
-  //       return Left(ServerFailure());
-  //     }
-  //   } else {
-  //     return Left(OfflineFailure());
-  //   }
-  // }
 
   @override
   Future<Either<Failure, List<Products>>> getCategoriesDetails(
@@ -159,19 +103,4 @@ class HomeRepoImplem implements HomeRepo {
       return Left(OfflineFailure("Please Check your Internet Connection"));
     }
   }
-
-  // @override
-  // Future<Either<Failure, Map<String, dynamic>>> setOrDeleteFromCart(
-  //     {required int productId}) async {
-  //   if (await internetChecker.isConnected) {
-  //     try {
-  //       var data = await dataSource.setOrDeleteFromCart(productId: productId);
-  //       return Right(data);
-  //     } on ServerException {
-  //       return Left(ServerFailure());
-  //     }
-  //   } else {
-  //     return Left(OfflineFailure());
-  //   }
-  // }
 }

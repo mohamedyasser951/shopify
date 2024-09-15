@@ -1,5 +1,5 @@
 import 'package:commerceapp/Config/Network/end_points.dart';
-import 'package:commerceapp/features/cart/data/models/message_card_model.dart';
+import 'package:commerceapp/features/cart/data/models/result_card_model.dart';
 import 'package:commerceapp/features/home/data/datasources/home_remote_datasource.dart';
 import 'package:commerceapp/features/cart/data/datasources/cart_remote_data_source.dart';
 import 'package:commerceapp/features/cart/data/models/card_model.dart';
@@ -22,7 +22,6 @@ class CartRemoteDataSourceImplem implements CartRemoteDataSource {
   Future<ResultCardModel> addOrDeleteFromCats({required int productId}) async {
     Response response = await dio.post(EndPoints.carts,
         data: {"product_id": productId}, options: Options(headers: header));
-    print(response.data);
     return ResultCardModel.fromJson(response.data);
   }
 
@@ -30,7 +29,6 @@ class CartRemoteDataSourceImplem implements CartRemoteDataSource {
   Future<ResultCardModel> deleteCart({required int productId}) async {
     Response response = await dio.delete("${EndPoints.carts}/$productId",
         options: Options(headers: header));
-    print(response.data);
     return ResultCardModel.fromJson(response.data);
   }
 
@@ -39,8 +37,6 @@ class CartRemoteDataSourceImplem implements CartRemoteDataSource {
       {required int productId, required int quantity}) async {
     Response response = await dio.put("${EndPoints.carts}/$productId",
         data: {"quantity": quantity}, options: Options(headers: header));
-
-    print(response.data);
     return ResultCardModel.fromJson(response.data);
   }
 }

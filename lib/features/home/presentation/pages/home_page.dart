@@ -1,6 +1,4 @@
-import 'package:commerceapp/Config/components/custom_toast.dart';
 import 'package:commerceapp/Config/widgets/error_widget.dart';
-import 'package:commerceapp/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:commerceapp/features/home/presentation/pages/search_page.dart';
 import 'package:commerceapp/features/home/presentation/widgets/home_body.dart';
 import 'package:commerceapp/generated/l10n.dart';
@@ -19,10 +17,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    SettingsBloc settingsBloc = BlocProvider.of<SettingsBloc>(context);
-    if (settingsBloc.userProfileData == null) {
-      settingsBloc.add(GetProfileEvent());
-    }
     super.initState();
   }
 
@@ -41,26 +35,39 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
         body: BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
-          if (state is SetOrDeleteErrorState) {
-            customToast(mesg: state.error, color: Colors.red);
-          }
-          if (state is SetOrDeleteSuccessState) {
-            customToast(mesg: state.successMessage);
-          }
+          // if (state is SetOrDeleteErrorState) {
+          //   customToast(mesg: state.error, color: Colors.red);
+          // }
+          // if (state is SetOrDeleteSuccessState) {
+          //   customToast(mesg: state.successMessage);
+          // }
         }, builder: (context, state) {
-          switch (state) {
-            case GetHomeDataErrorState():
-              return ErrorItem(errorMessage: state.error);
-            default:
-              return cubit.homeModel != null
-                  ? SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                        child: HomeBody(homeModel: cubit.homeModel!),
-                      ),
-                    )
-                  : LoadingWidget();
+          switch (state.status) {
+            case Status.loading:
+              return LoadingWidget();
+            case Status.error:
+              return ErrorItem(errorMessage: state.errorMessage);
+            case Status.success:
+              return SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                  child: HomeBody(homeModel: cubit.homeModel!),
+                ),
+              );
           }
+          // switch (state) {
+          //   case GetHomeDataErrorState():
+          //     return ErrorItem(errorMessage: state.error);
+          //   default:
+          //     return cubit.homeModel != null
+          //         ? SingleChildScrollView(
+          //             child: Padding(
+          //               padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          //               child: HomeBody(homeModel: cubit.homeModel!),
+          //             ),
+          //           )
+          //         : LoadingWidget();
+          // }
         }));
   }
 }

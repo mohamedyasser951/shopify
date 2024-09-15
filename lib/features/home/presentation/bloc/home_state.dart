@@ -1,142 +1,148 @@
 part of 'home_bloc.dart';
 
-abstract class HomeState extends Equatable {
-  const HomeState();
+enum Status { loading, success, error }
 
-  @override
-  List<Object> get props => [];
-}
+class HomeState extends Equatable {
+  final Status status;
+  final List<Products>? products;
+  final List<Banners>? banners;
+  final List<CategoryData>? categories;
+  final String errorMessage;
 
-class HomeInitial extends HomeState {}
-
-class ChangeBottomNavState extends HomeState {
-  final int index;
-  const ChangeBottomNavState({
-    required this.index,
-  });
-  @override
-  List<Object> get props => [index];
-}
-
-class GetHomeDataLoadingState extends HomeState {}
-
-class GetHomeDataSuccessState extends HomeState {
-  final HomeModel homeModel;
-  const GetHomeDataSuccessState({
-    required this.homeModel,
-  });
-  @override
-  List<Object> get props => [homeModel];
-}
-
-class GetHomeDataErrorState extends HomeState {
-  final String error;
-  const GetHomeDataErrorState({
-    required this.error,
+  const HomeState({
+    this.status = Status.loading,
+    this.products = const [],
+    this.banners = const [],
+    this.categories = const [],
+    this.errorMessage = '',
   });
 
+  HomeState copyWith({
+    Status? status,
+    List<Products>? products,
+    List<Banners>? banners,
+    List<CategoryData>? categories,
+    String? errorMessage,
+  }) {
+    return HomeState(
+      status: status ?? this.status,
+      products: products ?? this.products,
+      categories: categories ?? this.categories,
+      banners: banners ?? this.banners,
+      errorMessage: errorMessage ?? this.errorMessage,
+    );
+  }
+
   @override
-  List<Object> get props => [error];
+  List<Object?> get props => [
+        this.banners,
+        this.categories,
+        this.errorMessage,
+        this.products,
+        this.status
+      ];
 }
+
+
+
+
+// class HomeInitial extends HomeState {}
+
+
+// class GetHomeDataLoadingState extends HomeState {}
+
+// class GetHomeDataSuccessState extends HomeState {
+//   final HomeModel homeModel;
+//     final CategoryModel categoryModel;
+
+//   const GetHomeDataSuccessState({
+//     required this.homeModel,
+//     required this.categoryModel,
+//   });
+//   @override
+//   List<Object> get props => [homeModel];
+// }
+
+// class GetHomeDataErrorState extends HomeState {
+//   final String error;
+//   const GetHomeDataErrorState({
+//     required this.error,
+//   });
+
+//   @override
+//   List<Object> get props => [error];
+// }
+
 
 //Get Categories Details
-class CategoriesDetailsLoadingState extends HomeState {}
+// class CategoriesDetailsLoadingState extends HomeState {}
 
-class CategoriesDetailsSuccessState extends HomeState {}
+// class CategoriesDetailsSuccessState extends HomeState {}
 
-class CategoriesDetailsErrorState extends HomeState {
-  final String error;
-  const CategoriesDetailsErrorState({
-    required this.error,
-  });
-  @override
-  List<Object> get props => [error];
-}
+// class CategoriesDetailsErrorState extends HomeState {
+//   final String error;
+//   const CategoriesDetailsErrorState({
+//     required this.error,
+//   });
+//   @override
+//   List<Object> get props => [error];
+// }
 
 // Get Categories
 
-class GetCategoriesLoadingState extends HomeState {}
+// class GetCategoriesLoadingState extends HomeState {}
 
-class GetCategoriesSuccessState extends HomeState {
-  final CategoryModel categoryModel;
-  const GetCategoriesSuccessState({
-    required this.categoryModel,
-  });
-  @override
-  List<Object> get props => [categoryModel];
-}
+// class GetCategoriesSuccessState extends HomeState {
+//   final CategoryModel categoryModel;
+//   const GetCategoriesSuccessState({
+//     required this.categoryModel,
+//   });
+//   @override
+//   List<Object> get props => [categoryModel];
+// }
 
-class GetCategoriesErrorState extends HomeState {
-  final String error;
-  const GetCategoriesErrorState({
-    required this.error,
-  });
-  @override
-  List<Object> get props => [error];
-}
-
-// get Card
-// class GetCardLoadingState extends HomeState {}
-
-// class GetCardSuceessState extends HomeState {}
-
-// class GetCardSErrorState extends HomeState {
+// class GetCategoriesErrorState extends HomeState {
 //   final String error;
-//   const GetCardSErrorState({
+//   const GetCategoriesErrorState({
+//     required this.error,
+//   });
+//   @override
+//   List<Object> get props => [error];
+// }
+
+// class GetFavoritesLoadingState extends HomeState {}
+
+// class GetFavoriteSuccessSate extends HomeState {
+//   final FavoriteModel favorites;
+//   const GetFavoriteSuccessSate({
+//     required this.favorites,
+//   });
+// }
+
+// class GetFavoriteErrorState extends HomeState {
+//   final String error;
+//   const GetFavoriteErrorState({
+//     required this.error,
+//   });
+//   @override
+//   List<Object> get props => [error];
+// }
+
+// // class ChangeStateOfFavorite extends HomeState {}
+
+// class SetOrDeleteSuccessState extends HomeState {
+//   final String successMessage;
+//   const SetOrDeleteSuccessState({
+//     required this.successMessage,
+//   });
+// }
+
+// class SetOrDeleteErrorState extends HomeState {
+//   final String error;
+//   const SetOrDeleteErrorState({
 //     required this.error,
 //   });
 // }
 
-// get Faoirtes
 
-class GetFavoritesLoadingState extends HomeState {}
 
-class GetFavoriteSuccessSate extends HomeState {
-  final FavoriteModel favorites;
-  const GetFavoriteSuccessSate({
-    required this.favorites,
-  });
-}
-
-class GetFavoriteErrorState extends HomeState {
-  final String error;
-  const GetFavoriteErrorState({
-    required this.error,
-  });
-  @override
-  List<Object> get props => [error];
-}
-
-class ChangeStateOfFavorite extends HomeState {}
-
-class SetOrDeleteSuccessState extends HomeState {
-  final String successMessage;
-  const SetOrDeleteSuccessState({
-    required this.successMessage,
-  });
-}
-
-class SetOrDeleteErrorState extends HomeState {
-  final String error;
-  const SetOrDeleteErrorState({
-    required this.error,
-  });
-}
-
-class ChangeStateOfCarts extends HomeState {}
-
-class SearchLoadingState extends HomeState {}
-
-class SearchSuccessState extends HomeState {
-  final List<Products> products;
-  const SearchSuccessState({
-    required this.products,
-  });
-}
-
-class SearchErrorState extends HomeState {
-  final String error;
-  const SearchErrorState({
-    required this.error,
-  });
-}

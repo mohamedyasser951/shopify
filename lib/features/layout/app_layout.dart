@@ -1,8 +1,8 @@
 import 'package:commerceapp/Config/constants/colors.dart';
 import 'package:commerceapp/Config/constants/image_paths.dart';
 import 'package:commerceapp/features/cart/presentation/pages/card_page.dart';
+import 'package:commerceapp/features/layout/cubits/bottom_cubit/bottom_nav_cubit.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Profile/profile.dart';
-import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:commerceapp/features/home/presentation/pages/Categories/category_page.dart';
 import 'package:commerceapp/features/home/presentation/pages/favorite_page.dart';
 import 'package:commerceapp/features/home/presentation/pages/home_page.dart';
@@ -21,9 +21,9 @@ class AppLayout extends StatefulWidget {
 class _AppLayoutState extends State<AppLayout> {
   @override
   void initState() {
-    BlocProvider.of<HomeBloc>(context)
-      ..add(GetHomeDataEvent())
-      ..add(GetCategoriesEvent());
+    // BlocProvider.of<HomeBloc>(context)
+    //   ..add(GetHomeDataEvent())
+    //   ..add(GetCategoriesEvent());
     super.initState();
   }
 
@@ -37,12 +37,11 @@ class _AppLayoutState extends State<AppLayout> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(
+    return BlocBuilder<BottomNavCubit, BottomNavState>(
       builder: (context, state) {
-        HomeBloc homeBloc = BlocProvider.of<HomeBloc>(context);
-
+        BottomNavCubit cubit = context.read<BottomNavCubit>();
         return Scaffold(
-            body: screens[homeBloc.bottomNavIndex],
+            body: screens[cubit.bottomNavIndex],
             bottomNavigationBar: Container(
               margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               height: 65,
@@ -56,11 +55,11 @@ class _AppLayoutState extends State<AppLayout> {
                 child: BottomNavigationBar(
                     selectedItemColor: AppColors.primaryColor,
                     type: BottomNavigationBarType.fixed,
-                    currentIndex: homeBloc.bottomNavIndex,
+                    currentIndex: cubit.bottomNavIndex,
                     showSelectedLabels: true,
                     showUnselectedLabels: true,
                     onTap: (index) {
-                      homeBloc.add(ChangeBottomNavEvent(index: index));
+                      cubit.changeBottomNave(index);
                     },
                     items: [
                       bottomNavBarItem(

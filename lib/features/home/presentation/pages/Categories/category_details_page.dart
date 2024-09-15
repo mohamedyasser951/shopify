@@ -23,18 +23,19 @@ class CategoryDetailsPage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
           HomeBloc homeBloc = BlocProvider.of<HomeBloc>(context);
-          if (state is CategoriesDetailsErrorState) {
-            return ErrorItem(errorMessage: state.error);
-          }
-          if (state is CategoriesDetailsErrorState) {
-            return Center(
-                child: ErrorItem(
-              errorMessage: state.error,
-            ));
-          }
-          return state is CategoriesDetailsLoadingState
-              ? const LoadingWidget()
-              : gridViewBuilder(products: homeBloc.productsByCategory!);
+          return LoadingWidget();
+          //   if (state is CategoriesDetailsErrorState) {
+          //     return ErrorItem(errorMessage: state.error);
+          //   }
+          //   if (state is CategoriesDetailsErrorState) {
+          //     return Center(
+          //         child: ErrorItem(
+          //       errorMessage: state.error,
+          //     ));
+          //   }
+          //   return state is CategoriesDetailsLoadingState
+          //       ? const LoadingWidget()
+          //       : gridViewBuilder(products: homeBloc.productsByCategory!);
         }),
       ),
     );

@@ -1,5 +1,5 @@
 import 'package:commerceapp/Config/constants/strings.dart';
-import 'package:commerceapp/app_layout.dart';
+import 'package:commerceapp/features/layout/app_layout.dart';
 import 'package:commerceapp/features/Auth/presentation/pages/login_page.dart';
 import 'package:commerceapp/features/Auth/presentation/pages/register_page.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Profile/add_or_update_address_page.dart';

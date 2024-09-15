@@ -1,5 +1,5 @@
 import 'package:commerceapp/features/cart/data/models/card_model.dart';
-import 'package:commerceapp/features/cart/data/models/message_card_model.dart';
+import 'package:commerceapp/features/cart/data/models/result_card_model.dart';
 
 abstract class CartRemoteDataSource {
   Future<CartModel> getCarts();

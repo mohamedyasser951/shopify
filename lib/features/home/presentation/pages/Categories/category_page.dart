@@ -18,9 +18,9 @@ class CategoryPage extends StatelessWidget {
         body: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
           var categoryModel = BlocProvider.of<HomeBloc>(context).categoryModel;
 
-          if (state is GetCategoriesErrorState) {
-            return ErrorItem(errorMessage: state.error);
-          }
+          // if (state is GetCategoriesErrorState) {
+          //   return ErrorItem(errorMessage: state.error);
+          // }
           return categoryModel == null
               ? const LoadingWidget()
               : Padding(

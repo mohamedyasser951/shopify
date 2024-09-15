@@ -14,21 +14,21 @@ class FavoritePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<HomeBloc, HomeState>(
       listener: (context, state) {
-        if (state is SetOrDeleteErrorState) {
-          customToast(mesg: state.error, color: Colors.red);
-        }
-        if (state is SetOrDeleteSuccessState) {
-          customToast(mesg: state.successMessage);
-        }
+        // if (state is SetOrDeleteErrorState) {
+        //   customToast(mesg: state.error, color: Colors.red);
+        // }
+        // if (state is SetOrDeleteSuccessState) {
+        //   customToast(mesg: state.successMessage);
+        // }
       },
       builder: (context, state) {
         var favoriteModel = BlocProvider.of<HomeBloc>(context).favoriteModel;
-        switch (state) {
-          case GetFavoritesLoadingState():
-            return LoadingWidget();
-          case GetFavoriteErrorState():
-            return ErrorItem(errorMessage: state.error.toString());
-          default:
+        // switch (state) {
+        //   case GetFavoritesLoadingState():
+        //     return LoadingWidget();
+        //   case GetFavoriteErrorState():
+        //     return ErrorItem(errorMessage: state.error.toString());
+        //   default:
             return Scaffold(
               appBar: AppBar(
                 title: Text(S.of(context).favorites),
@@ -48,7 +48,7 @@ class FavoritePage extends StatelessWidget {
                     ),
             );
         }
-      },
+      // },
     );
   }
 }

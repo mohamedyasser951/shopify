@@ -1,6 +1,6 @@
 import 'package:commerceapp/features/cart/data/datasources/cart_remote_data_source.dart';
 import 'package:commerceapp/features/cart/data/models/card_model.dart';
-import 'package:commerceapp/features/cart/data/models/message_card_model.dart';
+import 'package:commerceapp/features/cart/data/models/result_card_model.dart';
 import 'package:dartz/dartz.dart';
 import 'package:commerceapp/Config/Network/failure.dart';
 import 'package:commerceapp/Config/Network/internet_checker.dart';
