@@ -2,6 +2,8 @@ import 'package:commerceapp/Config/Network/internet_checker.dart';
 import 'package:commerceapp/features/Auth/data/datasources/remote_data_source.dart';
 import 'package:commerceapp/features/Auth/data/repositories/auth_repo.dart';
 import 'package:commerceapp/features/Auth/presentation/bloc/auth_bloc.dart';
+import 'package:commerceapp/features/categories/presentation/cubit/categories_details_cubit.dart';
+import 'package:commerceapp/features/favorites/presentation/bloc/favorites_bloc.dart';
 import 'package:commerceapp/features/home/data/datasources/home_remote_datasource.dart';
 import 'package:commerceapp/features/home/data/repositories/home_repo.dart';
 import 'package:commerceapp/features/home/data/repositories/home_repo_implem.dart';
@@ -32,6 +34,10 @@ Future<void> init() async {
   //BLOCS
   sl.registerFactory<AuthBloc>(() => AuthBloc(authRepo: sl()));
   sl.registerFactory<HomeBloc>(() => HomeBloc(homeRepo: sl()));
+  sl.registerFactory<CategoriesDetailsCubit>(
+      () => CategoriesDetailsCubit(homeRepo: sl()));
+  sl.registerFactory<FavoritesBloc>(() => FavoritesBloc(homeRepo: sl()));
+
   sl.registerFactory<SettingsBloc>(() => SettingsBloc(settingsRepo: sl()));
   sl.registerFactory<OrdersBloc>(() => OrdersBloc(orderRepo: sl()));
   sl.registerFactory<CartBloc>(() => CartBloc(cartRepo: sl()));

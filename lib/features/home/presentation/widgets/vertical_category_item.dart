@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:commerceapp/Config/components/loading.dart';
 import 'package:commerceapp/Config/components/skelton.dart';
+import 'package:commerceapp/features/categories/presentation/cubit/categories_details_cubit.dart';
 import 'package:commerceapp/features/home/data/models/category_model.dart';
-import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,8 +17,7 @@ class CategortItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        BlocProvider.of<HomeBloc>(context)
-            .add(GetCategoriesDetailsEvent(categoryId: categoryData.id!));
+        BlocProvider.of<CategoriesDetailsCubit>(context).getCategoriesDetails(categoryId:categoryData.id!);
         Navigator.pushNamed(context, "/getCategoryDetails",
             arguments: categoryData.name);
       },

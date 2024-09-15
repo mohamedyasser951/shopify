@@ -36,22 +36,3 @@ class ProductData {
   }
 }
 
-// class Product {
-//   int? id;
-//   dynamic price;
-//   dynamic oldPrice;
-//   int? discount;
-//   late String image;
-//   String? name;
-//   String? description;
-
-//   Product.fromJson(Map<String, dynamic> json) {
-//     id = json['id'];
-//     price = json['price'];
-//     oldPrice = json['old_price'];
-//     discount = json['discount'];
-//     image = json['image'];
-//     name = json['name'];
-//     description = json['description'];
-//   }
-// }

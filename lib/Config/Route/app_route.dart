@@ -9,7 +9,7 @@ import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/
 import 'package:commerceapp/features/settings/presentation/pages/Profile/orders/presentation/pages/orders_page.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Settings/settings_page.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Settings/update_profile_page.dart';
-import 'package:commerceapp/features/home/presentation/pages/Categories/category_details_page.dart';
+import 'package:commerceapp/features/categories/presentation/pages/category_details_page.dart';
 import 'package:commerceapp/on_boarding.dart';
 import 'package:commerceapp/service_locator.dart';
 import 'package:commerceapp/splash_page.dart';

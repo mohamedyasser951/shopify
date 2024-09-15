@@ -4,6 +4,8 @@ import 'package:commerceapp/Config/constants/strings.dart';
 import 'package:commerceapp/bloc_observer.dart';
 import 'package:commerceapp/features/Auth/presentation/bloc/auth_bloc.dart';
 import 'package:commerceapp/features/cart/presentation/bloc/cart_bloc.dart';
+import 'package:commerceapp/features/categories/presentation/cubit/categories_details_cubit.dart';
+import 'package:commerceapp/features/favorites/presentation/bloc/favorites_bloc.dart';
 import 'package:commerceapp/features/layout/cubits/bottom_cubit/bottom_nav_cubit.dart';
 import 'package:commerceapp/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
@@ -56,6 +58,12 @@ class App extends StatelessWidget {
                       lang: box.get("lang", defaultValue: "en")))),
             BlocProvider(
               create: (context) => di.sl<AuthBloc>(),
+            ),
+             BlocProvider(
+              create: (context) => di.sl<CategoriesDetailsCubit>(),
+            ),
+             BlocProvider(
+              create: (context) => di.sl<FavoritesBloc>()..add(GetAllFavoritesEvent()),
             ),
             BlocProvider(
               create: (context) => di.sl<BottomNavCubit>(),

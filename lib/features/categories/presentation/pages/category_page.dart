@@ -16,21 +16,22 @@ class CategoryPage extends StatelessWidget {
           title: Text(S.of(context).categories),
         ),
         body: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
-          var categoryModel = BlocProvider.of<HomeBloc>(context).categoryModel;
-
-          // if (state is GetCategoriesErrorState) {
-          //   return ErrorItem(errorMessage: state.error);
-          // }
-          return categoryModel == null
-              ? const LoadingWidget()
-              : Padding(
+          switch (state.status) {
+            case Status.loading:
+              return LoadingWidget();
+            case Status.error:
+              return ErrorItem(errorMessage: state.errorMessage);
+            case Status.success:
+              return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: ListView.builder(
-                    itemCount: categoryModel.data!.data!.length,
+                    itemCount: state.categories!.length,
                     itemBuilder: (context, index) => CategortItem(
-                        categoryData: categoryModel.data!.data![index]),
+                        categoryData: state.categories![index]),
                   ),
                 );
+          }
         }));
+        }
   }
-}
+

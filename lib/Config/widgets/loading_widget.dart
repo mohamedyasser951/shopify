@@ -7,7 +7,9 @@ class LoadingWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: CircularProgressIndicator(color: AppColors.grayColor),
+      child: CircularProgressIndicator.adaptive(
+        backgroundColor: AppColors.grayColor,
+      ),
     );
   }
 }

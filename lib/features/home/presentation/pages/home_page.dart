@@ -34,14 +34,7 @@ class _HomePageState extends State<HomePage> {
                 icon: const Icon(Icons.search)),
           ],
         ),
-        body: BlocConsumer<HomeBloc, HomeState>(listener: (context, state) {
-          // if (state is SetOrDeleteErrorState) {
-          //   customToast(mesg: state.error, color: Colors.red);
-          // }
-          // if (state is SetOrDeleteSuccessState) {
-          //   customToast(mesg: state.successMessage);
-          // }
-        }, builder: (context, state) {
+        body: BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
           switch (state.status) {
             case Status.loading:
               return LoadingWidget();
@@ -55,19 +48,6 @@ class _HomePageState extends State<HomePage> {
                 ),
               );
           }
-          // switch (state) {
-          //   case GetHomeDataErrorState():
-          //     return ErrorItem(errorMessage: state.error);
-          //   default:
-          //     return cubit.homeModel != null
-          //         ? SingleChildScrollView(
-          //             child: Padding(
-          //               padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          //               child: HomeBody(homeModel: cubit.homeModel!),
-          //             ),
-          //           )
-          //         : LoadingWidget();
-          // }
         }));
   }
 }

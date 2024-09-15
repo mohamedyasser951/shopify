@@ -1,7 +1,7 @@
 import 'package:commerceapp/Config/widgets/error_widget.dart';
 import 'package:commerceapp/features/home/data/models/home_model.dart';
 import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
-import 'package:commerceapp/features/home/presentation/widgets/FavoritesWidgets/favorite_item.dart';
+import 'package:commerceapp/features/favorites/presentation/widgets/FavoritesWidgets/favorite_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

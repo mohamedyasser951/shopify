@@ -1,10 +1,10 @@
+import 'package:commerceapp/features/favorites/data/models/favorite_model.dart';
 import 'package:commerceapp/features/home/data/repositories/home_repo.dart';
 import 'package:dartz/dartz.dart';
 import 'package:commerceapp/Config/Network/failure.dart';
 import 'package:commerceapp/Config/Network/internet_checker.dart';
 import 'package:commerceapp/features/home/data/datasources/home_remote_datasource.dart';
 import 'package:commerceapp/features/home/data/models/category_model.dart';
-import 'package:commerceapp/features/home/data/models/favorite_model.dart';
 import 'package:commerceapp/features/home/data/models/home_model.dart';
 import 'package:dio/dio.dart';
 

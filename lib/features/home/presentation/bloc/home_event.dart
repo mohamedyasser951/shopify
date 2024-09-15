@@ -18,6 +18,5 @@ class GetCategoriesDetailsEvent extends HomeEvent {
   });
 }
 
-class GetFavoritesEvent extends HomeEvent {}
 
 
