@@ -1,3 +1,4 @@
+import 'package:commerceapp/Config/Network/interceptors.dart';
 import 'package:commerceapp/Config/Network/internet_checker.dart';
 import 'package:commerceapp/features/Auth/data/datasources/remote_data_source.dart';
 import 'package:commerceapp/features/Auth/data/repositories/auth_repo.dart';
@@ -84,6 +85,11 @@ Future<void> init() async {
   );
 
   //External
-  sl.registerLazySingleton(() => Dio(options));
+  Dio dio = Dio(options);
+  dio.interceptors.add(RetryInterceptor(
+    maxRetries: 3, // Number of retries
+    retryInterval: Duration(seconds: 2), // Interval between retries
+  ));
+  sl.registerLazySingleton<Dio>(() => dio);
   // sl.registerLazySingleton(() => InternetConnectionChecker());
 }
