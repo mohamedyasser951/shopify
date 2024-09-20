@@ -123,7 +123,7 @@ class _QuantityComponentsState extends State<QuantityComponents> {
 
     void decrement() {
       setState(() {
-        if (widget.quantity <= 0) {
+        if (widget.quantity >= 0) {
           widget.quantity--;
           BlocProvider.of<CartBloc>(context).add(UpdateCartEvent(
               productId: widget.productId, quantity: widget.quantity.toInt()));

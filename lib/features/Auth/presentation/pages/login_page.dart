@@ -22,6 +22,7 @@ class LoginPage extends StatelessWidget {
         if (state.userModel.status == true) {
           var box = Hive.box(AppStrings.settingsBox);
           box.put("Token", state.userModel.data!.token).then((value) {
+            TOKEN = state.userModel.data!.token;
             CustomDialog.animatedDialog(
                 isError: false,
                 title: state.userModel.message!,

@@ -45,13 +45,9 @@ class App extends StatelessWidget {
       builder: (context, box, child) {
         return MultiBlocProvider(
           providers: [
-            BlocProvider(
-                create: (context) => di.sl<HomeBloc>()
-                  ..add(GetHomeDataEvent())
-                  ..add(GetCategoriesEvent())),
+            BlocProvider(create: (context) => di.sl<HomeBloc>()),
             BlocProvider(
                 create: (context) => di.sl<SettingsBloc>()
-                  ..add(GetProfileEvent())
                   ..add(ChangeAppModeEvent(
                       modeFromCashe: box.get("darkMode", defaultValue: false)))
                   ..add(ChangeLanguageEvent(
@@ -59,17 +55,17 @@ class App extends StatelessWidget {
             BlocProvider(
               create: (context) => di.sl<AuthBloc>(),
             ),
-             BlocProvider(
+            BlocProvider(
               create: (context) => di.sl<CategoriesDetailsCubit>(),
             ),
-             BlocProvider(
-              create: (context) => di.sl<FavoritesBloc>()..add(GetAllFavoritesEvent()),
+            BlocProvider(
+              create: (context) => di.sl<FavoritesBloc>(),
             ),
             BlocProvider(
               create: (context) => di.sl<BottomNavCubit>(),
             ),
             BlocProvider(
-              create: (context) => di.sl<CartBloc>()..add(GetAllCarts()),
+              create: (context) => di.sl<CartBloc>(),
             ),
           ],
           child: BlocBuilder<SettingsBloc, SettingsState>(

@@ -25,14 +25,14 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_localizations:
     sdk: flutter
-  # flutter_stripe: ^9.5.1
+  # flutter_stripe: ^9.4.0
   flutter_svg: ^2.0.7
   fluttertoast: ^8.2.2
   get_it: ^7.6.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
   image_picker: ^1.0.2
-  internet_connection_checker: ^2.0.0
+  internet_connection_checker: 1.0.0+1	
   shimmer: ^3.0.0
   smooth_page_indicator: ^1.2.0+3
 dev_dependencies:

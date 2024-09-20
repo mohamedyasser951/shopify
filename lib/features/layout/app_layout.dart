@@ -1,7 +1,11 @@
 import 'package:commerceapp/Config/constants/colors.dart';
 import 'package:commerceapp/Config/constants/image_paths.dart';
+import 'package:commerceapp/features/cart/presentation/bloc/cart_bloc.dart';
 import 'package:commerceapp/features/cart/presentation/pages/card_page.dart';
+import 'package:commerceapp/features/favorites/presentation/bloc/favorites_bloc.dart';
+import 'package:commerceapp/features/home/presentation/bloc/home_bloc.dart';
 import 'package:commerceapp/features/layout/cubits/bottom_cubit/bottom_nav_cubit.dart';
+import 'package:commerceapp/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:commerceapp/features/settings/presentation/pages/Profile/profile.dart';
 import 'package:commerceapp/features/categories/presentation/pages/category_page.dart';
 import 'package:commerceapp/features/favorites/presentation/pages/favorite_page.dart';
@@ -21,9 +25,12 @@ class AppLayout extends StatefulWidget {
 class _AppLayoutState extends State<AppLayout> {
   @override
   void initState() {
-    // BlocProvider.of<HomeBloc>(context)
-    //   ..add(GetHomeDataEvent())
-    //   ..add(GetCategoriesEvent());
+    BlocProvider.of<HomeBloc>(context)
+      ..add(GetHomeDataEvent())
+      ..add(GetCategoriesEvent());
+    BlocProvider.of<FavoritesBloc>(context)..add(GetAllFavoritesEvent());
+    BlocProvider.of<CartBloc>(context)..add(GetAllCarts());
+    BlocProvider.of<SettingsBloc>(context)..add(GetProfileEvent());
     super.initState();
   }
 
