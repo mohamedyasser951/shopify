@@ -1,3 +1,4 @@
+import 'package:commerceapp/Config/Network/failure.dart';
 import 'package:commerceapp/Config/Network/interceptors.dart';
 import 'package:commerceapp/Config/Network/internet_checker.dart';
 import 'package:commerceapp/features/Auth/data/datasources/remote_data_source.dart';
@@ -25,20 +26,19 @@ import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 
 BaseOptions options = BaseOptions(
-  connectTimeout: const Duration(seconds: 5 * 6000),
-  receiveTimeout: const Duration(seconds: 5 * 6000),
+    connectTimeout: Duration(seconds: 5), // 5 seconds
+    receiveTimeout: Duration(seconds: 3),
   receiveDataWhenStatusError: true,
 );
 
 GetIt sl = GetIt.instance;
 Future<void> init() async {
   //BLOCS
-  sl.registerFactory<AuthBloc>(() => AuthBloc(authRepo: sl()));
+  sl.registerLazySingleton<AuthBloc>(() => AuthBloc(authRepo: sl()));
   sl.registerFactory<HomeBloc>(() => HomeBloc(homeRepo: sl()));
   sl.registerFactory<CategoriesDetailsCubit>(
       () => CategoriesDetailsCubit(homeRepo: sl()));
   sl.registerFactory<FavoritesBloc>(() => FavoritesBloc(homeRepo: sl()));
-
   sl.registerFactory<SettingsBloc>(() => SettingsBloc(settingsRepo: sl()));
   sl.registerFactory<OrdersBloc>(() => OrdersBloc(orderRepo: sl()));
   sl.registerFactory<CartBloc>(() => CartBloc(cartRepo: sl()));
@@ -86,10 +86,13 @@ Future<void> init() async {
 
   //External
   Dio dio = Dio(options);
-  dio.interceptors.add(RetryInterceptor(
-    maxRetries: 3, // Number of retries
-    retryInterval: Duration(seconds: 2), // Interval between retries
-  ));
+  dio.interceptors.add(InterceptorsWrapper(
+  onError: (DioException e, ErrorInterceptorHandler handler) {
+    ServerFailure.fromDiorError(e);
+    return handler.next(e); 
+  },
+));
+ 
   sl.registerLazySingleton<Dio>(() => dio);
   sl.registerLazySingleton(() => InternetConnectionChecker());
 }

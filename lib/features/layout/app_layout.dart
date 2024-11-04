@@ -14,6 +14,7 @@ import 'package:commerceapp/generated/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:commerceapp/service_locator.dart' as di;
 
 class AppLayout extends StatefulWidget {
   const AppLayout({super.key});
@@ -28,17 +29,21 @@ class _AppLayoutState extends State<AppLayout> {
     BlocProvider.of<HomeBloc>(context)
       ..add(GetHomeDataEvent())
       ..add(GetCategoriesEvent());
-    BlocProvider.of<FavoritesBloc>(context)..add(GetAllFavoritesEvent());
-    BlocProvider.of<CartBloc>(context)..add(GetAllCarts());
     BlocProvider.of<SettingsBloc>(context)..add(GetProfileEvent());
     super.initState();
   }
 
-  final List<Widget> screens = const [
+  final List<Widget> screens = [
     HomePage(),
     CategoryPage(),
-    CardPage(),
-    FavoritePage(),
+    BlocProvider(
+      create: (context) => di.sl<CartBloc>()..add(GetAllCarts()),
+      child: CardPage(),
+    ),
+    BlocProvider(
+      create: (context) => di.sl<FavoritesBloc>()..add(GetAllFavoritesEvent()),
+      child: FavoritePage(),
+    ),
     ProfilePage(),
   ];
 

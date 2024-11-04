@@ -5,6 +5,7 @@ import 'package:commerceapp/Config/components/dialogs.dart';
 import 'package:commerceapp/Config/constants/image_paths.dart';
 import 'package:commerceapp/features/Auth/presentation/bloc/auth_bloc.dart';
 import 'package:commerceapp/features/Auth/presentation/widgets/custom_social_button.dart';
+import 'package:commerceapp/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -14,44 +15,47 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
-      if (state is AuthErrorState) {
-        CustomDialog.animatedDialog(
-            title: state.error, description: "", context: context);
-      } else if (state is AuthSuccessState) {
-        if (state.userModel.status == true) {
-          var box = Hive.box(AppStrings.settingsBox);
-          box.put("Token", state.userModel.data!.token).then((value) {
-            TOKEN = state.userModel.data!.token;
+    return BlocProvider(
+      create: (context) => sl<AuthBloc>(),
+      child: BlocConsumer<AuthBloc, AuthState>(listener: (context, state) {
+        if (state is AuthErrorState) {
+          CustomDialog.animatedDialog(
+              title: state.error, description: "", context: context);
+        } else if (state is AuthSuccessState) {
+          if (state.userModel.status == true) {
+            var box = Hive.box(AppStrings.settingsBox);
+            box.put("Token", state.userModel.data!.token).then((value) {
+              TOKEN = state.userModel.data!.token;
+              CustomDialog.animatedDialog(
+                  isError: false,
+                  title: state.userModel.message!,
+                  description: "",
+                  context: context);
+
+              Future.delayed(const Duration(seconds: 5))
+                  .then((value) => Navigator.of(context)
+                      .pushNamedAndRemoveUntil("/home", (route) => false))
+                  .then((value) async {});
+            });
+          } else {
             CustomDialog.animatedDialog(
-                isError: false,
                 title: state.userModel.message!,
                 description: "",
                 context: context);
-
-            Future.delayed(const Duration(seconds: 5))
-                .then((value) => Navigator.of(context)
-                    .pushNamedAndRemoveUntil("/home", (route) => false))
-                .then((value) async {});
-          });
-        } else {
-          CustomDialog.animatedDialog(
-              title: state.userModel.message!,
-              description: "",
-              context: context);
+          }
         }
-      }
-    }, builder: (context, state) {
-      return const SafeArea(
-          child: Scaffold(
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 12),
-            child: LoginForm(),
+      }, builder: (context, state) {
+        return const SafeArea(
+            child: Scaffold(
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 12),
+              child: LoginForm(),
+            ),
           ),
-        ),
-      ));
-    });
+        ));
+      }),
+    );
   }
 }
 

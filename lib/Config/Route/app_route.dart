@@ -1,4 +1,5 @@
 import 'package:commerceapp/Config/constants/strings.dart';
+import 'package:commerceapp/features/Auth/presentation/bloc/auth_bloc.dart';
 import 'package:commerceapp/features/layout/app_layout.dart';
 import 'package:commerceapp/features/Auth/presentation/pages/login_page.dart';
 import 'package:commerceapp/features/Auth/presentation/pages/register_page.dart';
@@ -16,6 +17,7 @@ import 'package:commerceapp/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+// import 'package:commerceapp/service_locator.dart' as di;
 
 class AppRoute {
   static Route onGenerateRoute(RouteSettings routeSettings) {
@@ -33,17 +35,19 @@ class AppRoute {
     switch (routeSettings.name) {
       case "/":
         return MaterialPageRoute(
-            builder: (context) => SplashPage(startWidget: startWidget));
-
+            builder: (context) => startWidget);
       case "/home":
         return MaterialPageRoute(builder: (_) => const AppLayout());
       case "/login":
         return MaterialPageRoute(
-          builder: (context) => const LoginPage(),
+          builder: (context) => LoginPage(),
         );
       case "/register":
         return MaterialPageRoute(
-          builder: (context) => const RegisterPage(),
+          builder: (context) => BlocProvider.value(
+            value: sl<AuthBloc>(),
+            child: const RegisterPage(),
+          ),
         );
       case "/settings":
         return MaterialPageRoute(
