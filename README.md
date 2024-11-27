@@ -1,16 +1,12 @@
-# commerceapp
+# Shopify
 
 A new Flutter project.
 
-## Getting Started
+This is an E-Commerce app that contains Many features like :
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Sign in, Sign up, Verify Email, and log out.
+Fetch Products Data
+Search for any product
+Add or remove product to in_favorite & in_cart section
+Update User data and so on.
+Developed using Dart & Flutter & Bloc & Rest Api & Dio & hive storage with clean architecture.
